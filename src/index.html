@@ -9,44 +9,45 @@
     <title>Ariel Hernandez Scull - Desarrollador web</title>
 </head>
 <body>
-    <div class="container-fluid">
 
-        <nav class="navbar navbar-expand-lg">
-            <!--
-                Navbar section
+    <nav class="navbar navbar-expand-lg bg-body-tertiary sticky-top">
+        <!--
+            Navbar section
 
-                Inicio
-                Portafolio
-                Habilidades
-                Contacto
-            -->
-            <div class="container-fluid">
-                <a class="navbar-brand" href="#">
-                    <img src="./img/briefcase.png" alt="El logo del sitio, un portafolio" width="30" height="30">
-                </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toogle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                        <li class="nav-item">
-                            <a class="nav-link" aria-current="page" href="#start">Inicio</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#portfolio">Portafolio</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#skills">Habilidades</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#contact_me">Contacto</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>            
-        </nav>            
+            Start
+            Portfolio
+            Skills
+            Contact
+        -->
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">
+                <img src="./img/briefcase.png" alt="El logo del sitio, un portafolio" width="30" height="30">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toogle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="#start">Inicio</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#portfolio">Portafolio</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#skills">Habilidades</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#contact_me">Contacto</a>
+                    </li>
+                </ul>
+            </div>
+        </div>            
+    </nav>
+
+    <main class="container-fluid">
         
-        <div class="text-light d-flex flex-column min-vh-100 justify-content-center align-items-center" style="background-image:url('./img/web_developer1.jpg')">
+        <div id="start" class="text-light d-flex flex-column min-vh-100 justify-content-center align-items-center" style="background-image:url('./img/web_developer1.jpg')">
 
             <!--
                 Hero or landing page section
@@ -60,15 +61,15 @@
             <h1 class="bg-dark">Ariel Hernandez Scull</h1>
             <h2 class="bg-dark">Desarrollador web</h2>
             <a class="btn btn-primary" href="#portfolio">Ver portafolio</a>
-        </div>        
-        
+        </div>
+
         <section id="portfolio" class="d-flex flex-column min-vh-100 text-center">
             <!--
                 Portfolio section
 
                 For each project, show:
                     An image
-                    Brief description                    
+                    Brief description
                     Application url
                     Code repository url
             -->
@@ -282,6 +283,6 @@
             <a href="http://www.linkedin.com/in/ariel-scull-b4a598183">LinkedIn</a>
 
         </section>
-    </div>
+    </main>
 </body>
 </html>
