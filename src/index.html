@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="./favicon.ico" type="image/x-icon">
+    <script type="module" src="./js/main.js"></script>
+    <!--
+        <a href="https://www.flaticon.com/free-icons/briefcase" title="briefcase icons">Briefcase icons created by Freepik - Flaticon</a>
+    -->
+    <title>Ariel Hernandez Scull - Desarrollador web</title>
+</head>
+<body>
+    <div class="container-fluid">
+
+        <nav class="navbar navbar-expand-lg">
+            <!--
+                Navbar section
+
+                Inicio
+                Portafolio
+                Habilidades
+                Contacto
+            -->
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#">
+                    <img src="./img/briefcase.png" alt="El logo del sitio, un portafolio" width="30" height="30">
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toogle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link" aria-current="page" href="#start">Inicio</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#portfolio">Portafolio</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#skills">Habilidades</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#contact_me">Contacto</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>            
+        </nav>            
+        
+        <div class="text-light d-flex flex-column min-vh-100 justify-content-center align-items-center" style="background-image:url('./img/web_developer1.jpg')">
+
+            <!--
+                Hero or landing page section
+
+                Photo or beatiful picture
+                Name
+                Profession
+                Call to action (CTA) link
+            -->
+
+            <h1 class="bg-dark">Ariel Hernandez Scull</h1>
+            <h2 class="bg-dark">Desarrollador web</h2>
+            <a class="btn btn-primary" href="#portfolio">Ver portafolio</a>
+        </div>        
+        
+        <section id="portfolio" class="d-flex flex-column min-vh-100 text-center">
+            <!--
+                Portfolio section
+
+                For each project, show:
+                    An image
+                    Brief description                    
+                    Application url
+                    Code repository url
+            -->
+            <h2>Portafolio</h2>
+
+            <div class="row">
+                <div class="col-sm"></div>
+                <div class="col-sm">
+                    <div class="card">
+                        
+                        <img class="card-img" src="./img/note_with_springboot_angular.png" alt="Proyecto notas desarrollado con Spring Boot, Angular y otras herramientas.">
+                        
+                        <div class="card-body">
+                                
+                            <div>                                    
+                                <img style="width:5vw" src="./img/postgresql.svg" alt="Logo de PostgreSQL">
+                                <img style="width:5vw" src="./img/java.svg" alt="Logo de Java">
+                                <img style="width:5vw" src="./img/spring_boot.svg" alt="Logo de Spring Boot">
+                                <img style="width:5vw" src="./img/typescript.svg" alt="Logo de TypeScript">
+                                <img style="width:5vw" src="./img/angular.svg" alt="Logo de Angular">
+                            </div>
+                            
+                            <p class="card-text">
+                                Aplicacion web progresiva (PWA) que permite tomar notas, para luego visualizarlas en varios
+                                dispositivos. Notas en la nube!
+                            </p>
+        
+                            <a href="#">Probar aplicacion</a>
+                            <a href="#" >Ver codigo</a>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>    
+            
+        </section>
+        <section id="skills" class="d-flex flex-column min-vh-100 text-center">
+            <!--
+                Skills section (images and links)
+
+                PostgreSQL
+                Java
+                Spring Boot
+                Typescript
+                Angular
+                HTML
+                CSS
+            -->
+            <h2>Habilidades</h2>
+
+            <div class="card border-0">
+                <div class="row align-items-center">
+                    <div class="col">
+                        <img class="card-img-left" style="width:20vw" src="./img/postgresql.svg" alt="Logo de PostgreSQL">
+                    </div>
+                    <div class="col">
+                        <div class="card-body">
+                            <h3 class="card-title">PostgreSQL</h3>
+                            <p class="card-text">
+                                Sistema de gestion de base de datos, encargado de almacenar la informacion de las aplicaciones web. 
+                                Simple, rapido, enfocado en cumplir los estandares SQL y de codigo abierto.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card border-0">
+                <div class="row align-items-center">
+                    
+                    <div class="col">
+                        <div class="card-body">
+                            <h3 class="card-title">Java</h3>
+                            <p class="card-text">
+                                Lenguaje de programacion orientado a objetos y plataforma informatica (OpenJDK).  
+                                Posee tipado fuerte, que permite verificar el codigo antes que se ejecute, 
+                                dentro del editor de codigo. Esto lo hace ideal para el desarrollo de aplicaciones
+                                web que ejecutan codigo en el lado del servidor (backend).
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <img class="card-img-right" style="width:20vw" src="./img/java.svg" alt="Logo de PostgreSQL">
+                    </div>
+                </div>
+            </div>
+
+            <div class="card border-0">
+                <div class="row align-items-center">
+                    <div class="col">
+                        <img class="card-img-left" style="width:20vw" src="./img/spring_boot.svg" alt="Logo de SpringBoot">
+                    </div>
+                    <div class="col">
+                        <div class="card-body">
+                            <h3 class="card-title">Spring Boot</h3>
+                            <p class="card-text">
+                                Marco de desarrollo (framework) para programar aplicaciones en Java. Posee la 
+                                implementacion mas completa para realizar una API REST o HATEOAS.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card border-0">
+                <div class="row align-items-center">
+                    
+                    <div class="col">
+                        <div class="card-body">
+                            <h3 class="card-title">TypeScript</h3>
+                            <p class="card-text">
+                                Lenguaje de programacion libre, superconjunto de Javascript. Emplea tipado fuerte 
+                                para facilitar la deteccion y correccion de errores en grandes proyectos que involucren
+                                desarrollo de aplicaciones web.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <img class="card-img-right" style="width:20vw" src="./img/typescript.svg" alt="Logo de TypeScript">
+                    </div>
+                </div>
+            </div>
+
+            <div class="card border-0">
+                <div class="row align-items-center">
+                    <div class="col">
+                        <img class="card-img-left" style="width:20vw" src="./img/html.svg" alt="Logo de HTML">
+                    </div>
+                    <div class="col">
+                        <div class="card-body">
+                            <h3 class="card-title">HTML</h3>
+                            <p class="card-text">
+                                Lenguaje de marcado para la web. Define la estructura de los principales elementos que conforman una
+                                aplicacion web.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card border-0">
+                <div class="row align-items-center">
+                    
+                    <div class="col">
+                        <div class="card-body">
+                            <h3 class="card-title">CSS</h3>
+                            <p class="card-text">
+                                Es un lenguaje que permite diseñar graficamente la interfaz de usuario de una aplicacion web.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <img class="card-img-right" style="width:20vw" src="./img/css.svg" alt="Logo de CSS">
+                    </div>
+                </div>
+            </div>
+
+            <div class="card border-0">
+                <div class="row align-items-center">
+                    <div class="col">
+                        <img class="card-img-left" style="width:20vw" src="./img/bootstrap.svg" alt="Logo de Bootstrap">
+                    </div>
+                    <div class="col">
+                        <div class="card-body">
+                            <h3 class="card-title">Bootstrap</h3>
+                            <p class="card-text">
+                                Marco de desarrollo para CSS. Permite añadir estilo o presentacion, sin tener que desarrollar
+                                 todos los elementos graficos desde cero.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card border-0">
+                <div class="row align-items-center">
+                    
+                    <div class="col">
+                        <div class="card-body">
+                            <h3 class="card-title">Angular</h3>
+                            <p class="card-text">
+                                Marco de desarrollo para programar aplicaciones web del lado del cliente (frontend). Incrementa la interactividad
+                                y posibilita desarrollar aplicaciones de una sola pagina (SPA) y aplicaciones
+                                web progresivas (PWA).
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <img class="card-img-right" style="width:20vw" src="./img/angular.svg" alt="Logo de CSS">
+                    </div>
+                </div>
+            </div>           
+            
+        </section>
+
+        <section class="text-center" id="contact_me">
+            <!--
+                Contact section
+
+                Telegram
+                LinkedIn
+                No phone number, no email. It is insecure!!
+            -->
+            <h2>Contacto</h2>
+
+            <img class="img-fluid" src="./img/telegram.svg" alt="Telegram">
+            <a href="http://t.me/ascull">Telegram</a>
+            
+            
+            <img class="img-fluid" src="./img/linkedin.svg" alt="LinkedIn">
+            <a href="http://www.linkedin.com/in/ariel-scull-b4a598183">LinkedIn</a>
+
+        </section>
+    </div>
+</body>
+</html>
