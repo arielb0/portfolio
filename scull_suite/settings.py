@@ -25,7 +25,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.environ.get('SECRET_KEY', default='a secret key')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = 'RENDER' not in os.environ
+DEBUG = False #'RENDER' not in os.environ
 
 ALLOWED_HOSTS = []
 
@@ -85,7 +85,7 @@ WSGI_APPLICATION = 'scull_suite.wsgi.application'
 
 DATABASES = {
     'default': dj_database_url.config(
-        default = 'postgresql://postgres:postgres@localhost:5432/scull_suite'
+        default = 'postgresql://scull_suite:scull_suite@localhost:5432/scull_suite'
     )
 }
 
