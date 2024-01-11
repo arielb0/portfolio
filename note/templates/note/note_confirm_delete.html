@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block title %}Confirm delete{% endblock title %}
+
+{% block main %}
+    <h1>Are you sure?</h1>
+    <p>Are you sure to delete this note? This action can be undone..</p>
+    <form action="" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Delete note">
+    </form>
+{% endblock %}

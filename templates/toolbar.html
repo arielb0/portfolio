@@ -1,0 +1,14 @@
+{% extends "navbar.html" %}
+
+{% block navbar_content %}
+    <div class="navbar-nav">
+        <div>
+            {% block left_buttons %}{% endblock  %}
+        </div>                
+    </div>
+    <div class="navbar-nav">
+        <div>
+            {% block right_buttons %}{% endblock  %}
+        </div>
+    </div>
+{% endblock  %}

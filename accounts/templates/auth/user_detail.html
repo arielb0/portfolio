@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block title %}User detail{% endblock title %}
+
+{% block main %}
+    <h1>User details</h1>
+    <ul>
+        <li>Username: {{ object.username }}</li>        
+        <li>First Name: {{ object.first_name }}</li>       
+        <li>Last Name: {{ object.last_name }}</li>
+        <li>Email: {{ object.email }}</li>
+    </ul>
+    <a href="{% url 'update_user' user.id %}">Update account</a>
+    <a href="{% url 'delete_user' user.id %}">Delete account</a>
+{% endblock %}

@@ -1,0 +1,6 @@
+{% extends "base.html" %}
+
+{% block header %}
+    {% url "note:list" as note_list %}
+    {% include "header.html" with url=note_list icon='bi-journal' title='Note' %}
+{% endblock %}

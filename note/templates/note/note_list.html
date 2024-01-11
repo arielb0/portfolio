@@ -1,0 +1,47 @@
+{% extends 'note/base.html' %}
+
+{% block title %}Notes{% endblock %}
+
+{% block nav %}
+    
+{% endblock %}
+
+{% block main %}
+
+    <form action="{% url 'note:list' %}" method="post">
+                
+        {% include "note/list_toolbar.html" %}
+
+        <div th:replace="~{fragments :: alert(${messageType}, ${message})}"></div>
+        
+        <table class="table table-hover">
+            <tbody>
+                {% for note in object_list %}
+                    <tr>                    
+                        <td>
+                            <input type="checkbox" name="selectedNote" value="{{ note.id }}">
+                        </td>
+                        <td>                        
+                            <a href="{% url 'note:read' note.id %}">
+                                {% if note.title|length > 16 %}
+                                    {{ note.title|slice:16 }} ...
+                                {% else %}
+                                    {{ note.title }}
+                                {% endif %}
+                            </a>
+                        </td>
+                        <td>                        
+                            <a href="{% url 'note:read' note.id %}">
+                                {% if note.body|length > 128 %}
+                                    {{ note.body|slice:128 }} ...
+                                {% else %}
+                                    {{ note.body }}
+                                {% endif %}
+                            </a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </form>
+{% endblock %}

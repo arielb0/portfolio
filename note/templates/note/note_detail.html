@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block title %}Note: {{ object.title }}{% endblock title %}
+
+{% block main %}
+    <h1>{{ object.title }}</h1>
+    <p>{{ object.body }}</p>
+    <p>Tags: {{ object.tags }}</p>
+    <a href="{% url 'note:update' object.pk %}">Update note</a>
+    <a href="{% url 'note:delete' object.pk %}">Delete note</a>
+{% endblock %}
