@@ -40,11 +40,9 @@ class TitanicSurvivorModel:
         # Split features and target dataset into train and test datasets.
         features_train, features_test, target_train, target_test = train_test_split(features, target, test_size = 0.25, random_state = 16)
         
-        # Train the model
-        print('Training model..')
+        # Train the model        
         self.model = LogisticRegression(random_state = 16)
-        self.model.fit(features_train, target_train.values.ravel())
-        print('Model trained.')
+        self.model.fit(features_train, target_train.values.ravel())        
 
         # We don't test the accuracy of the model because I did it previously
         # on Jupyter Notebook.
