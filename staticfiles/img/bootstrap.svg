@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="640" height="480" viewBox="0 0 640 480" xml:space="preserve">
+<desc>Created with Fabric.js 3.6.6</desc>
+<defs>
+</defs>
+<g transform="matrix(1 0 0 1 325 240)"  >
+<g style=""   >
+		<g transform="matrix(1 0 0 1 0 0)"  >
+<linearGradient id="SVGID_bs-logo-a_5" gradientUnits="userSpaceOnUse" gradientTransform="matrix(1 0 0 1 0 0)"  x1="76.079" y1="10.798" x2="523.48" y2="365.945">
+<stop offset="0%" style="stop-color:rgb(144,19,254);stop-opacity: 1"/>
+<stop offset="100%" style="stop-color:rgb(102,16,242);stop-opacity: 1"/>
+</linearGradient>
+<path style="stroke: none; stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-dashoffset: 0; stroke-linejoin: miter; stroke-miterlimit: 4; fill: url(#SVGID_bs-logo-a_5); fill-rule: nonzero; opacity: 1;"  transform=" translate(-256, -204)" d="M 56.481 53.32 C 55.515 25.58 77.128 0 106.342 0 h 299.353 c 29.214 0 50.827 25.58 49.861 53.32 c -0.928 26.647 0.277 61.165 8.964 89.31 c 8.715 28.232 23.411 46.077 47.48 48.37 v 26 c -24.069 2.293 -38.765 20.138 -47.48 48.37 c -8.687 28.145 -9.892 62.663 -8.964 89.311 c 0.966 27.739 -20.647 53.319 -49.861 53.319 H 106.342 c -29.214 0 -50.827 -25.58 -49.86 -53.319 c 0.927 -26.648 -0.278 -61.166 -8.966 -89.311 C 38.802 237.138 24.07 219.293 0 217 v -26 c 24.069 -2.293 38.802 -20.138 47.516 -48.37 c 8.688 -28.145 9.893 -62.663 8.965 -89.31 z" stroke-linecap="round" />
+</g>
+		<g transform="matrix(1 0 0 1 4.4 -0.04)"  >
+<linearGradient id="SVGID_bs-logo-b_6" gradientUnits="userSpaceOnUse" gradientTransform="matrix(1 0 0 1 0 0)"  x1="193.508" y1="109.74" x2="293.514" y2="278.872">
+<stop offset="0%" style="stop-color:rgb(255,255,255);stop-opacity: 1"/>
+<stop offset="100%" style="stop-color:rgb(241,229,252);stop-opacity: 1"/>
+</linearGradient>
+<path style="stroke: rgb(255,255,255); stroke-width: 1; stroke-dasharray: none; stroke-linecap: butt; stroke-dashoffset: 0; stroke-linejoin: miter; stroke-miterlimit: 4; fill: url(#SVGID_bs-logo-b_6); fill-rule: nonzero; opacity: 1;"  transform=" translate(-260.4, -203.96)" d="M 267.103 312.457 c 47.297 0 75.798 -23.158 75.798 -61.355 c 0 -28.873 -20.336 -49.776 -50.532 -53.085 v -1.203 c 22.185 -3.609 39.594 -24.211 39.594 -47.219 c 0 -32.783 -25.882 -54.138 -65.322 -54.138 h -88.74 v 217 h 89.202 z m -54.692 -189.48 h 45.911 c 24.958 0 39.131 11.128 39.131 31.279 c 0 21.505 -16.484 33.535 -46.372 33.535 h -38.67 v -64.814 z m 0 161.961 v -71.431 h 45.602 c 32.661 0 49.608 12.03 49.608 35.49 c 0 23.459 -16.484 35.941 -47.605 35.941 h -47.605 z" stroke-linecap="round" />
+</g>
+</g>
+</g>
+</svg>
