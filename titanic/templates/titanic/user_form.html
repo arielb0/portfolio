@@ -11,18 +11,6 @@
             <form action="" method="post">
                 {% csrf_token %}
                 {{ form }}
-                {% comment "" %}
-                    
-                {% endcomment %}
-                {% comment "" %}
-                    {% for field in form %}
-                        <div class="mb-3">
-                            {{ field.errors }}
-                            {{ field.label_tag }}
-                            {{ field }}
-                        </div>
-                    {% endfor %}
-                {% endcomment %}
                 <div class="d-flex justify-content-center mt-4">
                     <input type="submit" value="Predict" class="btn btn-secondary">
                 </div>                

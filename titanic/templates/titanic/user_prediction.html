@@ -15,11 +15,11 @@
         
     {% if survived %}
         <h1 class="text-center">Congratulations!</h1>        
-        <img width="50%" class="mx-auto d-block" src="{% static './img/titanic_survivors.webp' %}" alt="Titanic survivors on a lifeboat">
+        <img width="50%" class="mx-auto d-block" src="{% static 'img/titanic_survivors.webp' %}" alt="Titanic survivors on a lifeboat">
         <p>The software determine that your person probably will survive to Titanic accident.</p>
     {% else %}
         <h1 class="text-center">I am so sorry..</h1>
-        <img width="50%" class="mx-auto d-block" src="{% static './img/titanic_sinking.jpg' %}" alt="Titanic sinking without survivors">        
+        <img width="50%" class="mx-auto d-block" src="{% static 'img/titanic_sinking.jpg' %}" alt="Titanic sinking without survivors">        
         <p>The software determine that your person probably don't survive to Titanic accident.</p>
     {% endif %}
 
