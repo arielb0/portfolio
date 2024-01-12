@@ -25,7 +25,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.environ.get('SECRET_KEY', default='a secret key')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG =  'RENDER' not in os.environ
+DEBUG =  False #'RENDER' not in os.environ
 
 ALLOWED_HOSTS = []
 
@@ -154,7 +154,23 @@ if not DEBUG:
     STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
     STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
-# Useful for production environments
+# Useful for production environment
+    
 SECURE_SSL_REDIRECT = True
 SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SECURE = True
+'''
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',            
+        }        
+    },
+    'root': {
+        'handlers': ['console'],
+        'level': "DEBUG"
+    }
+}
+'''
