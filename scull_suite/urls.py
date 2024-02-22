@@ -24,5 +24,6 @@ urlpatterns = [
     path("", TemplateView.as_view(template_name="home.html"), name="home"),
     path("note/", include("note.urls")),
     path('titanic/', include('titanic.urls')),
+    path('movie/', include('movie.urls')),
     path("accounts/", include("accounts.urls"))
 ]

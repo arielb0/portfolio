@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+
+{% block header %}
+    {% url "movie:search_form" as header_url %}
+    {% include "header.html" with url=header_url icon='bi-film' title='Movie' %}
+{% endblock %}
+
+{% block footer %}
+    <p class="text-center">Powered by <a href="https://developer.imdb.com/non-commercial-datasets/">IMDB datasets</a>.</p>
+{% endblock %}

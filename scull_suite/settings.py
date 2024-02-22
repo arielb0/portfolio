@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'accounts',
     'note',
     'titanic',
+    'movie',
 ]
 
 MIDDLEWARE = [

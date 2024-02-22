@@ -1,0 +1,26 @@
+{% extends "movie/base.html" %}
+
+{% block main %}
+
+    <div class="row">
+        <h1>{{ movie.originalTitle }}</h1>
+        <div class="col-8">
+            <p>{{ movie.startYear | floatformat }}</p>
+            <p>
+                {% for key, value in movie.items %}                
+                    {% if value == 1 %}
+                        <span class="badge bg-secondary">{{ key | title }}</span>
+                    {% endif %}
+                {% endfor %}
+            </p>
+            <p>{% lorem 10 p random %}</p>
+        </div>
+        <div class="col-4">
+            <h2 class="text-center">Similar movies</h2>
+            {% for recommendation in recommendations %}    
+                {% include "movie/card.html" with movie=recommendation %}
+            {% endfor %}
+        </div>
+    </div>
+
+{% endblock %}
