@@ -132,6 +132,85 @@
 
             <div class="row">
 
+                <div class="col-sm-4"> <!--Recommender engine-->
+                    <div class="card">
+                        
+                        <img class="card-img" src="{% static 'img/recommender_engine_eda.jpg' %}" alt="Screenshoot of Recommender Engine EDA Notebook">
+                        
+                        <div class="card-body">
+                                
+                            <div>
+                                <img style="width:5vw" src="{% static 'img/python.svg' %}" alt="Python logo">
+                                <img style="width:5vw" src="{% static 'img/numpy.svg' %}" alt="Numpy logo">
+                                <img style="width:5vw" src="{% static 'img/pandas.svg' %}" alt="Pandas logo">
+                                <img style="width:5vw" src="{% static 'img/google_colaboratory_logo.svg' %}" alt="Google Colaboratory logo">
+                            </div>
+                            
+                            <p class="card-text">
+                                Exploratory Data Analysis over <a href="https://datasets.imdbws.com/">Title Basics IMdb Dataset</a>
+                                to understand what type of data are stored.
+                            </p>
+        
+                            <a href="{% url "titanic:form" %}">Movie Dataset EDA Notebook</a>
+                        </div>
+                        
+                    </div>
+                </div>
+
+                <div class="col-sm-4">
+                    <div class="card">
+                        
+                        <img class="card-img" src="{% static 'img/recommender_engine_clean_transform.jpg' %}" alt="Screenshoot showing clean and transform notebook for Movie Recommender Engine">
+                        
+                        <div class="card-body">
+                                
+                            <div>
+                                <img style="width:5vw" src="{% static 'img/python.svg' %}" alt="Python logo">
+                                <img style="width:5vw" src="{% static 'img/numpy.svg' %}" alt="Numpy logo">
+                                <img style="width:5vw" src="{% static 'img/pandas.svg' %}" alt="Pandas logo">
+                                <img style="width:5vw" src="{% static 'img/google_colaboratory_logo.svg' %}" alt="Google Colaboratory logo">
+                            </div>
+                            
+                            <p class="card-text">
+                                On this notebook, I clean and transform data, to generate a dataset more suitable for movie recommender engine.
+                            </p>
+        
+                            <a href="{% url "titanic:form" %}">Movie Dataset Clean and Transform Notebook</a>
+                        </div>
+                        
+                    </div>
+                </div>                
+
+                <div class="col-sm-4">
+                    <div class="card">
+                        
+                        <img class="card-img" src="{% static 'img/recommender_engine_app.jpg' %}" alt="Screenshoot of Movie Recommender application">
+                        
+                        <div class="card-body">
+                                
+                            <div>                                
+                                <img style="width:5vw" src="{% static 'img/python.svg' %}" alt="Python logo">
+                                <img style="width:5vw" src="{% static 'img/numpy.svg' %}" alt="Numpy logo">
+                                <img style="width:5vw" src="{% static 'img/pandas.svg' %}" alt="Pandas logo">
+                                <img style="width:5vw" src="{% static 'img/scikitlearn.svg' %}" alt="Scikitlearn logo">
+                                <img style="width:5vw" src="{% static 'img/django.svg' %}" alt="Django logo">
+                                <img style="width:5vw" src="{% static 'img/bootstrap.svg' %}" alt="Bootstrap logo">
+                            </div>
+                            
+                            <p class="card-text">
+                                Web application that recommend similar movies, using pairwise distance between them and 
+                                <a href="https://datasets.imdbws.com/">Title Basics IMdb dataset</a>.
+                            </p>
+        
+                            <a href="{% url "movie:search_form" %}">Movie</a>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+
                 <div class="col-sm-4">
                     <div class="card">
                         
