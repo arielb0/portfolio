@@ -1,0 +1,88 @@
+{% extends "bazaar/base.html" %}
+
+{% block main %}
+    <!--
+        Tree sections:
+
+            Ad basic information:
+                title
+                images (carousel)
+                date
+                price and currency
+                alternative currencies
+            Extended information
+                pictures
+                description
+            Contact information
+                name
+                phone
+                mail
+
+        Here goes the form to report ad.
+        Or you can put a link to report an ad.
+    -->
+
+    <!--
+        Home/Search results/Ad title
+    -->
+
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item active">
+                <a href="#">Home</a>
+            </li>
+            <li class="breadcrumb-item active">
+                <a href="{% url "bazaar:ad_list" %}">Browse</a>
+            </li>
+            <li class="breadcrumb-item active">
+                <a href="{% url "bazaar:ad_list" %}?category={{object.category.pk}}">{{ object.category }}</a>
+            </li>
+        </ol>
+    </nav>
+
+    <h1 class="text-center">{{ object.title }}</h1>
+    
+
+    <div class="carousel slide carousel-fade" id="adCarousel" data-bs-ride="carousel">
+        <div class="carousel-inner">
+            {% for image_number in '0123456789' %}
+                {% cycle object.picture_0 object.picture_1 object.picture_2 object.picture_3 object.picture_4 object.picture_5 object.picture_6 object.picture_7 object.picture_8 object.picture_9 as ad_picture silent %}
+                {% if ad_picture %}
+                    <div class="carousel-item {% if image_number == "0" %}active{% endif %}">
+                        <img class="d-block w-50" src="{{ ad_picture.url }}" alt="Ad image {{ image_number }}">
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#adCarousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#adCarousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+
+    <div>
+        <p>{{ object.date }}</p>
+        <p>{{ object.price }} {{ object.currency.code }}</p>
+        <p>
+            {% if object.alternative_currencies.all|length > 1 %}
+                Also I accept: 
+                {% for alternative_currency in object.alternative_currencies.all %}
+                    {{ alternative_currency.name }} ({{ alternative_currency.code }})
+                {% endfor %}
+            {% endif %}
+        </p>
+        <p>{{ object.address }}</p>
+        <p>{{ object.description }}</p>
+    </div>
+    <div>
+        <p>{{ object.name }}</p>
+        {% if object.phone %}
+            <p>{{ object.phone }}</p>
+        {% endif %}
+        <p>{{ object.mail }}</p>
+    </div>
+{% endblock %}

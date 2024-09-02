@@ -1,0 +1,18 @@
+{% extends "bazaar/base.html" %}
+
+{% block main %}
+    <h1>{% include "bazaar/action_label.html" %} a currency</h1>
+    <form action="" method="post">
+        {% csrf_token %}
+        {% for field in form %}
+            <div class="mb-4">
+                {{ field.errors }}
+                {{ field.label_tag }}
+                {{ field }}
+            </div>
+        {% endfor %}        
+        <div class="mx-auto p-2" style="width: 200px">
+            <button type="submit" class="btn btn-success">{% include "bazaar/action_label.html" %} Currency</button>
+        </div>
+    </form>
+{% endblock %}

@@ -1,0 +1,12 @@
+{% extends "bazaar/base.html" %}
+
+{% block main %}
+    <h1>Confirm action</h1>
+    <p>You are about to delete an ad. This action can be undone. Are you sure?</p>
+    <form action="" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <a href="" class="btn">No</a>
+        <button class="btn" type="submit">Yes</button>
+    </form>
+{% endblock %}

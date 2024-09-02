@@ -1,0 +1,38 @@
+{% extends "header.html" %}
+
+{% block offcanvas_header %}
+    <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Bazaar</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+{% endblock %}
+
+{% block offcanvas_body %}
+    <ul class="navbar-nav">
+        {% if user.is_superuser %}
+            <li class="nav-item">
+                <a class="nav-link" href="{% url "bazaar:category_list" %}">Categories</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url "bazaar:currency_list" %}">Currencies</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url "bazaar:report_list" %}">Reports</a>
+            </li>
+        {% endif %}
+
+        {% if user.is_authenticated %}
+            <li class="nav-item">
+                <a class="nav-link" href="{% url "bazaar:ad_create" %}">New Ad</a>
+            </li>            
+            <li class="nav-item">
+                <a class="nav-link" href="#">Account</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Logout</a>
+            </li>
+        {% else %}
+            <li class="nav-item">
+                <a class="nav-link" href="#">Login</a>
+            </li>
+        {% endif %}
+    </ul>
+{% endblock %}

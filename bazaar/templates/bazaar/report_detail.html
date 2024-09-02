@@ -1,0 +1,10 @@
+{% extends "bazaar/base.html" %}
+
+{% block main %}
+    <h1>"{{ object.ad.title | capfirst }}" ad is marked as "{{ object.get_reason | lower }}"</h1>
+    <p>{{ object.date }}</p>
+    <p>{{ object.description }}</p>
+    <p>Options:</p>
+    <a href="{% url "bazaar:ad_detail" pk=object.ad.pk %}">See ad</a>
+    <a href="{% url "bazaar:ad_delete" pk=object.ad.pk %}">Delete ad and notify user</a>
+{% endblock %}

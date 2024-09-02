@@ -1,0 +1,60 @@
+{% extends "bazaar/base.html" %}
+
+{% block main %}
+    <div class="row">
+        <form action="{% url "bazaar:ad_list" %}" method="get">
+            <input class="form-control" type="text" name="keyword" id="" placeholder="Search">
+            <div class="accordion" id="accordionSearch">
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                            More filters..
+                        </button>
+                        <div id="collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionSearch">
+                            <input class="form-control" type="number" name="price_start" id="" placeholder="Price start">
+                            <input class="form-control" type="number" name="price_end" id="" placeholder="Price end">
+                            <select class="form-select" name="currency" id="" aria-label="Currency select">
+                                <option value="">Select currencies..</option>
+                                {% for currency in currencies %}
+                                    <option value="{{ currency.id }}">{{ currency.name }}</option>
+                                {% endfor %}
+                            </select>
+                            <input class="form-control" type="text" name="address" id="" placeholder="Address">
+                            <input class="form-control" type="date" name="date_start" id="" placeholder="Date Start" >
+                            <input class="form-control" type="date" name="date_end" id="" placeholder="Date End">
+                            <select class="form-select" name="category" id="" multiple>
+                                <option value="">Select category</option>
+                                {% for category in categories %}
+                                    <option value="{{ category.id }}">{{ category.name }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </h2>
+                </div>
+            </div>
+            <input class="btn btn-success" type="submit" value="Search">
+        </form>
+    </div>
+
+    <div class="row">
+        {% for object in object_list %}
+            {% if object.priority %}
+                <div class="col-4">
+                    <h1>
+                        {% if object.picture %}
+                            <img src="{{ object.picture.url }}" alt="{{ object.name }}">
+                        {% endif %}
+                        {{ object.name }}
+                    </h1>
+                    <ul class="list-group">
+                        {% for child_object in object.category_set.all %}
+                            <li class="list-group-item">
+                                <a href="">{{ child_object.name }}</a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+{% endblock %}

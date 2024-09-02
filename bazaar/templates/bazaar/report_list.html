@@ -1,0 +1,19 @@
+{% extends "bazaar/base.html" %}
+
+{% block main %}
+    <h1>Reports</h1>
+    <table class="table">
+        <tr>
+            <th>Date</th>
+            <th>Report</th>
+            <th>Reported Ad</th>
+        </tr>
+        {% for object in object_list %}
+            <tr>
+                <td>{{ object.date }}</td>
+                <td><a href="{% url "bazaar:report_detail" pk=object.pk %}">"{{ object.ad.title}}" ad is reported as "{{ object.get_reason }}"</a></td>
+                <td><a href="{% url "bazaar:ad_detail" pk=object.ad.pk %}">{{ object.ad.title }}</a></td>
+            </tr>
+        {% endfor %}
+    </table>
+{% endblock %}

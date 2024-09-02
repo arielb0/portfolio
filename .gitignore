@@ -1,2 +1,3 @@
 settings_development.py
+*.sqlite3
 *.pyc

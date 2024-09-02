@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block header %}
+    {% url "bazaar:home" as header_url %}
+    {% include "bazaar/header.html" with url=header_url icon='bi-film' title='Bazaar' show_user_menu=True %}
+{% endblock %}
+
+{% block footer %}
+    <div class="navbar navbar-expand bg-body-tertiary">
+        <div class="container-fluid justify-content-center">
+            <p class="navbar-text">Bazaar 2024-02-28 {% now "Y-m-d" %}. All rights reserved.</p>
+        </div>
+    </div>
+{% endblock %}

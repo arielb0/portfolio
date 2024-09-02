@@ -1,0 +1,31 @@
+{% extends "bazaar/base.html" %}
+
+{% block title %}Currencies{% endblock %}
+
+{% block main %}
+    <h1 class="text-center">Currencies</h1>
+    <a href="{% url "bazaar:currency_create" %}" class="btn btn-success">New Currency</a>
+    <table class="table table-striped table-hover text-center">
+        <thead>
+            <th>Currency</th>
+            <th>Actions</th>
+        </thead>
+        <tbody>
+            {% for object in object_list %}
+                <tr>
+                    <td>
+                        <a href="{% url "bazaar:currency_detail" pk=object.pk %}">{{ object }}</a>
+                    </td>
+                    <td>
+                        <a href="{% url "bazaar:currency_update" pk=object.pk %}" class="link">
+                            Update
+                        </a>
+                        <a href="{% url "bazaar:currency_delete" pk=object.pk %}" class="link">
+                            Delete
+                        </a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

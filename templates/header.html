@@ -1,41 +1,20 @@
 {% extends "navbar.html" %}
 
 {% block navbar_content %}
-        <a class="navbar-brand" href="{{ url }}"><i class="bi bi-{{ icon }}"></i> {{ title }}</a>
-            
-            {% if show_user_menu %}
-                <ul class="navbar-nav">
-                    <li class="nav-item dropdown">
-                        <button class="nav-link active dropdown-toggle" href="#" type="button" data-bs-toggle="dropdown" aria-expanded="false" sec:authentication="name"></button>
-                        <ul class="dropdown-menu dropdown-menu-end">
-                            <a class="dropdown-item" href="{% url 'read_user' user.id %}">View profile</a>
-                            
-                            <button class="dropdown-item" data-bs-toggle="modal" data-bs-target="#donateModal">Donate</button>                                
 
-                            <form action="{% url 'logout' %}" method="post">
-                                {% csrf_token %}
-                                <input class="dropdown-item" type="submit" value="Logout">
-                            </form>
-                        </ul>
-                    </li>
-                </ul>
+        <button class="navbar-toggler d-lg-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
 
-                <div class="modal fade" id="donateModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h1 class="modal-title fs-5" id="donateModalLabel">Donate</h1>
-                            </div>
-                            <div class="modal-body">
-                                <p class="text-break">Nano: <a href="nano://nano_33yth9isoxgzik4ph8gq8hsnnyrjpziek5uizmmic9nj68zkiz5sxbxao13o?label=Note%20Project&message=Donate%20Now">nano_33yth9isoxgzik4ph8gq8hsnnyrjpziek5uizmmic9nj68zkiz5sxbxao13o</a></p>
-                                <p class="text-break">Ada: <a href="ada://addr1q80s6303h4hrlna0gx4uevw269gs4vvja9tg8auzdmu5he7lp4zlr0tw8l867sdtejcu4523p2ce962ks0mcymhef0ns6yxs58">addr1q80s6303h4hrlna0gx4uevw269gs4vvja9tg8auzdmu5he7lp4zlr0tw8l867sdtejcu4523p2ce962ks0mcymhef0ns6yxs58</a></p>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            {% endif %}
+        <a class="navbar-brand" href="{{ url }}"><i class="bi bi-{{ icon }}"></i> {{ title }}</a>        
+
+        <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+            <div class="offcanvas-header">
+                {% block offcanvas_header %}{% endblock %}
+            </div>
             
+            <div class="offcanvas-body justify-content-end">
+                {% block offcanvas_body %}{% endblock %}
+            </div>
+        </div>
 {% endblock %}

@@ -47,6 +47,8 @@ INSTALLED_APPS = [
     'note',
     'titanic',
     'movie',
+    'bazaar',
+    'restaurant',
 ]
 
 MIDDLEWARE = [
@@ -86,8 +88,13 @@ WSGI_APPLICATION = 'scull_suite.wsgi.application'
 
 DATABASES = {
     'default': dj_database_url.config(
-        default = 'postgresql://scull_suite:scull_suite@localhost:5432/scull_suite'
-    )
+        default = 'postgresql://scull_suite:eQJvqhDC5lfEFCjcxWfehAB17br5gFOD@dpg-crarcd23esus73abb7tg-a/scull_suite_0wf6'
+    ),
+    'options': {
+        'client_encoding': 'UTF8',
+        'default_transaction_isolation': 'read_commited',
+        'timezone': 'UTC'
+    }
 }
 
 

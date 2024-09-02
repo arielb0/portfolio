@@ -1,0 +1,140 @@
+{% extends "restaurant/base.html" %}
+
+{% load static %}
+
+{% block title %}Cubaneando{% endblock %}
+
+{% block main %}
+    <div id="splashscreen" class="d-flex flex-column min-vh-100 justify-content-center align-items-center" style="background-size: cover; background-image:url('{% static 'img/yuca-con-mojo.jpg' %}')">
+        <h1><strong class="bg-secondary-subtle text-brown">Cubaneando</strong></h1>
+        <div class="bg-secondary-subtle">
+            {% if customer_satisfaction >= 1%}
+                <i class="bi bi-star-fill text-warning"></i>
+            {% endif %}
+            {% if customer_satisfaction >= 2%}
+                <i class="bi bi-star-fill text-warning"></i>
+            {% endif %}
+            {% if customer_satisfaction >= 3%}
+                <i class="bi bi-star-fill text-warning"></i>
+            {% endif %}
+            {% if customer_satisfaction >= 4%}
+                <i class="bi bi-star-fill text-warning"></i>
+            {% endif %}
+            {% if customer_satisfaction >= 5%}
+                <i class="bi bi-star-fill text-warning"></i>
+            {% endif %}
+        </div>
+    </div>
+    <div class="container">
+        <div id="menu">
+            <h2 class="text-center">Menu</h2>
+            
+            <!--
+                Menus (Drinks and groceries)
+                Use a accordion to show menu..
+                Call to Action (Reserve a table)
+            -->
+            <div class="accordion" id="accordionMenu">
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse1" aria-expanded="false" aria-controls="collapse1">
+                            Cocktails
+                        </button>
+                    </h2>
+                    <div id="collapse1" class="accordion-collapse collapse" data-bs-parent="#accordionMenu">
+                        <ul class="list-group">
+                            <li class="list-group-item">Presidente $1.99</li>
+                            <li class="list-group-item">Legendario $2.50</li>
+                            <li class="list-group-item">Piña Colada $2.65</li>
+                            <li class="list-group-item">Mojito $5.70</li>
+                            <li class="list-group-item">Daiquirí $6.80</li>
+                            <li class="list-group-item">Mulata $7.99</li>
+                            <li class="list-group-item">Cubalibre $8.10</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse2" aria-expanded="false" aria-controls="collapse1">
+                            Sides
+                        </button>
+                    </h2>
+                    <div id="collapse2" class="accordion-collapse collapse" data-bs-parent="#accordionMenu">
+                        <ul class="list-group">
+                            <li class="list-group-item justify-content-between">Tostones $0.50</li>
+                            <li class="list-group-item">Yuca con Mojo $0.60</li>
+                            <li class="list-group-item">Ensalada de Aguacate con limon $0.80</li>
+                            <li class="list-group-item">Tamal $0.90</li>
+                            <li class="list-group-item">Quimbombo $6.80</li>
+                            <li class="list-group-item">Papas fritas $7.99</li>
+                            <li class="list-group-item">Malanga frita $8.10</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse3" aria-expanded="false" aria-controls="collapse1">
+                            Entrees
+                        </button>
+                    </h2>
+                    <div id="collapse3" class="accordion-collapse collapse" data-bs-parent="#accordionMenu">
+                        <ul class="list-group">
+                            <li class="list-group-item justify-content-between">Ropa Vieja $1.50</li>
+                            <li class="list-group-item">Ajiaco $2.60</li>
+                            <li class="list-group-item">Moros y cristianos (congri) $3.80</li>
+                            <li class="list-group-item">Caldosa $4.90</li>
+                            <li class="list-group-item">Vaca frita $6.80</li>
+                            <li class="list-group-item">Arroz con pollo $7.99</li>
+                            <li class="list-group-item">Cerdo asado $8.10</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse4" aria-expanded="false" aria-controls="collapse1">
+                            Desserts
+                        </button>
+                    </h2>
+                    <div id="collapse4" class="accordion-collapse collapse" data-bs-parent="#accordionMenu">
+                        <ul class="list-group">
+                            <li class="list-group-item justify-content-between">Arroz con leche $0.25</li>
+                            <li class="list-group-item">Flan de leche $0.50</li>
+                            <li class="list-group-item">Dulce de leche $0.80</li>
+                            <li class="list-group-item">Dulce de coco $1.50</li>
+                            <li class="list-group-item">Pastel de guayaba $1.80</li>
+                            <li class="list-group-item">Pudin de pan $2.99</li>
+                            <li class="list-group-item">Tocinillo del cielo $4.10</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="review_form" class="">
+            <h2 class="text-center">Write your review</h2>
+            <form action="{% url "restaurant:review_create" %}" method="post">
+                {% csrf_token %}
+                {{ review_form }}
+                <div class="row text-center justify-content-center">
+                    <div class="col-4">
+                        <input type="submit" class="btn btn-warning" value="Send Review">
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div id="reviews">
+            <h2 class="text-center">Reviews</h2>
+            {% for review in reviews %}
+                <div class="mb-2 mt-2 bg-secondary-subtle">
+                    <p>{{ review.name }}</p>
+                    {% if review.prediction %}
+                        <i class="bi bi-hand-thumbs-up-fill text-success"></i>
+                    {% else %}
+                        <i class="bi bi-hand-thumbs-down-fill text-danger"></i>
+                    {% endif %}
+                    <p>{{ review.body }}</p>
+                    <p>{{ review.datetime }}</p>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,13 @@
+{% extends "bazaar/base.html" %}
+
+{% block title %}Confirm action{% endblock  %}
+
+{% block main %}
+    <h1>Are you sure?</h1>
+    <p>You are about to delete a category and all objects related to them. This action can't be undone. Please confirm:</p>
+    <a href="{% url "bazaar:category_list" %}">No</a>
+    <form action="" method="post">
+        {% csrf_token %}
+        <input type="submit" value="Yes">
+    </form>
+{% endblock %}

@@ -1,0 +1,61 @@
+{% extends "bazaar/base.html" %}
+
+{% block main %}
+
+    <!--
+      Ideas:
+
+      Show a search form (title and description keywords). Also you show a link to advanced search.      
+      Show a simple search form (title or description). This can be a another page (main page).
+      What is your main page?
+        A search page (Like Google) OK
+        A combination of above (a list of ads with search form). Include a search form on header OK
+        A independent advanced search page. OK
+    -->
+        
+    <div class="row">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item active" aria-current="page">
+                <a href="{% url "bazaar:home" %}">Home</a>
+            </li>
+            <li class="breadcrumb-item" aria-current="page">
+                Search
+            </li>
+            <li class="breadcrumb-item" aria-current="page">
+                Search
+            </li>
+        </ol>
+    </div>
+    
+    <div class="row">
+        {% if object_list %}
+            {% for object in object_list %}
+                <div class="col-sm-6 col-md-3 col-lg-2">
+                    <a href="{% url "bazaar:ad_detail" pk=object.pk %}" class="link-underline-light">
+                        <div class="card h-100 border-light bg-light p-2">
+                            {% if object.picture_0 %}
+                                <img src="{{ MEDIA_URL }}{{ object.picture_0 }}" alt="{{ object.title }}" class="card-img-top" style="object-fit: contain">
+                            {% else %}
+                                <img src="" alt="default ad image" class="card-img-top" style="object-fit: contain">
+                            {% endif %}
+                            <div class="card-body">
+                                <h1 class="card-text">
+                                    {% if object.title|length < 32 %}
+                                        {{ object.title }}
+                                    {% else %}
+                                        {{ object.title|truncatechars:32 }}
+                                    {% endif %}
+                                </h1>
+                                <p class="card-text fw-bold"> {{object.currency.code}} {{ object.price }}</p>
+                                <p class="card-text">{{ object.address }}</p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p>Sorry, but your search don't return results. Please, use other keywords</p>
+        {% endif %}
+    </div>
+
+{% endblock %}
