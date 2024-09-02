@@ -54,52 +54,27 @@
                 <div class="col-sm-4">
                     <div class="card">
                         
-                        <img class="card-img" src="{% static 'img/titanic_eda_notebook.png' %}" alt="Note project using Django and other tools">
+                        <img class="card-img" src="{% static 'img/restaurant_app.jpg' %}" alt="Restaurant project using Django and other tools">
                         
                         <div class="card-body">
                                 
-                            <div>
-                                <img style="width:5vw" src="{% static 'img/python.svg' %}" alt="Python logo">
-                                <img style="width:5vw" src="{% static 'img/numpy.svg' %}" alt="Numpy logo">
-                                <img style="width:5vw" src="{% static 'img/pandas.svg' %}" alt="Pandas logo">
-                                <img style="width:5vw" src="{% static 'img/matplotlib.svg' %}" alt="Matplotlib logo">
-                                <img style="width:5vw" src="{% static 'img/seaborn.svg' %}" alt="Seaborn logo">
-                                <img style="width:5vw" src="{% static 'img/google_colaboratory_logo.svg' %}" alt="Google Colaboratory logo">
-                            </div>
-                            
-                            <p class="card-text">
-                                Exploratory Data Analysis over <a href="https://www.kaggle.com/datasets/vinicius150987/titanic3">Titanic Dataset</a>
-                                to understand data, find out correlations and determine what are the most important features to survive
-                                Titanic accident.
-                            </p>
-        
-                            <a href="{% url "titanic:form" %}">Titanic EDA Notebook</a>
-                        </div>
-                        
-                    </div>
-                </div>
-
-                <div class="col-sm-4">
-                    <div class="card">
-                        
-                        <img class="card-img" src="{% static 'img/titanic_survivor_predictor_notebook.png' %}" alt="Screenshoot of Titanic Survivor Notebook">
-                        
-                        <div class="card-body">
-                                
-                            <div>
+                            <div>                                
                                 <img style="width:5vw" src="{% static 'img/python.svg' %}" alt="Python logo">
                                 <img style="width:5vw" src="{% static 'img/numpy.svg' %}" alt="Numpy logo">
                                 <img style="width:5vw" src="{% static 'img/pandas.svg' %}" alt="Pandas logo">
                                 <img style="width:5vw" src="{% static 'img/scikitlearn.svg' %}" alt="Scikitlearn logo">
-                                <img style="width:5vw" src="{% static 'img/google_colaboratory_logo.svg' %}" alt="Google Colaboratory logo">
+                                <img style="width:5vw" src="{% static 'img/open_neural_network_exchange_logo.svg' %}" alt="Open Neural Network Exchange logo">
+                                <img style="width:5vw" src="{% static 'img/django.svg' %}" alt="Django logo">
+                                <img style="width:5vw" src="{% static 'img/bootstrap.svg' %}" alt="Bootstrap logo">
                             </div>
                             
                             <p class="card-text">
-                                On this notebook, I used the correlations between some features on Titanic Dataset, to create a Logistic Regression model, 
-                                that classify and try to predict if a person will survive to Titanic accident.
+                                A restaurant web application demostration. Here I applied Natural Language Processing (NLP) to 
+                                classify user reviews and get user satisfaction. This application use 
+                                <a href="https://www.kaggle.com/datasets/gorororororo23/european-restaurant-reviews">European Restaurant Reviews dataset</a>.
                             </p>
         
-                            <a href="{% url "titanic:form" %}">Titanic Survivor Predictor Notebook</a>
+                            <a href="{% url "restaurant:home" %}">Restaurant</a>
                         </div>
                         
                     </div>
@@ -108,7 +83,7 @@
                 <div class="col-sm-4">
                     <div class="card">
                         
-                        <img class="card-img" src="{% static 'img/titanic_survivor_app.png' %}" alt="Note project using Django and other tools">
+                        <img class="card-img" src="{% static 'img/titanic_survivor_app.png' %}" alt="Titanic project using Django and other tools">
                         
                         <div class="card-body">
                                 
@@ -131,58 +106,6 @@
                         
                     </div>
                 </div>
-            </div>
-
-            <div class="row">
-
-                <div class="col-sm-4"> <!--Recommender engine-->
-                    <div class="card">
-                        
-                        <img class="card-img" src="{% static 'img/recommender_engine_eda.jpg' %}" alt="Screenshoot of Recommender Engine EDA Notebook">
-                        
-                        <div class="card-body">
-                                
-                            <div>
-                                <img style="width:5vw" src="{% static 'img/python.svg' %}" alt="Python logo">
-                                <img style="width:5vw" src="{% static 'img/numpy.svg' %}" alt="Numpy logo">
-                                <img style="width:5vw" src="{% static 'img/pandas.svg' %}" alt="Pandas logo">
-                                <img style="width:5vw" src="{% static 'img/google_colaboratory_logo.svg' %}" alt="Google Colaboratory logo">
-                            </div>
-                            
-                            <p class="card-text">
-                                Exploratory Data Analysis over <a href="https://datasets.imdbws.com/">Title Basics IMdb Dataset</a>
-                                to understand what type of data are stored.
-                            </p>
-        
-                            <a href="{% url "titanic:form" %}">Movie Dataset EDA Notebook</a>
-                        </div>
-                        
-                    </div>
-                </div>
-
-                <div class="col-sm-4">
-                    <div class="card">
-                        
-                        <img class="card-img" src="{% static 'img/recommender_engine_clean_transform.jpg' %}" alt="Screenshoot showing clean and transform notebook for Movie Recommender Engine">
-                        
-                        <div class="card-body">
-                                
-                            <div>
-                                <img style="width:5vw" src="{% static 'img/python.svg' %}" alt="Python logo">
-                                <img style="width:5vw" src="{% static 'img/numpy.svg' %}" alt="Numpy logo">
-                                <img style="width:5vw" src="{% static 'img/pandas.svg' %}" alt="Pandas logo">
-                                <img style="width:5vw" src="{% static 'img/google_colaboratory_logo.svg' %}" alt="Google Colaboratory logo">
-                            </div>
-                            
-                            <p class="card-text">
-                                On this notebook, I clean and transform data, to generate a dataset more suitable for movie recommender engine.
-                            </p>
-        
-                            <a href="{% url "titanic:form" %}">Movie Dataset Clean and Transform Notebook</a>
-                        </div>
-                        
-                    </div>
-                </div>                
 
                 <div class="col-sm-4">
                     <div class="card">
@@ -209,11 +132,12 @@
                         </div>
                         
                     </div>
-                </div>
+                </div>                
+
             </div>
 
             <div class="row">
-
+                
                 <div class="col-sm-4">
                     <div class="card">
                         
@@ -237,6 +161,10 @@
                         
                     </div>
                 </div>
+
+            </div>
+
+            <div class="row">                
 
             </div>
             
