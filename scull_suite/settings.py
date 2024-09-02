@@ -88,7 +88,9 @@ WSGI_APPLICATION = 'scull_suite.wsgi.application'
 
 DATABASES = {
     'default': dj_database_url.config(
-        
+        default = 'postgresql://scull_suite:scull_suite@localhost:5432/scull_suite',
+        conn_max_age = 600,
+        conn_health_checks = True,
     ),
     'options': {
         'client_encoding': 'UTF8',
