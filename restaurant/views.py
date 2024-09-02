@@ -32,7 +32,10 @@ class Home(TemplateView):
     def get_context_data(self, **kwargs) -> dict[str]:
         context = super().get_context_data(**kwargs)
         reviews = Review.objects.all()
-        context['customer_satisfaction'] = round(Review.objects.filter(prediction=1).count() * 5 / reviews.count(), 0)
+        if reviews.count() != 0:
+            context['customer_satisfaction'] = round(Review.objects.filter(prediction=1).count() * 5 / reviews.count(), 0)
+        else:
+            context['customer_satisfaction'] = 0
         context['review_form'] = ReviewForm
         context['reviews'] = reviews
         return context
