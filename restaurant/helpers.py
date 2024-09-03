@@ -4,14 +4,16 @@ import locale
 
 '''
     TODO: Create a class with this function and instantiate on models.
+    This is useful to avoid load ONNX every time you save a model.
 '''
+
 def make_inference(text: str):
     '''
         Given a a input text predicts if review is positive or negative,
         using a Open Neural Network Exchange (ONNX) format
     '''
     
-    locale.setLocale(locale.LC_ALL, 'en_US')
+    locale.setlocale(locale.LC_ALL, 'en_US')
     print(f'This is the default locale on Render: {locale.getdefaultlocale()}')
     
     session = onnx.InferenceSession(f'{BASE_DIR}/restaurant/en_review_classificator.onnx', providers=['CPUExecutionProvider'])
