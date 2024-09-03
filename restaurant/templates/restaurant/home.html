@@ -134,7 +134,10 @@
                     <p>{{ review.body }}</p>
                     <p>{{ review.datetime }}</p>
                 </div>
+            {% empty %}
+                <p>Noneone has reviews our services. <a href="#review_form">Be the first!</a></p>
             {% endfor %}
+            empty
         </div>
     </div>
 {% endblock %}
