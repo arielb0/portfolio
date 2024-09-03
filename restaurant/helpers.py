@@ -13,8 +13,6 @@ def make_inference(text: str):
         using a Open Neural Network Exchange (ONNX) format
     '''
     
-    print(f'This is the locale on Render: {locale.getlocale()}')
-    
     session = onnx.InferenceSession(f'{BASE_DIR}/restaurant/en_review_classificator.onnx', providers=['CPUExecutionProvider'])
     input_name = session.get_inputs()[0].name
     label_name = session.get_outputs()[0].name
