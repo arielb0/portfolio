@@ -27,13 +27,7 @@
     </div>
     <div class="container">
         <div id="menu">
-            <h2 class="text-center">Menu</h2>
-            
-            <!--
-                Menus (Drinks and groceries)
-                Use a accordion to show menu..
-                Call to Action (Reserve a table)
-            -->
+            <h2 class="text-center">Menu</h2>            
             <div class="accordion" id="accordionMenu">
                 <div class="accordion-item">
                     <h2 class="accordion-header">
@@ -133,11 +127,16 @@
                     {% endif %}
                     <p>{{ review.body }}</p>
                     <p>{{ review.datetime }}</p>
+                    {% if user.is_superadmin %}
+                        <div>
+                            <a class="btn btn-primary" href="{% url "restaurant:review_update" pk=review.pk %}">Update</a>
+                            <a href="btn btn-danger" href="{% url "restaurant:review_delete" pk=review.pk %}">Delete</a>
+                        </div>
+                    {% endif %}
                 </div>
             {% empty %}
                 <p>Noneone has reviews our services. <a href="#review_form">Be the first!</a></p>
             {% endfor %}
-            empty
         </div>
     </div>
 {% endblock %}

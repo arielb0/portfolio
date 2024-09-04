@@ -1,12 +1,13 @@
 {% extends "navbar.html" %}
 
 {% block navbar_content %}
-
-        <button class="navbar-toggler d-lg-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <a class="navbar-brand" href="{{ url }}"><i class="bi bi-{{ icon }}"></i> {{ title }}</a>        
+        <div>
+            <button class="navbar-toggler d-lg-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+    
+            <a class="navbar-brand" href="{{ url }}"><i class="bi bi-{{ icon }}"></i> {{ title }}</a>
+        </div>
 
         <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
             <div class="offcanvas-header">

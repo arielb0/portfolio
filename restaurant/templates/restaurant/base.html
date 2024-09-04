@@ -2,6 +2,8 @@
 
 {% block header %}
     {% include "restaurant/header.html" %}
+    {% url "restaurant:home" as header_url %}
+    {% include "restaurant/header.html" with url=header_url title='Restaurant' show_user_menu=True %}
 {% endblock %}
 
 {% block footer %}
