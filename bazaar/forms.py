@@ -1,10 +1,12 @@
 from typing import Any, Mapping
 from django.core.files.base import File
 from django.db.models.base import Model
-from django.forms import Field, ModelForm
+from django.forms import Form, ModelForm, CharField, IntegerField, DateField, ModelChoiceField, ModelMultipleChoiceField
 from django.forms.utils import ErrorList
 from .models import Currency, Category, Ad, Report
 from django.forms.widgets import TextInput, Textarea, NumberInput, Select, EmailInput, SelectMultiple, ClearableFileInput, HiddenInput
+from django.forms.widgets import DateInput
+from django.db.models import Q
 
 class CurrencyForm(ModelForm):
     
@@ -21,29 +23,45 @@ class CategoryForm(ModelForm):
     def __init__(self, *args, **kwargs) -> None:
         '''
             I overwrite this method to specify parent_category queryset
-            to avoid circular dependency. When you updated a Category, 
-            you can't select their parents.
-
-            Returns
-            -------
-            None
+            to avoid circular dependency. When you update a Category model, 
+            exlude himself and their childrens from parent_category field.
         '''
+
+        def get_subcategories(category: Category) -> list[int]:
+            '''
+                Given a category model, return all subcategories related to them.               
+
+                Parameters
+                ----------
+                category: Category 
+                    The category that you need to get all subcategories.
+
+                Returns:
+                --------
+                list[int]
+                    A list of primary keys of all subcategories, related to input category.
+            '''
+
+            subcategories = category.subcategories.all()
+            
+            categories_pk = [category.pk]
+
+            for subcategory in subcategories:
+                categories_pk.append(subcategory.pk)
+                if len(subcategory.subcategories.all()) != 0:
+                    categories_pk.append(get_subcategories(subcategory))
+            
+            return categories_pk
+            
         super().__init__(*args, **kwargs)
         instance = kwargs.get('instance')
         
         if instance:
-            ancestors_pk = []
-            ancestors_pk.append(instance.pk)
-            category = instance
-            parent = instance.parent_category
 
-            while parent:
-                ancestors_pk.append(parent.pk)
-                category = parent
-                parent = category.parent_category
-        
-            self.fields['parent_category'].queryset = Category.objects.exclude(pk__in=ancestors_pk)
-        
+            self.fields['parent_category'].queryset = Category.objects.exclude(pk__in=get_subcategories(instance))
+            
+
+            
 
     class Meta:
         model = Category
@@ -56,6 +74,16 @@ class CategoryForm(ModelForm):
         }
 
 class AdForm(ModelForm):
+
+    def __init__(self, *args, **kwargs) -> None:
+        '''
+            I modify this constructor to return only the leaf categories
+            (Categories that does not have children and does not have priority)
+        '''
+
+        super().__init__(*args, **kwargs)
+
+        self.fields['category'].queryset = Category.objects.filter(subcategories = None)
 
     class Meta:
         model = Ad
@@ -75,7 +103,7 @@ class AdForm(ModelForm):
             'name': TextInput(attrs={'class': 'form-control'}),
             'phone': NumberInput(attrs={'class': 'form-control'}),
             'mail': EmailInput(attrs={'class': 'form-control'}),
-            'alternative_currencies': SelectMultiple(attrs={'class': 'form-select'}), # I think could be better use select box (CheckboxSelectMultiple).
+            'alternative_currencies': SelectMultiple(attrs={'class': 'form-select'}),
             'category': Select(attrs={'class': 'form-select'}),
             'picture_0': ClearableFileInput(attrs={'class': 'form-control'}),
             'picture_1': ClearableFileInput(attrs={'class': 'form-control'}),
@@ -100,4 +128,15 @@ class ReportForm(ModelForm):
             'ad': HiddenInput()
         }
 
+class SimpleSearchForm(Form):
+    query = CharField(required = False, widget = TextInput(attrs={'class': 'form-control me-2'}))
 
+class AdvancedSearchForm(SimpleSearchForm):
+    price_start = IntegerField(required = False, widget = NumberInput(attrs={'class': 'form-control'}))
+    price_end = IntegerField(required = False, widget = NumberInput(attrs={'class': 'form-control'}))
+    currency = ModelChoiceField(required = False, queryset=Currency.objects.all(), widget = SelectMultiple(attrs={'class': 'form-select'}))
+    address = CharField(required = False, widget = TextInput(attrs={'class': 'form-control'}))
+    date_start = DateField(required = False, widget = DateInput(attrs={'class': 'form-control'}))
+    date_end = DateField(required = False, widget = DateInput(attrs={'class': 'form-control'}))
+    categories = ModelMultipleChoiceField(required = False, queryset = Category.objects.all(), widget = Select(attrs={'class': 'form-select'}))
+    

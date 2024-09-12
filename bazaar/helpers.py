@@ -6,6 +6,8 @@ from sys import getsizeof
 from django.http import HttpRequest
 from .models import Category
 from django.db.models import QuerySet
+from .forms import SimpleSearchForm
+from typing import Any
 
 def create_thumbnail(image_field: InMemoryUploadedFile, size: tuple[int]):
     '''
@@ -76,3 +78,21 @@ def normalize_ad_pictures(request: HttpRequest, size: tuple[int]):
                 normalized_request.FILES[field_name] = create_thumbnail(request.FILES[field_name], size)
     
     return normalized_request
+
+def get_simple_search_form(context: dict[str, Any], data: dict = {}):
+     '''
+        This function return SimpleSearchForm instance on the passed context.
+
+        Parameters
+        -----------
+        context : dict[str] dict A Django view context
+        data : dict The initial value for SimpleSearchForm. Default value is an empty dictionary.
+
+        Returns
+        --------
+        Context with simple_search_form key and SimpleSearchForm form value
+     '''
+     
+     context_copy = context.copy()
+     context_copy['simple_search_form'] = SimpleSearchForm(data = data)
+     return context_copy

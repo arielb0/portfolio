@@ -1,9 +1,9 @@
 from django.test import TestCase
-from ..forms import CurrencyForm, CategoryForm, AdForm, ReportForm
+from ..forms import CurrencyForm, CategoryForm, AdForm, ReportForm, SimpleSearchForm, AdvancedSearchForm
 from ..models import Currency, Category, Ad, Report
 from django.forms.widgets import TextInput, Textarea, NumberInput, Select, EmailInput, SelectMultiple, ClearableFileInput, HiddenInput
 
-class CurrencyFormTestCase(TestCase):
+class CurrencyFormTestCase(TestCase):   
 
     def test_currency_form_model(self):
         '''
@@ -38,26 +38,17 @@ class CategoryFormTestCase(TestCase):
     def test_init(self):
         '''
             Test if __init__ method implements the right logic
-            (Given a Category model, exlude himself and their ancestors from 
+            (Given a Category model, exlude himself and their children from 
             parent_category field)
-        '''
-
-        '''
-            Steps:
-                Create a category (Groceries)
-                Create other category (Drinks)
-                On Drinks category, set Groceries at parent_category.
-                Create a CategoryForm that instantiate Drinks Category.
-                Check if there are not Categories listed on parent_category field.
         '''
 
         groceries = Category(name = 'Groceries', priority = 1)
         groceries.save()
         drinks = Category(name = 'Drinks', parent_category = groceries)
         drinks.save()
-        drinks_form = CategoryForm(instance=drinks)
+        groceries_form = CategoryForm(instance=groceries)
 
-        self.assertQuerySetEqual(drinks_form.fields['parent_category'].queryset, Category.objects.none())
+        self.assertQuerySetEqual(groceries_form.fields['parent_category'].queryset, Category.objects.none())
 
     def test_category_form_model(self):
         '''
@@ -80,6 +71,28 @@ class CategoryFormTestCase(TestCase):
         self.assertEqual(CategoryForm.Meta.widgets['name'].__class__, TextInput)
 
 class AdFormTestCase(TestCase):
+
+    def test_init(self):
+        '''
+            Test if __init__ method implements the right logic
+            (Exclude from category selection, category models with childrens and priority)
+        '''
+
+        '''
+            Pseudocode:
+
+            Create parent category (Groceries).
+            Save it.
+            Create child category (drinks) and set groceries as parent category of drinks.
+            Save it.
+            Create a Ad "I sell ron" with category Drinks.
+            Save it.
+            Create a AdForm instantiating Ad.            
+            Test if in AdForm appears Groceries (the rigth answer is no)
+        '''
+
+        groceries = Category(name = 'Groceries')
+
     
     def test_ad_form_model(self):
         '''
@@ -225,3 +238,27 @@ class ReportFormTestcase(TestCase):
         '''
 
         self.assertEqual(ReportForm.Meta.widgets['ad'].__class__, HiddenInput)
+
+class SimpleSearchFormTestCase(TestCase):
+
+    @classmethod
+    def setUpTestData(cls) -> None:
+        simple_search_form = SimpleSearchForm()
+        return super().setUpTestData()
+
+    def test_simple_search_form_fields(self):
+        '''
+            Test if SimpleSearchForm form class has the correct fields
+            (query)
+        '''
+
+        simple_search_form = SimpleSearchForm()
+
+        self.assertIn('query', simple_search_form.fields.keys())
+
+    def test_simple_search_form_query_field_class(self):
+        '''
+            Test if query form field use the correct class (CharField)
+        '''
+
+        

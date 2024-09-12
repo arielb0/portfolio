@@ -18,14 +18,11 @@ class Category(models.Model):
     name = models.CharField(unique = True, max_length = 32)
     picture = models.ImageField(upload_to = 'images/categories', blank=True, null=True)
     priority = models.IntegerField(blank=True, null=True)
-    parent_category = models.ForeignKey('self', on_delete = models.CASCADE, blank=True, null=True)
+    parent_category = models.ForeignKey('self', on_delete = models.CASCADE, blank=True, null=True, related_name = 'subcategories')
 
     def __str__(self):
         if self.parent_category:
             return f'{self.parent_category}/{self.name}'
-        
-        if self.priority:
-            return f'{self.priority} {self.name}'
         
         return self.name
 
@@ -46,7 +43,7 @@ class Category(models.Model):
     
     class Meta:
         verbose_name_plural = 'categories'
-        ordering = ['priority']
+        ordering = ['-priority']
 
 class Ad(models.Model):
     title = models.CharField(max_length = 64)

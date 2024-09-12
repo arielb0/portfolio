@@ -1,5 +1,5 @@
 from django.test import TestCase
-from ..helpers import create_thumbnail, normalize_ad_pictures
+from ..helpers import create_thumbnail, normalize_ad_pictures, get_simple_search_form
 from django.core.files.uploadedfile import InMemoryUploadedFile
 from scull_suite.settings import STATICFILES_DIRS
 from os.path import join
@@ -9,6 +9,8 @@ from django.test import RequestFactory
 from django.urls import reverse
 from ..models import Category, Currency
 from os.path import splitext
+from ..forms import SimpleSearchForm
+
 
 from bazaar.tests.helpers import Generator
 
@@ -153,3 +155,16 @@ class NormalizePictureTestSuite(TestCase):
             self.assertEqual(normalized_field.field_name, field_name)
             self.assertEqual(normalized_field.name, f'{splitext(self.FILENAME)[0]}.jpg')
             self.assertEqual(getsizeof(normalized_field.file), normalized_field.size)
+
+    def test_get_simple_search_form(self):
+        '''
+            Test if get_simple_search_form implements the right logic
+            (return a view context with a SimpleSearchForm instance, populated with
+            passed data)
+        '''
+
+        context = get_simple_search_form(context = {}, data={'query':'groceries'})
+
+        self.assertIn('simple_search_form', context)
+        self.assertIsInstance(context['simple_search_form'], SimpleSearchForm)
+        self.assertEqual(context['simple_search_form']['query'].data, 'groceries')

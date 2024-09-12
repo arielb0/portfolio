@@ -6,6 +6,10 @@
 {% endblock %}
 
 {% block offcanvas_body %}
+    <form class="d-flex" role="search" action="{% url "bazaar:ad_list" %}" method="get">
+        {{ simple_search_form.query }}
+        <button class="btn btn-outline-success">Search</button>
+    </form>
     <ul class="navbar-nav">
         {% if user.is_superuser %}
             <li class="nav-item">

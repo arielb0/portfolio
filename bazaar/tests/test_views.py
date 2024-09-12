@@ -4,7 +4,7 @@ from ..views import CreateCategory, DetailCategory, UpdateCategory, DeleteCatego
 from ..views import CreateAd, DetailAd, UpdateAd, DeleteAd
 from ..views import CreateReport, DetailReport, UpdateReport, DeleteReport, ListReport
 from ..models import Currency, Category, Ad, Report
-from ..forms import CurrencyForm, CategoryForm, AdForm, ReportForm
+from ..forms import CurrencyForm, CategoryForm, AdForm, ReportForm, SimpleSearchForm, AdvancedSearchForm
 from django.urls import reverse_lazy
 import datetime
 from bazaar.tests.helpers import Generator
@@ -38,6 +38,7 @@ class CurrencyTestCase(TestCase):
         '''
         
         self.assertEqual(CreateCurrency.success_url, self.CURRENCY_LIST_URL)
+
 
     def test_detail_currency_view_model(self):
         '''
