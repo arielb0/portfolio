@@ -1,6 +1,7 @@
 from django.test import TestCase
 from ..forms import CurrencyForm, CategoryForm, AdForm, ReportForm, SimpleSearchForm, AdvancedSearchForm
 from ..models import Currency, Category, Ad, Report
+from django.forms import CharField
 from django.forms.widgets import TextInput, Textarea, NumberInput, Select, EmailInput, SelectMultiple, ClearableFileInput, HiddenInput
 
 class CurrencyFormTestCase(TestCase):   
@@ -243,22 +244,52 @@ class SimpleSearchFormTestCase(TestCase):
 
     @classmethod
     def setUpTestData(cls) -> None:
-        simple_search_form = SimpleSearchForm()
+        cls.simple_search_form = SimpleSearchForm()
         return super().setUpTestData()
 
     def test_simple_search_form_fields(self):
         '''
             Test if SimpleSearchForm form class has the correct fields
             (query)
-        '''
+        '''        
 
-        simple_search_form = SimpleSearchForm()
-
-        self.assertIn('query', simple_search_form.fields.keys())
+        self.assertIn('query', self.simple_search_form.fields.keys())
 
     def test_simple_search_form_query_field_class(self):
         '''
             Test if query form field use the correct class (CharField)
         '''
 
-        
+        self.assertIsInstance(self.simple_search_form.fields['query'], CharField)
+
+    def test_simple_search_form_query_field_required(self):
+        '''
+            Test if query form field has required parameter set to false
+        '''
+
+        self.assertFalse(self.simple_search_form.fields['query'].required)
+
+    def test_simple_search_form_query_field_widget(self):
+        '''
+            Test if query form field use the right widget (TextInput)
+        '''
+
+        self.assertIsInstance(self.simple_search_form.fields['query'].widget, TextInput)
+
+class AdvancedSearchFormTestCase(TestCase):
+
+    @classmethod
+    def setUpTestData(cls) -> None:
+        cls.advanced_search_form = AdvancedSearchForm()
+        return super().setUpTestData()
+    
+    def test_advanced_search_form_fields(self):
+        '''
+            Test if AdvancedSearchForm form class use the right
+            form fields (price_start, price_end, currency, 
+            address, date_start, date_end, categories)
+        '''
+
+        form_fields_dict = {'query': '', 'price_start': '', 'price_end': '', 'currency': '', 'address': '', 'date_start': '', 'date_end': '', 'categories': ''}        
+
+        self.assertEqual(self.advanced_search_form.fields.keys(), form_fields_dict.keys())

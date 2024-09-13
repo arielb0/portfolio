@@ -2,7 +2,7 @@
 
 {% block header %}
     {% url "movie:search_form" as header_url %}
-    {% include "header.html" with url=header_url icon='bi-film' title='Movie' %}
+    {% include "movie/header.html" with url=header_url icon='film' title='Movie' %}
 {% endblock %}
 
 {% block footer %}

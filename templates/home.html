@@ -6,36 +6,6 @@
 
 {% block header %}
     {% include "home_header.html" with icon="briefcase" title="Portfolio" %}
-    <!-- Reuse code using header.html -->
-    <!--
-    <nav class="navbar navbar-expand-lg fixed-top bg-body-tertiary">
-        
-        <div class="container-fluid">
-            <a class="navbar-brand" href="#">
-                <img src="{% static 'img/briefcase.png' %}" alt="Site logo, a portfolio" width="30" height="30">
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toogle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link" aria-current="page" href="#start">Start</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#portfolio">Portfolio</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#code">Code</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#contact_me">Contact</a>
-                    </li>
-                </ul>
-            </div>
-        </div>            
-    </nav>
-    -->
 {% endblock %}
 
 {% block main %}   
@@ -75,10 +45,10 @@
                             <p class="card-text">
                                 A restaurant web application demostration. Here I applied Natural Language Processing (NLP) to 
                                 classify user reviews and get user satisfaction. This application use 
-                                <a href="https://www.kaggle.com/datasets/gorororororo23/european-restaurant-reviews">European Restaurant Reviews dataset</a>.
+                                <a href="https://www.kaggle.com/datasets/gorororororo23/european-restaurant-reviews" target="_blank">European Restaurant Reviews dataset</a>.
                             </p>
         
-                            <a href="{% url "restaurant:home" %}">Restaurant</a>
+                            <a href="{% url "restaurant:home" %}" target="_blank">Restaurant</a>
                         </div>
                         
                     </div>
@@ -102,10 +72,10 @@
                             
                             <p class="card-text">
                                 Web application that try to predict if you survive to Titanic sinking, using
-                                Machine Learning algorithm over <a href="https://www.kaggle.com/datasets/vinicius150987/titanic3">Titanic Dataset</a>.
+                                Machine Learning algorithm over <a href="https://www.kaggle.com/datasets/vinicius150987/titanic3" target="_blank">Titanic Dataset</a>.
                             </p>
         
-                            <a href="{% url "titanic:form" %}">Titanic</a>
+                            <a href="{% url "titanic:form" %}" target="_blank">Titanic</a>
                         </div>
                         
                     </div>
@@ -129,10 +99,10 @@
                             
                             <p class="card-text">
                                 Web application that recommend similar movies, using pairwise distance between them and 
-                                <a href="https://datasets.imdbws.com/">Title Basics IMdb dataset</a>.
+                                <a href="https://datasets.imdbws.com/" target="_blank">Title Basics IMdb dataset</a>.
                             </p>
         
-                            <a href="{% url "movie:search_form" %}">Movie</a>
+                            <a href="{% url "movie:search_form" %}" target="_blank">Movie</a>
                         </div>
                         
                     </div>
@@ -160,7 +130,7 @@
                                 This application allows us manage notes, using web browser.
                             </p>
         
-                            <a href="{% url "note:list" %}">Note</a>
+                            <a href="{% url "note:list" %}" target="_blank">Note</a>
                         </div>
                         
                     </div>
@@ -178,7 +148,7 @@
             
             <h2>Code</h2>
             
-            <p>You can see the code of the projects on <a href="https://github.com/arielb0">Github</a></p>
+            <p>You can see the code of the projects on <a href="https://github.com/arielb0" target="_blank">Github</a></p>
 
         </section>
 
@@ -187,11 +157,11 @@
             <h2>Contact</h2>
 
             <img class="img-fluid" src="{% static 'img/telegram.svg' %}" alt="Telegram">
-            <a href="http://t.me/ascull">Telegram</a>
+            <a href="http://t.me/ascull" target="_blank">Telegram</a>
             
             
             <img class="img-fluid" src="{% static 'img/linkedin.svg' %}" alt="LinkedIn">
-            <a href="http://www.linkedin.com/in/ariel-scull-b4a598183">LinkedIn</a>
+            <a href="http://www.linkedin.com/in/ariel-scull-b4a598183" target="_blank">LinkedIn</a>
 
         </section>
 
