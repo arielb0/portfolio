@@ -134,9 +134,9 @@ class SimpleSearchForm(Form):
 class AdvancedSearchForm(SimpleSearchForm):
     price_start = IntegerField(required = False, widget = NumberInput(attrs={'class': 'form-control'}))
     price_end = IntegerField(required = False, widget = NumberInput(attrs={'class': 'form-control'}))
-    currency = ModelChoiceField(required = False, queryset=Currency.objects.all(), widget = SelectMultiple(attrs={'class': 'form-select'}))
+    currency = ModelMultipleChoiceField(required = False, queryset=Currency.objects.all(), widget = SelectMultiple(attrs={'class': 'form-select'}))
     address = CharField(required = False, widget = TextInput(attrs={'class': 'form-control'}))
     date_start = DateField(required = False, widget = DateInput(attrs={'class': 'form-control'}))
     date_end = DateField(required = False, widget = DateInput(attrs={'class': 'form-control'}))
-    categories = ModelMultipleChoiceField(required = False, queryset = Category.objects.all(), widget = Select(attrs={'class': 'form-select'}))
+    categories = ModelChoiceField(required = False, queryset = Category.objects.all(), widget = Select(attrs={'class': 'form-select'}))
     
