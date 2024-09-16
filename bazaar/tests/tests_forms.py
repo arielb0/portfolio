@@ -4,7 +4,7 @@ from ..models import Currency, Category, Ad, Report
 from django.forms import CharField, IntegerField, ModelChoiceField, DateField, ModelMultipleChoiceField
 from django.forms.widgets import TextInput, Textarea, NumberInput, Select, EmailInput, SelectMultiple, ClearableFileInput, HiddenInput, DateInput
 
-class CurrencyFormTestCase(TestCase):   
+class CurrencyFormTestCase(TestCase):
 
     def test_currency_form_model(self):
         '''
