@@ -22,7 +22,7 @@ class Category(models.Model):
 
     def __str__(self):
         if self.parent_category:
-            return f'{self.parent_category}/{self.name}'
+            return f'{self.parent_category} / {self.name}'
         
         return self.name
 

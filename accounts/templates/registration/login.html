@@ -4,6 +4,12 @@
 
 {% block main %}
 
+    {% if form.errors %}
+        <div class="alert alert-danger" role="alert">
+            <p>Wrong user or password.</p>
+        </div>
+    {% endif %}
+
     <div class="d-flex flex-column min-vh-100 justify-content-center align-items-center">
         <form action="{% url 'login' %}" method="post" class="bg-dark-subtle p-5">
             <h1 class="text-center">Scull Suite</h1>
@@ -16,6 +22,7 @@
                 {{ form.password.errors }}
                 {{ form.password }}
             </div>
+            <input type="hidden" name="next" value="{{ next }}">
             <div class="d-flex flex-column">
                 <input class="btn btn-secondary" type="submit" value="Login"></input>
             </div>

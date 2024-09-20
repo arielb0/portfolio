@@ -29,7 +29,7 @@
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item active">
-                <a href="#">Home</a>
+                <a href="{% url "bazaar:home" %}">Home</a>
             </li>
             <li class="breadcrumb-item active">
                 <a href="{% url "bazaar:ad_list" %}">Search</a>
@@ -41,7 +41,6 @@
     </nav>
 
     <h1 class="text-center">{{ object.title }}</h1>
-    
 
     <div class="carousel slide carousel-fade" id="adCarousel" data-bs-ride="carousel">
         <div class="carousel-inner">

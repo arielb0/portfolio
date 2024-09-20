@@ -290,7 +290,7 @@ class AdvancedSearchFormTestCase(TestCase):
             address, date_start, date_end, categories)
         '''
 
-        form_fields_dict = {'query': '', 'price_start': '', 'price_end': '', 'currency': '', 'address': '', 'date_start': '', 'date_end': '', 'categories': ''}        
+        form_fields_dict = {'query': '', 'price_start': '', 'price_end': '', 'currencies': '', 'address': '', 'date_start': '', 'date_end': '', 'category': ''}        
 
         self.assertEqual(self.advanced_search_form.fields.keys(), form_fields_dict.keys())
 
@@ -336,33 +336,33 @@ class AdvancedSearchFormTestCase(TestCase):
 
         self.assertEqual(self.advanced_search_form.fields['price_end'].widget.__class__, NumberInput)
 
-    def test_advanced_search_form_currency_class(self):
+    def test_advanced_search_form_currencies_class(self):
         '''
-            Test if currency field use the right class (ModelMultipleChoiceField)
-        '''
-
-        self.assertEqual(self.advanced_search_form.fields['currency'].__class__, ModelMultipleChoiceField)
-
-    def test_advanced_search_form_currency_required(self):
-        '''
-            Test if currency field has the required parameter set to False
+            Test if currencies field use the right class (ModelMultipleChoiceField)
         '''
 
-        self.assertFalse(self.advanced_search_form.fields['currency'].required, False)
+        self.assertEqual(self.advanced_search_form.fields['currencies'].__class__, ModelMultipleChoiceField)
 
-    def test_advanced_search_form_currency_queryset(self):
+    def test_advanced_search_form_currencies_required(self):
         '''
-            Test if currency field has the queryset parameter set to Currency.objects.all()
+            Test if currencies field has the required parameter set to False
+        '''
+
+        self.assertFalse(self.advanced_search_form.fields['currencies'].required, False)
+
+    def test_advanced_search_form_currencies_queryset(self):
+        '''
+            Test if currencies field has the queryset parameter set to Currency.objects.all()
         '''
         
-        self.assertQuerysetEqual(self.advanced_search_form.fields['currency'].queryset, Currency.objects.all())
+        self.assertQuerysetEqual(self.advanced_search_form.fields['currencies'].queryset, Currency.objects.all())
 
-    def test_advanced_search_form_currency_widget(self):
+    def test_advanced_search_form_currencies_widget(self):
         '''
             Test if currency field use the right widget class (SelectMultiple)
         '''
 
-        self.assertEqual(self.advanced_search_form.fields['currency'].widget.__class__, SelectMultiple)
+        self.assertEqual(self.advanced_search_form.fields['currencies'].widget.__class__, SelectMultiple)
 
     def test_advanced_search_form_address_class(self):
         '''
@@ -427,30 +427,30 @@ class AdvancedSearchFormTestCase(TestCase):
 
         self.assertEqual(self.advanced_search_form.fields['date_end'].widget.__class__, DateInput)
 
-    def test_advanced_search_form_categories_class(self):
+    def test_advanced_search_form_category_class(self):
         '''
-            Test if categories field use the right class (ModelChoiceField)
-        '''
-
-        self.assertEqual(self.advanced_search_form.fields['categories'].__class__, ModelChoiceField)
-
-    def test_advanced_serch_form_categories_required(self):
-        '''
-            Test if categories field has required parameter set to False
+            Test if category field use the right class (ModelChoiceField)
         '''
 
-        self.assertFalse(self.advanced_search_form.fields['categories'].required)
+        self.assertEqual(self.advanced_search_form.fields['category'].__class__, ModelChoiceField)
 
-    def test_advanced_search_form_queryset(self):
+    def test_advanced_serch_form_category_required(self):
         '''
-            Test if categories field has queryset parameter set to Category.objects.all()
+            Test if category field has required parameter set to False
         '''
 
-        self.assertQuerySetEqual(self.advanced_search_form.fields['categories'].queryset, Category.objects.all())
+        self.assertFalse(self.advanced_search_form.fields['category'].required)
+
+    def test_advanced_search_form_category_queryset(self):
+        '''
+            Test if category field has queryset parameter set to Category.objects.filter(subcategories = None)
+        '''
+
+        self.assertQuerySetEqual(self.advanced_search_form.fields['category'].queryset, Category.objects.filter(subcategories = None))
 
     def test_advanced_search_form_categories_widget(self):
         '''
             Test if categories field use the right widget (Select)
         '''
 
-        self.assertEqual(self.advanced_search_form.fields['categories'].widget.__class__, Select)
+        self.assertEqual(self.advanced_search_form.fields['category'].widget.__class__, Select)

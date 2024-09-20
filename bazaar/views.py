@@ -1,7 +1,7 @@
 from django.http import HttpRequest, HttpResponse
 from django.views.generic import CreateView, DetailView, UpdateView, DeleteView, ListView, TemplateView
 from .models import Currency, Category, Ad, Report
-from .forms import CurrencyForm, CategoryForm, AdForm, ReportForm, SimpleSearchForm, AdvancedSearchForm
+from .forms import CurrencyForm, CategoryForm, AdForm, ReportForm, AdvancedSearchForm
 from django.urls import reverse_lazy
 from django.db.models import Q
 from .helpers import normalize_ad_pictures, get_simple_search_form
@@ -110,7 +110,7 @@ class CreateAd(CreateView):
     success_url = reverse_lazy('bazaar:ad_list')
 
     def get_context_data(self, **kwargs) -> dict[str]:
-        context = super().get_context_data(**kwargs)
+        context = super().get_context_data(**kwargs)        
         context = get_simple_search_form(context)
         return context
 
@@ -198,9 +198,10 @@ class ListAd(ListView):
         return queryset
 
     def get_context_data(self, **kwargs) -> dict[str]:
-        context = super().get_context_data(**kwargs)        
-        context = get_simple_search_form(context)
-        
+        context = super().get_context_data(**kwargs)
+        context = get_simple_search_form(context, self.request.GET)
+        context['advanced_search_form'] = AdvancedSearchForm(data = self.request.GET)
+    
         return context
         
 

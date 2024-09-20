@@ -1,17 +1,6 @@
 {% extends "bazaar/base.html" %}
 
 {% block main %}
-
-    <!--
-      Ideas:
-
-      Show a search form (title and description keywords). Also you show a link to advanced search.      
-      Show a simple search form (title or description). This can be a another page (main page).
-      What is your main page?
-        A search page (Like Google) OK
-        A combination of above (a list of ads with search form). Include a search form on header OK
-        A independent advanced search page. OK
-    -->
         
     <div class="row">
         <ol class="breadcrumb">
@@ -23,9 +12,14 @@
             </li>            
         </ol>
     </div>
-
+    
     <div>
-        <!-- Here put a hidden form (More filters). Use accordion -->
+        <p>Advanced search</p>
+        <a href="{% url "bazaar:ad_list" %}">Clean filters</a>
+        <form action="{% url "bazaar:ad_list" %}">
+            {{ advanced_search_form.as_p }}
+            <input class="btn btn-success" type="submit" value="Search">
+        </form>
     </div>
     
     <div class="row">
@@ -55,7 +49,7 @@
                 </div>
             {% endfor %}
         {% else %}
-            <p>Sorry, but your search don't return results. Please, use other keywords</p>
+            <p class="text-center">Your search don't return ads.</p>
         {% endif %}
     </div>
 

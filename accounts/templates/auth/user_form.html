@@ -8,11 +8,8 @@
             {% csrf_token %}
             {{ form.as_p }}
             <div class="d-flex flex-column">
-                <input class="btn btn-secondary" type="submit" value="Login"></input>
+                <input class="btn btn-secondary" type="submit" value="{{ action }}"></input>
             </div>
-            <!--
-            <input type="submit" value="{{ action }}">
-            -->
         </form>
         {% if action == 'Update' %}
             <a href="{% url 'password_change' %}">Change password</a>
