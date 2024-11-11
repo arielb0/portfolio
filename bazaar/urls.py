@@ -3,7 +3,11 @@ from .views import CreateCurrency, DetailCurrency, UpdateCurrency, DeleteCurrenc
 from .views import CreateCategory, DetailCategory, UpdateCategory, DeleteCategory, ListCategory
 from .views import CreateAd, DetailAd, UpdateAd, DeleteAd, ListAd
 from .views import CreateReport, DetailReport, UpdateReport, DeleteReport, ListReport
+from .views import DetailProfile, UpdateProfile
 from .views import Home
+from .views import UpdateUserProfile
+from django.contrib.auth.views import PasswordChangeView
+from django.urls import reverse_lazy
 
 app_name = 'bazaar'
 
@@ -27,6 +31,10 @@ urlpatterns = [
     path('report/<int:pk>', DetailReport.as_view(), name='report_detail'),
     path('report/<int:pk>/update', UpdateReport.as_view(), name='report_update'),
     path('report/<int:pk>/delete', DeleteReport.as_view(), name='report_delete'),
-    path('report/', ListReport.as_view(), name='report_list'),
+    path('report/', ListReport.as_view(), name='report_list'),    
+    path('profile/', DetailProfile.as_view(), name='profile_detail'),
+    path('profile/update', UpdateProfile.as_view(), name = 'profile_update'),
+    path('user/update', UpdateUserProfile.as_view(), name='profile_user_update'),
+    path('password/update', PasswordChangeView.as_view(success_url = reverse_lazy('bazaar:profile_detail'), template_name = 'bazaar/profile_form.html'), name = 'profile_password_update'),
     path('', Home.as_view(), name='home')
 ]

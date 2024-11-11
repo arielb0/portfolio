@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block title %}Users{% endblock %}
+
+{% block main %}
+    <h1>Users</h1>
+    <a href="{% url "register" %}">Create user</a>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Username</th>
+                <th scope="col">First Name</th>
+                <th scope="col">Last Name</th>
+                <th scope="col">Email</th>
+                <th scope="col">Groups</th>
+                <th scope="col">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for object in object_list %}
+                <tr>
+                    <td>{{ object.username }}</td>
+                    <td>{{ object.first_name }}</td>
+                    <td>{{ object.last_name }}</td>
+                    <td>{{ object.email }}</td>
+                    <td>
+                        {% for group in object.groups.all %}
+                            {{ group }}
+                            {% if not forloop.last %},{% endif %}
+                        {% endfor %}
+                    </td>
+                    <td>
+                        <a href="{% url "update_user" pk=object.pk %}">Update</a>
+                        <a href="{% url "delete_user" pk=object.pk %}">Delete</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

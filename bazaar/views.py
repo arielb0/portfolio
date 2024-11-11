@@ -1,15 +1,18 @@
 from django.http import HttpRequest, HttpResponse
-from django.views.generic import CreateView, DetailView, UpdateView, DeleteView, ListView, TemplateView
-from .models import Currency, Category, Ad, Report
-from .forms import CurrencyForm, CategoryForm, AdForm, ReportForm, AdvancedSearchForm
+from django.views.generic import CreateView, DetailView, UpdateView, DeleteView, ListView, TemplateView, FormView
+from .models import Currency, Category, Ad, Report, Profile
+from .forms import CurrencyForm, CategoryForm, AdForm, ReportForm, ProfileForm, AdvancedSearchForm
+from accounts.forms import UserAdminForm, UserForm
+from accounts.views import UpdateUser
 from django.urls import reverse_lazy
 from django.db.models import Q
-from .helpers import normalize_ad_pictures, get_simple_search_form
-
+from .helpers import normalize_ad_pictures, get_simple_search_form, get_profile_view_context, get_user_form, set_profile_user
+from django.contrib.auth.mixins import UserPassesTestMixin, LoginRequiredMixin
+from django.contrib.auth.forms import PasswordChangeForm
 
 # Create your views here.
 
-class CreateCurrency(CreateView):
+class CreateCurrency(UserPassesTestMixin, CreateView):
     model = Currency
     form_class = CurrencyForm
     success_url = reverse_lazy('bazaar:currency_list')
@@ -18,18 +21,23 @@ class CreateCurrency(CreateView):
         context = super().get_context_data(**kwargs)        
         context = get_simple_search_form(context)
         return context
+
+    def test_func(self) -> bool | None:
+        return self.request.user.is_superuser or self.request.user.has_perm('bazaar.add_currency')
     
 
-class DetailCurrency(DetailView):
+class DetailCurrency(UserPassesTestMixin, DetailView):
     model = Currency
 
     def get_context_data(self, **kwargs) -> dict[str]:
         context = super().get_context_data(**kwargs)
         context = get_simple_search_form(context)
         return context
-    
 
-class UpdateCurrency(UpdateView):
+    def test_func(self) -> bool | None:
+        return self.request.user.is_superuser or self.request.user.has_perm('bazaar.view_currency')
+
+class UpdateCurrency(UserPassesTestMixin, UpdateView):
     model = Currency
     form_class = CurrencyForm
     success_url = reverse_lazy('bazaar:currency_list')
@@ -38,9 +46,11 @@ class UpdateCurrency(UpdateView):
         context = super().get_context_data(**kwargs)
         context = get_simple_search_form(context)
         return context
-    
 
-class DeleteCurrency(DeleteView):
+    def test_func(self) -> bool | None:
+        return self.request.user.is_superuser or self.request.user.has_perm('bazaar.change_currency')
+
+class DeleteCurrency(UserPassesTestMixin, DeleteView):
     model = Currency
     success_url = reverse_lazy('bazaar:currency_list')
 
@@ -48,9 +58,12 @@ class DeleteCurrency(DeleteView):
         context = super().get_context_data(**kwargs)
         context = get_simple_search_form(context)
         return context
+
+    def test_func(self) -> bool | None:
+        return self.request.user.is_superuser or self.request.user.has_perm('bazaar.delete_currency')
     
 
-class ListCurrency(ListView):
+class ListCurrency(UserPassesTestMixin, ListView):
     model = Currency
 
     def get_context_data(self, **kwargs) -> dict[str]:
@@ -58,8 +71,11 @@ class ListCurrency(ListView):
         context = get_simple_search_form(context)
         return context
     
+    def test_func(self):
+        return self.request.user.is_superuser or self.request.user.has_perm('bazaar.view_currency')        
+    
 
-class CreateCategory(CreateView):
+class CreateCategory(UserPassesTestMixin, CreateView):
     model = Category
     form_class = CategoryForm
     success_url = reverse_lazy('bazaar:category_list')
@@ -68,16 +84,22 @@ class CreateCategory(CreateView):
         context = super().get_context_data(**kwargs)
         context = get_simple_search_form(context)
         return context
+    
+    def test_func(self):
+        return self.request.user.is_superuser or self.request.user.has_perm('bazaar.add_category')
 
-class DetailCategory(DetailView):
+class DetailCategory(UserPassesTestMixin, DetailView):
     model = Category
 
     def get_context_data(self, **kwargs) -> dict[str]:
         context = super().get_context_data(**kwargs)
         context = get_simple_search_form(context)
         return context
+    
+    def test_func(self):
+        return self.request.user.is_superuser or self.request.user.has_perm('bazaar.view_category')
 
-class UpdateCategory(UpdateView):
+class UpdateCategory(UserPassesTestMixin, UpdateView):
     model = Category
     form_class = CategoryForm
     success_url = reverse_lazy('bazaar:category_list')
@@ -86,8 +108,11 @@ class UpdateCategory(UpdateView):
         context = super().get_context_data(**kwargs)
         context = get_simple_search_form(context)
         return context
+    
+    def test_func(self):
+        return self.request.user.is_superuser or self.request.user.has_perm('bazaar.change_category')
 
-class DeleteCategory(DeleteView):
+class DeleteCategory(UserPassesTestMixin, DeleteView):
     model = Category
     success_url = reverse_lazy('bazaar:category_list')
 
@@ -95,16 +120,22 @@ class DeleteCategory(DeleteView):
         context = super().get_context_data(**kwargs)
         context = get_simple_search_form(context)
         return context
+    
+    def test_func(self):
+        return self.request.user.is_superuser or self.request.user.has_perm('bazaar.delete_category')
 
-class ListCategory(ListView):
+class ListCategory(UserPassesTestMixin, ListView):
     model = Category
 
     def get_context_data(self, **kwargs) -> dict[str]:
         context = super().get_context_data(**kwargs)
         context = get_simple_search_form(context)
         return context
+    
+    def test_func(self):
+        return self.request.user.is_superuser or self.request.user.has_perm('bazaar.view_category')
 
-class CreateAd(CreateView):
+class CreateAd(LoginRequiredMixin, CreateView):
     model = Ad
     form_class = AdForm
     success_url = reverse_lazy('bazaar:ad_list')
@@ -115,7 +146,7 @@ class CreateAd(CreateView):
         return context
 
     def post(self, request: HttpRequest, *args: str, **kwargs) -> HttpResponse:        
-        self.request = normalize_ad_pictures(request, (748, 420))
+        self.request = normalize_ad_pictures(request, (748, 420)) # TODO: You need to use self.request.POST = self.request.POST.copy()
         return super().post(request, *args, **kwargs)
 
 class DetailAd(DetailView):
@@ -137,8 +168,8 @@ class UpdateAd(UpdateView):
         return context
 
     def post(self, request: HttpRequest, *args, **kwargs) -> HttpResponse:
-        self.request = normalize_ad_pictures(request, (748, 420))
-        return super().post(request, *args, **kwargs)    
+        self.request = normalize_ad_pictures(request, (748, 420)) # TODO: You need to use self.request.POST = self.request.POST.copy().
+        return super().post(request, *args, **kwargs)
 
 class DeleteAd(DeleteView):
     model = Ad
@@ -254,7 +285,36 @@ class ListReport(ListView):
         context = super().get_context_data(**kwargs)
         context = get_simple_search_form(context)
         return context
+    
+class DetailProfile(DetailView):
+    model = Profile
 
+    def get_object(self):
+        return Profile.objects.get_or_create(user = self.request.user)[0]
+
+class UpdateProfile(UpdateView):
+    model = Profile
+    form_class = ProfileForm
+    success_url = reverse_lazy('bazaar:profile_detail')
+    
+    def get_object(self, **kwargs):
+        return Profile.objects.get_or_create(user = self.request.user)[0]
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)        
+        if self.request.user.is_superuser:
+            context['user_form'] = UserAdminForm(instance = self.request.user)
+        else:
+            context['user_form'] = UserForm(instance = self.request.user)
+        context['password_form'] = PasswordChangeForm(user = self.request.user)
+        return context
+
+class UpdateUserProfile(UpdateUser):
+    success_url = reverse_lazy('bazaar:profile_detail')
+
+    def get_object(self):
+        return self.request.user
+    
 class Home(TemplateView):
     template_name = 'bazaar/home.html'
 

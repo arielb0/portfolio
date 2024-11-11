@@ -3,7 +3,7 @@ from django.core.files.base import File
 from django.db.models.base import Model
 from django.forms import Form, ModelForm, CharField, IntegerField, DateField, ModelChoiceField, ModelMultipleChoiceField
 from django.forms.utils import ErrorList
-from .models import Currency, Category, Ad, Report
+from .models import Currency, Category, Ad, Report, Profile
 from django.forms.widgets import TextInput, Textarea, NumberInput, Select, EmailInput, SelectMultiple, ClearableFileInput, HiddenInput
 from django.forms.widgets import DateInput
 from django.db.models import Q
@@ -139,4 +139,18 @@ class AdvancedSearchForm(SimpleSearchForm):
     date_start = DateField(required = False, widget = DateInput(attrs={'class': 'form-control', 'type': 'date'}))
     date_end = DateField(required = False, widget = DateInput(attrs={'class': 'form-control', 'type': 'date'}))
     category = ModelChoiceField(required = False, queryset = Category.objects.filter(subcategories = None), widget = Select(attrs={'class': 'form-select'}))
+
+class ProfileForm(ModelForm):
+
+    class Meta:
+        model = Profile
+        fields = ['address', 'phone'] #['user', 'address', 'phone']
+        widgets = {
+            #'user': HiddenInput(),
+            'address': TextInput(attrs = {'class': 'form-control'}),
+            'phone': TextInput(attrs = {'class': 'form-control'})
+        }
+
+
+
     

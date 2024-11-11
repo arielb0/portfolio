@@ -1,0 +1,23 @@
+{% extends "bazaar/base.html" %}
+
+{% block main %}
+    <h1>Do some action</h1>
+
+    <form action="{% url "bazaar:profile_user_update" %}" method="post">
+        {% csrf_token %}
+        {{ user_form.as_p }}
+        <input type="submit" value="{% include "bazaar/action_label.html" %} basic info">
+    </form>
+
+    <form action="" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="{% include "bazaar/action_label.html" %} aditional info">
+    </form>
+
+    <form action="{% url "bazaar:profile_password_update" %}" method="post">
+        {% csrf_token %}
+        {{ password_form.as_p }}
+        <input type="submit" value="{% include "bazaar/action_label.html" %} password">
+    </form>
+{% endblock %}

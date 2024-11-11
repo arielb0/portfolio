@@ -11,24 +11,35 @@
         <button class="btn btn-outline-success">Search</button>
     </form>
     <ul class="navbar-nav">
-        {% if user.is_superuser %}
-            <li class="nav-item">
-                <a class="nav-link" href="{% url "bazaar:category_list" %}">Categories</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{% url "bazaar:currency_list" %}">Currencies</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{% url "bazaar:report_list" %}">Reports</a>
-            </li>
-        {% endif %}
+        {% with user_permissions=user.get_all_permissions %}
+            {% if user.is_superuser or 'bazaar.view_category' in user_permissions %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url "bazaar:category_list" %}">Categories</a>
+                </li>                
+            {% endif %}
+            {% if user.is_superuser or 'bazaar.view_currency' in user_permissions%}
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url "bazaar:currency_list" %}">Currencies</a>
+                </li>
+            {% endif %}
+            {% if user.is_superuser or 'bazaar.view_report' in user_permissions%}
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url "bazaar:report_list" %}">Reports</a>
+                </li>
+            {% endif %}
+            {% if user.is_superuser or 'bazaar.view_users' in user_permissions%}
+                <li class="nav-item">
+                    <a class="nav-link" target="_blank" href="{% url "user_list" %}">Users</a>
+                </li>
+            {% endif %}
+        {% endwith %}
 
         {% if user.is_authenticated %}
             <li class="nav-item">
                 <a class="nav-link" href="{% url "bazaar:ad_create" %}">New Ad</a>
             </li>            
             <li class="nav-item">
-                <a class="nav-link" target="_blank" href="{% url "update_user"  pk=user.id %}">Account</a>
+                <a class="nav-link" href="{% url "bazaar:profile_detail" %}">Profile</a>
             </li>
             <li class="nav-item">
                 <form action="{% url "logout" %}?next={{ request.path }}" method="post">

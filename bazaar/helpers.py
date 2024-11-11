@@ -4,9 +4,9 @@ from django.core.files.uploadedfile import InMemoryUploadedFile
 from os.path import splitext
 from sys import getsizeof
 from django.http import HttpRequest
-from .models import Category
-from django.db.models import QuerySet
 from .forms import SimpleSearchForm
+from accounts.forms import UserAdminForm, UserForm
+from django.contrib.auth.forms import PasswordChangeForm
 from typing import Any
 
 def create_thumbnail(image_field: InMemoryUploadedFile, size: tuple[int]):
@@ -42,6 +42,33 @@ def create_thumbnail(image_field: InMemoryUploadedFile, size: tuple[int]):
                                 'image/jpeg', 
                                 getsizeof(normalized_image), None)
 
+def copy_request(request: HttpRequest):
+    '''
+        This function copy a Django HTTP Request. This is useful to modify the request
+        without change the original (functional programming principle)
+    '''
+
+    request_copy = HttpRequest()
+
+    request_copy.path = request.path
+    request_copy.path_info = request.path_info
+    request_copy.method = request.method
+    request_copy.encoding = request.encoding
+    request_copy.content_type = request.content_type
+    request_copy.content_params = request.content_params
+    request_copy.GET = request.GET.copy()
+    request_copy.POST = request.POST.copy()
+    request_copy.COOKIES = request.COOKIES.copy()
+    request_copy.META = request.META.copy()
+    request_copy.headers = request.headers
+    request_copy.resolver_match = request.resolver_match
+    
+    if hasattr(request, 'user'):
+        request_copy.user = request.user
+    # TODO: Put more fields.. You will need it.
+
+    return request_copy
+
 def normalize_ad_pictures(request: HttpRequest, size: tuple[int]):
     '''
         Normalize ad pictures (reduce picture size and convert to JPEG format).
@@ -58,19 +85,7 @@ def normalize_ad_pictures(request: HttpRequest, size: tuple[int]):
     '''
 
     normalized_request = HttpRequest()
-    
-    normalized_request.path = request.path
-    normalized_request.path_info = request.path_info
-    normalized_request.method = request.method
-    normalized_request.encoding = request.encoding
-    normalized_request.content_type = request.content_type
-    normalized_request.content_params = request.content_params
-    normalized_request.GET = request.GET.copy()
-    normalized_request.POST = request.POST.copy()
-    normalized_request.COOKIES = request.COOKIES.copy()
-    normalized_request.META = request.META.copy()
-    normalized_request.headers = request.headers
-    normalized_request.resolver_match = request.resolver_match
+    normalized_request = copy_request(request)
 
     for number in range(0, 10):
             field_name = f'picture_{number}'
@@ -96,3 +111,60 @@ def get_simple_search_form(context: dict[str, Any], data: dict = {}):
      context_copy = context.copy()
      context_copy['simple_search_form'] = SimpleSearchForm(data = data)
      return context_copy
+'''
+def user_is_superuser(request: HttpRequest) -> bool:
+     
+        This function return True if user present on request is superuser.
+        Useful to avoid repetitive code on views and tests modules.
+
+        Returns
+        --------
+        Return True if user is superuser, False otherwise.
+     
+     return request.user.is_superuser
+     '''
+
+def get_user_form(request: HttpRequest):
+    '''
+        This method returns the proper UserForm class
+        that CreateProfile or UpdateProfile will use.
+        If user that make request is superuser, return UserAdminForm, else
+        return UserForm
+    '''
+
+    if request.user.is_superuser:
+        return UserAdminForm
+    
+    return UserForm
+
+def get_profile_view_context(request: HttpRequest, context: dict):
+     '''
+        This function return the passed context with
+        user_form and password_form. Useful to avoid repetitive
+        code on CreateProfile and UpdateProfile views
+     '''     
+
+     if request.user.is_superuser:
+        user_form = UserAdminForm()
+     else:
+        user_form = UserForm()
+
+     context['user_form'] = user_form
+     context['password_form'] = PasswordChangeForm
+
+     return context
+
+def set_profile_user(request: HttpRequest):
+     '''
+        This function modify user on CreateProfile and UpdateProfile views,
+        to ensure that the user that make the request is modifing your own
+        profile and not another. This function encapsulates repetive code
+        present on this views, inside post method.
+     '''
+
+     if request.POST['user'] != request.user.id:
+        modified_request = copy_request(request)
+        modified_request.POST['user'] = request.user.id
+        return modified_request
+
+     return request

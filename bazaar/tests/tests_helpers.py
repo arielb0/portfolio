@@ -1,5 +1,5 @@
 from django.test import TestCase
-from ..helpers import create_thumbnail, normalize_ad_pictures, get_simple_search_form
+from ..helpers import create_thumbnail, normalize_ad_pictures, get_simple_search_form, copy_request
 from django.core.files.uploadedfile import InMemoryUploadedFile
 from scull_suite.settings import STATICFILES_DIRS
 from os.path import join
@@ -10,6 +10,9 @@ from django.urls import reverse
 from ..models import Category, Currency
 from os.path import splitext
 from ..forms import SimpleSearchForm
+from django.test import RequestFactory
+from django.http import HttpRequest
+from django.contrib.auth.models import AnonymousUser
 
 
 from bazaar.tests.helpers import Generator
@@ -167,4 +170,32 @@ class NormalizePictureTestSuite(TestCase):
 
         self.assertIn('simple_search_form', context)
         self.assertIsInstance(context['simple_search_form'], SimpleSearchForm)
-        self.assertEqual(context['simple_search_form']['query'].data, 'groceries')
+        self.assertEqual(context['simple_search_form']['query'].data, 'groceries')        
+
+    def test_copy_request(self):
+        '''
+            Test if copy_request function, given a HttpRequest object returns a
+            copy.
+        '''
+
+        request_factory = RequestFactory()
+        request = request_factory.get('bazaar:ad_list')        
+        request.user = AnonymousUser()
+        request_copy = copy_request(request)
+        
+        self.assertEqual(request_copy.path, request.path)
+        self.assertEqual(request_copy.path_info, request.path_info)
+        self.assertEqual(request_copy.method, request.method)
+        self.assertEqual(request_copy.encoding, request.encoding)
+        self.assertEqual(request_copy.content_type, request.content_type)
+        self.assertEqual(request_copy.content_params, request.content_params)
+        self.assertEqual(request_copy.GET, request.GET)
+        self.assertEqual(request_copy.POST, request.POST)
+        self.assertEqual(request_copy.COOKIES, request.COOKIES)
+        self.assertEqual(request_copy.META, request.META)
+        self.assertEqual(request_copy.headers, request.headers)
+        self.assertEqual(request_copy.resolver_match, request.resolver_match)
+        self.assertEqual(request_copy.user, request.user)
+
+        
+        

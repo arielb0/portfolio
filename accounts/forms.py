@@ -4,16 +4,27 @@ from django.contrib.auth.models import User
 import secrets
 
 from django.contrib.auth.forms import AuthenticationForm, UsernameField
-from django.forms.widgets import TextInput
+from django.forms.widgets import TextInput, SelectMultiple
 from django.forms import CharField
 
-
-class UserForm(ModelForm):
+class UserAdminForm(ModelForm):
 
     class Meta:
         model = User
-        fields = ["first_name", "last_name", "email", "username"]
+        fields = ['first_name', 'last_name', 'email', 'username', 'groups']
+        widgets = {
+            'first_name': TextInput(attrs = {'class': 'form-control'}),
+            'last_name': TextInput(attrs = {'class': 'form-control'}),
+            'email': TextInput(attrs = {'class': 'form-control'}),
+            'username': TextInput(attrs = {'class': 'form-control'}),
+            'groups': SelectMultiple(attrs = {'class': 'form-select'})
+        }
 
+class UserForm(UserAdminForm):
+
+    class Meta(UserAdminForm.Meta):
+        exclude = ['groups']
+    
 
 class UserRegistrationForm(UserForm):
 

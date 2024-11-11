@@ -120,7 +120,7 @@
             {% for review in reviews %}
                 <div class="mb-2 mt-2 bg-secondary-subtle">
                     <p>{{ review.name }}</p>
-                    {% if review.prediction %}
+                    {% if review.sentiment %}
                         <i class="bi bi-hand-thumbs-up-fill text-success"></i>
                     {% else %}
                         <i class="bi bi-hand-thumbs-down-fill text-danger"></i>

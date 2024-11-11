@@ -136,11 +136,31 @@
                     </div>
                 </div>
 
-            </div>
+                <div class="col-sm-4">
+                    <div class="card">
+                        
+                        <img class="card-img" src="{% static 'img/bazaar_project.jpg' %}" alt="Bazaar project using Django and other tools">
+                        
+                        <div class="card-body">
+                                
+                            <div>                                    
+                                <img style="width:5vw" src="{% static 'img/postgresql.svg' %}" alt="PostgreSQL logo">
+                                <img style="width:5vw" src="{% static 'img/python.svg' %}" alt="Python logo">
+                                <img style="width:5vw" src="{% static 'img/django.svg' %}" alt="Django logo">
+                                <img style="width:5vw" src="{% static 'img/bootstrap.svg' %}" alt="Bootstrap logo">
+                            </div>
+                            
+                            <p class="card-text">
+                                This application allows buy and sell things. It is a virtual bazar.
+                            </p>
+        
+                            <a href="{% url "bazaar:home" %}" target="_blank">Bazaar</a>
+                        </div>
+                        
+                    </div>
+                </div>
 
-            <div class="row">                
-
-            </div>
+            </div>            
             
         </section>
 

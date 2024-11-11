@@ -1,0 +1,14 @@
+{% extends "bazaar/base.html" %}
+
+{% block main %}
+    <h1>Profile</h1>
+    <ul>
+        <li>Username: {{ user.username }}</li>
+        <li>First Name: {{ user.first_name }}</li>
+        <li>Last Name: {{ user.last_name }}</li>
+        <li>Email: {{ user.email }}</li>
+        <li>Address: {{ object.address }}</li>
+        <li>Phone: {{ object.phone }}</li>
+        <a href="{% url "bazaar:profile_update" %}">Update Profile</a>
+    </ul>
+{% endblock %}

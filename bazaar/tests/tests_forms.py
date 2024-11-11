@@ -1,6 +1,6 @@
 from django.test import TestCase
-from ..forms import CurrencyForm, CategoryForm, AdForm, ReportForm, SimpleSearchForm, AdvancedSearchForm
-from ..models import Currency, Category, Ad, Report
+from ..forms import CurrencyForm, CategoryForm, AdForm, ReportForm, SimpleSearchForm, AdvancedSearchForm, ProfileForm
+from ..models import Currency, Category, Ad, Report, Profile
 from django.forms import CharField, IntegerField, ModelChoiceField, DateField, ModelMultipleChoiceField
 from django.forms.widgets import TextInput, Textarea, NumberInput, Select, EmailInput, SelectMultiple, ClearableFileInput, HiddenInput, DateInput
 
@@ -454,3 +454,39 @@ class AdvancedSearchFormTestCase(TestCase):
         '''
 
         self.assertEqual(self.advanced_search_form.fields['category'].widget.__class__, Select)
+
+class ProfileFormTestCase(TestCase):
+
+    @classmethod
+    def setUpTestData(cls):
+
+        return super().setUpTestData()
+    
+    def test_profile_form_model(self):
+        '''
+            Test if ProfileForm has the property model set to Profile
+        '''
+
+        self.assertEqual(ProfileForm.Meta.model, Profile)
+
+    def test_profile_form_fields(self):
+        '''
+            Test if ProfileForm class has the property fields set
+            to ['address', 'phone']
+        '''
+
+        self.assertEqual(ProfileForm.Meta.fields, ['address', 'phone'])
+
+    def test_profile_form_address_widget(self):
+        '''
+            Test if ProfileForm has set the right widget for address field (TextInput)
+        '''
+
+        self.assertEqual(ProfileForm.Meta.widgets['address'].__class__, TextInput)
+
+    def test_profile_form_phone_widget(self):
+        '''
+            Test if ProfileForm has the the right widget for phone field (TextInput)
+        '''
+
+        self.assertEqual(ProfileForm.Meta.widgets['phone'].__class__, TextInput)

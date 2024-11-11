@@ -3,8 +3,10 @@ from bazaar.models import Currency, Category, Ad
 import datetime
 from datetime import timedelta
 from django.core.management import call_command
-
-from bazaar.tests.helpers import Generator
+from scull_suite.settings import BASE_DIR
+import os
+from django.contrib.auth.models import Permission, Group
+from django.core.exceptions import ObjectDoesNotExist
 
 class CommandsTestCase(TestCase):
 
@@ -65,5 +67,54 @@ class CommandsTestCase(TestCase):
         call_command('delete_old_ads')
 
         self.assertQuerySetEqual(Ad.objects.all(), Ad.objects.filter(pk=actual_ad.pk))
-        
-        
+
+    def test_bazaar_makefixtures(self):
+        '''
+            Test if makefixtures command generate permissions.json and groups.json
+            with the right content.
+        '''
+
+        '''
+            If bazaar/{groups.json, permissions.json} exists, delete it.
+            Execute makefixtures command.
+            Check if bazaar/{groups.json, permissions.json} exists.
+            Check if 'Bazaar Moderator' and 'Bazaar Superuser' has the right permissions.
+        '''
+
+        permissions_fixture_path = f'{BASE_DIR}/bazaar/fixtures/bazaar/permissions.json'
+        groups_fixture_path = f'{BASE_DIR}/bazaar/fixtures/bazaar/groups.json'
+
+        if os.path.exists(permissions_fixture_path):
+            os.remove(permissions_fixture_path)
+
+        if os.path.exists(groups_fixture_path):
+            os.remove(groups_fixture_path)
+
+        call_command('bazaar_makefixtures')
+
+        self.assertTrue(os.path.exists(permissions_fixture_path))
+        self.assertTrue(os.path.exists(groups_fixture_path))
+
+        try:
+            bazaar_moderator = Group.objects.get(name = 'Bazaar Moderator')            
+        except ObjectDoesNotExist:
+            self.fail('Bazaar Moderator group does not exist on database')
+
+        try:
+            bazaar_superuser = Group.objects.get(name = 'Bazaar Superuser')
+        except ObjectDoesNotExist:
+            self.fail('Bazaar Superadmin group does not exist on database')
+
+        bazaar_moderator_permissions = bazaar_moderator.permissions.all().values_list('codename', flat = True)
+        bazaar_superuser_permissions = bazaar_superuser.permissions.all().values_list('codename', flat = True)
+
+        self.assertIn('delete_ad', bazaar_moderator_permissions)
+        self.assertIn('view_report', bazaar_moderator_permissions)
+
+        for model in ['currency', 'category', 'ad', 'report', 'user']:
+            if model != 'ad':
+                self.assertIn(f'add_{model}', bazaar_superuser_permissions)
+                self.assertIn(f'view_{model}', bazaar_superuser_permissions)
+                
+            self.assertIn(f'change_{model}', bazaar_superuser_permissions)
+            self.assertIn(f'delete_{model}', bazaar_superuser_permissions)

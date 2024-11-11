@@ -50,10 +50,10 @@ class Ad(models.Model):
     description = models.CharField(max_length = 254)
     price = models.DecimalField(max_digits = 10, decimal_places = 2)
     currency = models.ForeignKey(Currency, on_delete = models.CASCADE)
-    address = models.CharField(max_length = 64, blank = True) # You can improve this field, using GPS coordinates
-    name = models.CharField(max_length = 32)
-    phone = models.CharField(max_length = 16, blank = True)
-    mail = models.EmailField()
+    address = models.CharField(max_length = 64, blank = True) # Extend User model or leave this field.
+    name = models.CharField(max_length = 32) # You can use the User model.
+    phone = models.CharField(max_length = 16, blank = True) # Extend User model or leave this field.
+    mail = models.EmailField() # You can use the User model.
     date = models.DateField(default=date.today)
     alternative_currencies = models.ManyToManyField(Currency, related_name = 'alternative_currencies', blank = True)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
@@ -80,7 +80,7 @@ class Ad(models.Model):
     def __str__(self):
         return f'{self.currency.code} {self.price} {self.title}'
     
-    def delete(self):        
+    def delete(self):
 
         for number in range(0, 10):
             field_name =  f'picture_{number}'
@@ -133,3 +133,11 @@ class Report(models.Model):
     
     class Meta:
         ordering = ['-date', '-reason']
+
+class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    address = models.CharField(max_length = 64, blank = True)
+    phone = models.CharField(max_length = 16, blank = True)
+
+    def __str__(self):
+        return self.user.username

@@ -1,5 +1,7 @@
 from django.test import TestCase
-from ..models import Currency, Category, Ad, Report 
+from ..models import Currency, Category, Ad, Report, Profile
+from django.db.models.fields.related import OneToOneField
+from django.db.models.fields import CharField
 from django.db.utils import IntegrityError
 from django.core.exceptions import ValidationError
 from django.contrib.auth.models import User
@@ -714,3 +716,86 @@ class ReportTestCase(TestCase):
 
         with self.assertRaises(ValidationError):
             report.full_clean()
+
+class ProfileTestCase(TestCase):
+    
+    @classmethod
+    def setUpTestData(cls):
+
+        cls.user_field = Profile._meta.get_field('user')
+        cls.address_field = Profile._meta.get_field('address')
+        cls.phone_field = Profile._meta.get_field('phone')
+
+        return super().setUpTestData()
+    
+    def test_user_field_type(self):
+        '''
+            Test if user field use the right field type (OneToOneField)
+        '''
+        
+        self.assertIsInstance(self.user_field, OneToOneField)        
+    
+    def test_user_related_model(self):
+        '''
+            Test if user field use the right model (User)
+        '''
+
+        self.assertEqual(self.user_field.related_model, User)
+
+    def test_user_on_delete(self):
+        '''
+            Test if user field has set on_delete property to models.CASCADE
+            You need to make this test indirectly.
+        '''
+        
+        temporal_user = User(username = 'Ramiro', password = 'Grocer1es34$')
+        temporal_user.save()
+
+        profile = Profile(user = temporal_user)
+        profile.save()
+
+        temporal_user.delete()
+
+        self.assertQuerySetEqual(Profile.objects.all(), Profile.objects.none())
+
+    def test_address_field_type(self):
+        '''
+            Test if address field use the right field type (CharField)
+        '''
+        
+        self.assertIsInstance(self.address_field, CharField)
+
+    def test_address_max_length(self):
+        '''
+            Test if address field has the max_length parameter set to 64
+        '''
+
+        self.assertEqual(self.address_field.max_length, 64)
+
+    def test_address_blank(self):
+        '''
+            Test if address field has the blank parameter set to True
+        '''
+
+        self.assertTrue(self.address_field.blank)
+
+    def test_phone_field_type(self):
+        '''
+            Test if phone field belongs to the right class (CharField)
+        '''
+
+        self.assertIsInstance(self.phone_field, CharField)
+
+    def test_phone_max_length(self):
+        '''
+            Test if phone field has max_length property set to 16
+        '''
+
+        self.assertEqual(self.phone_field.max_length, 16)
+
+    def test_phone_blank(self):
+        '''
+            Test if phone field has blank property set to True
+        '''
+
+        self.assertTrue(self.phone_field.blank)

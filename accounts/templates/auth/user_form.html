@@ -2,7 +2,7 @@
 
 {% block title %}{{ action }} account{% endblock title %}
 {% block main %}
-
+    
     <div class="d-flex flex-column min-vh-100 justify-content-center align-items-center">
         <form action="" method="post">
             {% csrf_token %}
@@ -15,7 +15,8 @@
             <a href="{% url 'password_change' %}">Change password</a>
         {% endif %}
     </div>
-
+    
+    <!--
     <h1>{{ action }} account</h1>
     <form action="" method="post">
         {% csrf_token %}
@@ -25,14 +26,16 @@
     {% if action == 'Update' %}
         <a href="{% url 'password_change' %}">Change password</a>
     {% endif %}
-
+    -->
+    <!--
     <div class="d-flex flex-column min-vh-100 justify-content-center align-items-center">
         <form th:action="@{/users/create}" method="post">
             <div th:replace="~{fragments :: userForm('', '', 'Create user')}"></div>
         </form>
         <div class="text-center m-3">
-            <p>You have an account?</p>
+            <p>Do you have an account?</p>
             <a class="text-center" href="/login">Login</a>
         </div>
     </div>
+    -->
 {% endblock %}

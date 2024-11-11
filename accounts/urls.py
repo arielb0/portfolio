@@ -1,7 +1,7 @@
 from django.urls import path, reverse_lazy
 from django.contrib.auth import views as auth_views
 from django.views.generic import TemplateView
-from .views import CreateUser, ReadUser, UpdateUser, DeleteUser
+from .views import CreateUser, ReadUser, UpdateUser, DeleteUser, ListUser
 from .forms import CustomLoginForm
 
 urlpatterns = [    
@@ -18,6 +18,7 @@ urlpatterns = [
     path("<int:pk>", ReadUser.as_view(), name="read_user"),
     path("<int:pk>/update", UpdateUser.as_view(), name="update_user"),
     path("<int:pk>/delete", DeleteUser.as_view(), name="delete_user"),
+    path("", ListUser.as_view(), name = "user_list"),
     # Email verification
     path("email_verification/", TemplateView.as_view(template_name="registration/email_verification.html"), name="email_verification"),
 ]

@@ -1,0 +1,146 @@
+[
+{
+    "model": "restaurant.answer",
+    "pk": 1,
+    "fields": {
+        "body": "Answer by default. You need to write your own answers.",
+        "topic": 0
+    }
+},
+{
+    "model": "restaurant.answer",
+    "pk": 2,
+    "fields": {
+        "body": "Answer by default. You need to write your own answers.",
+        "topic": 1
+    }
+},
+{
+    "model": "restaurant.answer",
+    "pk": 3,
+    "fields": {
+        "body": "Answer by default. You need to write your own answers.",
+        "topic": 2
+    }
+},
+{
+    "model": "restaurant.answer",
+    "pk": 4,
+    "fields": {
+        "body": "Answer by default. You need to write your own answers.",
+        "topic": 3
+    }
+},
+{
+    "model": "restaurant.answer",
+    "pk": 5,
+    "fields": {
+        "body": "Answer by default. You need to write your own answers.",
+        "topic": 4
+    }
+},
+{
+    "model": "restaurant.answer",
+    "pk": 6,
+    "fields": {
+        "body": "Answer by default. You need to write your own answers.",
+        "topic": 5
+    }
+},
+{
+    "model": "restaurant.answer",
+    "pk": 7,
+    "fields": {
+        "body": "Answer by default. You need to write your own answers.",
+        "topic": 6
+    }
+},
+{
+    "model": "restaurant.answer",
+    "pk": 8,
+    "fields": {
+        "body": "Answer by default. You need to write your own answers.",
+        "topic": 7
+    }
+},
+{
+    "model": "restaurant.answer",
+    "pk": 9,
+    "fields": {
+        "body": "Answer by default. You need to write your own answers.",
+        "topic": 8
+    }
+},
+{
+    "model": "restaurant.answer",
+    "pk": 10,
+    "fields": {
+        "body": "Answer by default. You need to write your own answers.",
+        "topic": 9
+    }
+},
+{
+    "model": "restaurant.answer",
+    "pk": 11,
+    "fields": {
+        "body": "Answer by default. You need to write your own answers.",
+        "topic": 10
+    }
+},
+{
+    "model": "restaurant.answer",
+    "pk": 12,
+    "fields": {
+        "body": "Answer by default. You need to write your own answers.",
+        "topic": 11
+    }
+},
+{
+    "model": "restaurant.answer",
+    "pk": 13,
+    "fields": {
+        "body": "Answer by default. You need to write your own answers.",
+        "topic": 12
+    }
+},
+{
+    "model": "restaurant.answer",
+    "pk": 14,
+    "fields": {
+        "body": "Answer by default. You need to write your own answers.",
+        "topic": 13
+    }
+},
+{
+    "model": "restaurant.answer",
+    "pk": 15,
+    "fields": {
+        "body": "Answer by default. You need to write your own answers.",
+        "topic": 14
+    }
+},
+{
+    "model": "restaurant.answer",
+    "pk": 16,
+    "fields": {
+        "body": "Answer by default. You need to write your own answers.",
+        "topic": 15
+    }
+},
+{
+    "model": "restaurant.answer",
+    "pk": 17,
+    "fields": {
+        "body": "Answer by default. You need to write your own answers.",
+        "topic": 16
+    }
+},
+{
+    "model": "restaurant.answer",
+    "pk": 18,
+    "fields": {
+        "body": "Answer by default. You need to write your own answers.",
+        "topic": 17
+    }
+}
+]
