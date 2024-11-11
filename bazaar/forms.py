@@ -88,8 +88,8 @@ class AdForm(ModelForm):
     class Meta:
         model = Ad
         fields = [
-            'title', 'description', 'price', 'currency', 'address', 'name',
-            'phone', 'mail', 'alternative_currencies', 'category', 
+            'title', 'description', 'price', 'currency', 
+            'alternative_currencies', 'category', 
             'picture_0', 'picture_1', 'picture_2', 'picture_3', 
             'picture_4', 'picture_5', 'picture_6', 'picture_7', 
             'picture_8', 'picture_9'
@@ -99,10 +99,6 @@ class AdForm(ModelForm):
             'description': Textarea(attrs={'class': 'form-control'}),
             'price': NumberInput(attrs={'class': 'form-control'}),
             'currency': Select(attrs={'class': 'form-select'}),
-            'address': TextInput(attrs={'class': 'form-control'}),
-            'name': TextInput(attrs={'class': 'form-control'}),
-            'phone': NumberInput(attrs={'class': 'form-control'}),
-            'mail': EmailInput(attrs={'class': 'form-control'}),
             'alternative_currencies': SelectMultiple(attrs={'class': 'form-select'}),
             'category': Select(attrs={'class': 'form-select'}),
             'picture_0': ClearableFileInput(attrs={'class': 'form-control'}),

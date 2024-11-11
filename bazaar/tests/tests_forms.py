@@ -105,15 +105,15 @@ class AdFormTestCase(TestCase):
     def test_ad_form_fields(self):
         '''
             Test if AdForm class use the correct form fields
-            (title, description, price, currency, address, name,
-            phone, mail, alternative_currencies, category, 
+            (title, description, price, currency, 
+            alternative_currencies, category, 
             picture_0, picture_1, picture_2, picture_3, 
             picture_4, picture_5, picture_6, picture_7, 
             picture_8, picture_9)
         '''
 
-        form_fields = ['title', 'description', 'price', 'currency', 'address', 'name',
-            'phone', 'mail', 'alternative_currencies', 'category', 
+        form_fields = ['title', 'description', 'price', 'currency', 
+            'alternative_currencies', 'category', 
             'picture_0', 'picture_1', 'picture_2', 'picture_3',
             'picture_4', 'picture_5', 'picture_6', 'picture_7', 
             'picture_8', 'picture_9']
@@ -147,34 +147,6 @@ class AdFormTestCase(TestCase):
         '''
 
         self.assertEqual(AdForm.Meta.widgets['currency'].__class__, Select)
-
-    def test_ad_form_address_widget(self):
-        '''
-            Test if AdForm class use the correct widget for address field (TextInput)
-        '''
-
-        self.assertEqual(AdForm.Meta.widgets['address'].__class__, TextInput)
-
-    def test_ad_form_name_widget(self):
-        '''
-            Test if AdForm class use the correct widget for name field (TextInput)
-        '''
-
-        self.assertEqual(AdForm.Meta.widgets['name'].__class__, TextInput)
-
-    def test_ad_form_phone_widget(self):
-        '''
-            Test if AdForm class use the correct widget for phone field (NumberInput)
-        '''
-
-        self.assertEqual(AdForm.Meta.widgets['phone'].__class__, NumberInput)
-
-    def test_ad_form_mail_widget(self):
-        '''
-            Test if AdForm class use the correct widget for mail field (EmailInput)
-        '''
-
-        self.assertEqual(AdForm.Meta.widgets['mail'].__class__, EmailInput)
 
     def test_ad_form_alternative_currencies_widget(self):
         '''
@@ -355,7 +327,7 @@ class AdvancedSearchFormTestCase(TestCase):
             Test if currencies field has the queryset parameter set to Currency.objects.all()
         '''
         
-        self.assertQuerysetEqual(self.advanced_search_form.fields['currencies'].queryset, Currency.objects.all())
+        self.assertQuerySetEqual(self.advanced_search_form.fields['currencies'].queryset, Currency.objects.all())          
 
     def test_advanced_search_form_currencies_widget(self):
         '''

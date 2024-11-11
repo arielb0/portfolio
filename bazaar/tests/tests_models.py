@@ -199,10 +199,6 @@ class AdTestCase(TestCase):
         me using the phone number below. Please, I \
         only receive SMS.'
         cls.PRICE = '2.12'
-        cls.ADDRESS = 'Friend Street, number 1234, Florida, United States'
-        cls.NAME = 'George Smith'
-        cls.PHONE = '+123456789'
-        cls.MAIL = 'nobody@somewhere.com'
         cls.DATE = '2024-01-01'
         cls.STATUS = '0'
         cls.PICTURE_PATH = f'{MEDIA_ROOT}/images'
@@ -222,10 +218,6 @@ class AdTestCase(TestCase):
             description = self.DESCRIPTION,
             price = self.PRICE,
             currency = self.currency_1,
-            address = self.ADDRESS,
-            name = self.NAME,
-            phone = self.PHONE,
-            mail = self.MAIL,
             date = self.DATE,
             category = self.category,
             moderator = self.moderator,
@@ -246,10 +238,6 @@ class AdTestCase(TestCase):
             description = self.generator.generate_random_string(255),
             price = self.PRICE,
             currency = self.currency_1,
-            address = self.ADDRESS,
-            name = self.NAME,
-            phone = self.PHONE,
-            mail = self.MAIL,
             date = self.DATE,
             category = self.category,
             moderator = self.moderator,
@@ -267,10 +255,6 @@ class AdTestCase(TestCase):
             description = self.DESCRIPTION,
             price = self.generator.generate_random_string(11),
             currency = self.currency_1,
-            address = self.ADDRESS,
-            name = self.NAME,
-            phone = self.PHONE,
-            mail = self.MAIL,
             date = self.DATE,
             category = self.category,
             moderator = self.moderator,
@@ -291,10 +275,6 @@ class AdTestCase(TestCase):
             description = self.DESCRIPTION,
             price = '1.123',
             currency = self.currency_1,
-            address = self.ADDRESS,
-            name = self.NAME,
-            phone = self.PHONE,
-            mail = self.MAIL,
             date = self.DATE,
             category = self.category,
             moderator = self.moderator,
@@ -313,107 +293,7 @@ class AdTestCase(TestCase):
         ad = Ad(
             title = self.TITLE,
             description = self.DESCRIPTION,
-            price = self.PRICE,
-            address = self.ADDRESS,
-            name = self.NAME,
-            phone = self.PHONE,
-            mail = self.MAIL,
-            date = self.DATE,
-            category = self.category,
-            moderator = self.moderator,
-            status = self.STATUS,
-            rank = self.RANK
-        )
-
-        with self.assertRaises(ValidationError):
-            ad.full_clean()
-
-    def test_address_max_length(self):
-        '''
-            Test if address property has restriction of maximum length of 64 characters.
-        '''
-
-        ad = Ad(
-            title = self.TITLE,
-            description = self.DESCRIPTION,
-            price = self.PRICE,
-            currency = self.currency_1,
-            address = self.generator.generate_random_string(65),
-            name = self.NAME,
-            phone = self.PHONE,
-            mail = self.MAIL,
-            date = self.DATE,
-            category = self.category,
-            moderator = self.moderator,
-            status = self.STATUS,
-            rank = self.RANK
-        )
-
-        with self.assertRaises(ValidationError):
-            ad.full_clean()
-
-    def test_name_max_length(self):
-        '''
-            Test if name property has maximum length restriction of 32 characters.            
-        '''
-
-        ad = Ad(
-            title = self.TITLE,
-            description = self.DESCRIPTION,
-            price = self.PRICE,
-            currency = self.currency_1,
-            address = self.ADDRESS,
-            name = self.generator.generate_random_string(33),
-            phone = self.PHONE,
-            mail = self.MAIL,
-            date = self.DATE,
-            category = self.category,
-            moderator = self.moderator,
-            status = self.STATUS,
-            rank = self.RANK
-        )
-
-        with self.assertRaises(ValidationError):
-            ad.full_clean()
-
-    def test_phone_max_length(self):
-        '''
-            Test if phone property has maximum length restriction of 16 characters.
-        '''
-
-        ad = Ad(
-            title = self.TITLE,
-            description = self.DESCRIPTION,
-            price = self.PRICE,
-            currency = self.currency_1,
-            address = self.ADDRESS,
-            name = self.NAME,
-            phone = self.generator.generate_random_string(17),
-            mail = self.MAIL,
-            date = self.DATE,
-            category = self.category,
-            moderator = self.moderator,
-            status = self.STATUS,
-            rank = self.RANK
-        )
-
-        with self.assertRaises(ValidationError):
-            ad.full_clean()
-
-    def test_mail_valid_address(self):
-        '''
-            Test if mail property check if data is a valid address
-        '''
-
-        ad = Ad(
-            title = self.TITLE,
-            description = self.DESCRIPTION,
-            price = self.PRICE,
-            currency = self.currency_1,
-            address = self.ADDRESS,
-            name = self.NAME,
-            phone = self.PHONE,
-            mail = 'invalidaddress.com',
+            price = self.PRICE,            
             date = self.DATE,
             category = self.category,
             moderator = self.moderator,
@@ -434,10 +314,6 @@ class AdTestCase(TestCase):
             description = self.DESCRIPTION,
             price = self.PRICE,
             currency = self.currency_1,
-            address = self.ADDRESS,
-            name = self.NAME,
-            phone = self.PHONE,
-            mail = self.MAIL,
             date = '2024-31-31',
             category = self.category,
             moderator = self.moderator,
@@ -447,6 +323,10 @@ class AdTestCase(TestCase):
 
         with self.assertRaises(ValidationError):
             ad.full_clean()
+
+    # TODO: Include alternative_currencies tests
+    # TODO: Include category tests
+    # TODO: Include moderator tests
 
     def test_status_valid_choice(self):
         '''
@@ -458,10 +338,6 @@ class AdTestCase(TestCase):
             description = self.DESCRIPTION,
             price = self.PRICE,
             currency = self.currency_1,
-            address = self.ADDRESS,
-            name = self.NAME,
-            phone = self.PHONE,
-            mail = self.MAIL,
             date = self.DATE,
             category = self.category,
             moderator = self.moderator,
@@ -487,10 +363,6 @@ class AdTestCase(TestCase):
             description = self.DESCRIPTION,
             price = self.PRICE,
             currency = self.currency_1,
-            address = self.ADDRESS,
-            name = self.NAME,
-            phone = self.PHONE,
-            mail = self.MAIL,
             date = self.DATE,
             category = self.category,
             moderator = self.moderator,
@@ -511,10 +383,6 @@ class AdTestCase(TestCase):
             description = self.DESCRIPTION,
             price = self.PRICE,
             currency = self.currency_1,
-            address = self.ADDRESS,
-            name = self.NAME,
-            phone = self.PHONE,
-            mail = self.MAIL,
             date = self.DATE,
             category = self.category,
             moderator = self.moderator,
@@ -538,10 +406,6 @@ class AdTestCase(TestCase):
             description = self.DESCRIPTION,
             price = self.PRICE,
             currency = self.currency_1,
-            address = self.ADDRESS,
-            name = self.NAME,
-            phone = self.PHONE,
-            mail = self.MAIL,
             date = self.DATE,
             category = self.category,
             moderator = self.moderator,
@@ -582,10 +446,6 @@ class AdTestCase(TestCase):
             description = self.DESCRIPTION,
             price = self.PRICE,
             currency = self.currency_1,
-            address = self.ADDRESS,
-            name = self.NAME,
-            phone = self.PHONE,
-            mail = self.MAIL,
             date = self.DATE,
             category = self.category,
             picture_0 = f'{self.PICTURE_PATH}/old_picture.jpg'
@@ -619,10 +479,6 @@ class ReportTestCase(TestCase):
             description = 'If you want to throw stones, buy this weapon..',
             price = '2000',
             currency = currency,
-            address = 'On hide place',
-            name = 'Goliath',
-            phone = '',
-            mail = 'hidemyemail@someplace.com',
             date = '2024-01-01',
             category = category,
             status = '0',
