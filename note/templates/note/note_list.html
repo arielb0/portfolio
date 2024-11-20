@@ -2,17 +2,11 @@
 
 {% block title %}Notes{% endblock %}
 
-{% block nav %}
-    
-{% endblock %}
-
 {% block main %}
 
     <form action="{% url 'note:list' %}" method="post">
-                
+        {% csrf_token %}
         {% include "note/list_toolbar.html" %}
-
-        <div th:replace="~{fragments :: alert(${messageType}, ${message})}"></div>
         
         <table class="table table-hover">
             <tbody>
@@ -30,15 +24,19 @@
                                 {% endif %}
                             </a>
                         </td>
-                        <td>                        
+                        <td>
                             <a href="{% url 'note:read' note.id %}">
-                                {% if note.body|length > 128 %}
-                                    {{ note.body|slice:128 }} ...
+                                {% if note.body|length > 16 %}
+                                    {{ note.body|slice:16 }} ...
                                 {% else %}
                                     {{ note.body }}
                                 {% endif %}
                             </a>
                         </td>
+                        <td>
+                            {{ note.date }}
+                        </td>
+                        <td>{{ note.time }}</td>
                     </tr>
                 {% endfor %}
             </tbody>

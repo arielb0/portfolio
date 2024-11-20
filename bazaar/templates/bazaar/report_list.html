@@ -7,12 +7,17 @@
             <th>Date</th>
             <th>Report</th>
             <th>Reported Ad</th>
+            <th>Actions</th>
         </tr>
         {% for object in object_list %}
             <tr>
                 <td>{{ object.date }}</td>
                 <td><a href="{% url "bazaar:report_detail" pk=object.pk %}">"{{ object.ad.title}}" ad is reported as "{{ object.get_reason }}"</a></td>
                 <td><a href="{% url "bazaar:ad_detail" pk=object.ad.pk %}">{{ object.ad.title }}</a></td>
+                <td>
+                    <a href="{% url "bazaar:ad_delete" pk=object.ad.pk %}">Delete ad</a>
+                    <a href="{% url "bazaar:report_delete" pk=object.pk %}">Delete report</a>
+                </td>
             </tr>
         {% endfor %}
     </table>

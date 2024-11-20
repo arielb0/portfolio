@@ -18,10 +18,12 @@
 
     <h1 class="text-center">{{ object.title }}</h1>
 
-    <div> <!--Show this panel only if user is the owner of the ad.-->
-        <a href="{% url "bazaar:ad_update" pk=object.pk %}">Update</a>
-        <a href="{% url "bazaar:ad_delete" pk=object.pk %}">Delete</a>
-    </div>
+    {% if user.pk == object.user.pk %}
+        <div> <!--Show this panel only if user is the owner of the ad.-->
+            <a href="{% url "bazaar:ad_update" pk=object.pk %}">Update</a>
+            <a href="{% url "bazaar:ad_delete" pk=object.pk %}">Delete</a>
+        </div>
+    {% endif %}
 
     <div class="carousel slide carousel-fade" id="adCarousel" data-bs-ride="carousel">
         <div class="carousel-inner">
@@ -55,7 +57,8 @@
                 {% endfor %}
             {% endif %}
         </p>
-        <p>{{ object.address }}</p>
+        <p>{{ object.owner.profile.address }}</p>
+        <p>{{ object.owner.profile.phone }}</p>
         <p>{{ object.description }}</p>
     </div>
     <div>
@@ -64,5 +67,12 @@
             <p>{{ object.phone }}</p>
         {% endif %}
         <p>{{ object.mail }}</p>
+    </div>
+    <div>
+        {% if user.is_superuser or 'bazaar:change_ad' in user.get_all_permissions or object.owner.pk == user.pk %}
+            <a href="{% url "bazaar:ad_update" pk=object.pk %}">Update</a>
+            <a href="{% url "bazaar:ad_delete" pk=object.pk %}">Delete</a>
+        {% endif %}
+        <a href="{% url "bazaar:report_create" pk=object.pk %}">Report</a>
     </div>
 {% endblock %}

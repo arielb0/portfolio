@@ -1,4 +1,4 @@
-from django.http import HttpRequest, HttpResponse
+from django.http import HttpRequest, HttpResponse, HttpResponseRedirect
 from django.views.generic import CreateView, DetailView, UpdateView, DeleteView, ListView, TemplateView, FormView
 from .models import Currency, Category, Ad, Report, Profile
 from .forms import CurrencyForm, CategoryForm, AdForm, ReportForm, ProfileForm, AdvancedSearchForm
@@ -24,7 +24,6 @@ class CreateCurrency(UserPassesTestMixin, CreateView):
 
     def test_func(self) -> bool | None:
         return self.request.user.is_superuser or self.request.user.has_perm('bazaar.add_currency')
-    
 
 class DetailCurrency(UserPassesTestMixin, DetailView):
     model = Currency
@@ -148,6 +147,13 @@ class CreateAd(LoginRequiredMixin, CreateView):
     def post(self, request: HttpRequest, *args: str, **kwargs) -> HttpResponse:        
         self.request = normalize_ad_pictures(request, (748, 420)) # TODO: You need to use self.request.POST = self.request.POST.copy()
         return super().post(request, *args, **kwargs)
+    
+    def form_valid(self, form):
+        self.object = form.save(commit = False)
+        self.object.owner = self.request.user
+        self.object.save()
+        
+        return HttpResponseRedirect(self.get_success_url())
 
 class DetailAd(DetailView):
     model = Ad
@@ -157,7 +163,7 @@ class DetailAd(DetailView):
         context = get_simple_search_form(context)
         return context
 
-class UpdateAd(UpdateView):
+class UpdateAd(LoginRequiredMixin, UpdateView):
     model = Ad
     form_class = AdForm
     success_url = reverse_lazy('bazaar:ad_list')
@@ -170,6 +176,18 @@ class UpdateAd(UpdateView):
     def post(self, request: HttpRequest, *args, **kwargs) -> HttpResponse:
         self.request = normalize_ad_pictures(request, (748, 420)) # TODO: You need to use self.request.POST = self.request.POST.copy().
         return super().post(request, *args, **kwargs)
+
+    def form_valid(self, form):
+        ad = form.save(commit = False)
+        ad.owner = self.request.user
+        ad.save()
+        return HttpResponseRedirect(self.get_success_url())
+    
+    def test_func(self):
+        print(f'User is superuser: {self.request.user.is_superuser}')
+        print(f'User has "bazaar.change_ad" permission')
+        return self.request.user.is_superuser or self.request.user.has_perm('bazaar.view_category')
+
 
 class DeleteAd(DeleteView):
     model = Ad
@@ -233,8 +251,7 @@ class ListAd(ListView):
         context = get_simple_search_form(context, self.request.GET)
         context['advanced_search_form'] = AdvancedSearchForm(data = self.request.GET)
     
-        return context
-        
+        return context        
 
 class CreateReport(CreateView):
     model = Report
@@ -250,16 +267,25 @@ class CreateReport(CreateView):
         context = super().get_context_data(**kwargs)
         context = get_simple_search_form(context)
         return context
+    
+    def get_success_url(self):
+        if self.request.user.is_superuser or self.request.user.has_perm('bazaar.view_report'):
+            return self.success_url
+        
+        return reverse_lazy('bazaar:ad_list')
 
-class DetailReport(DetailView):
+class DetailReport(UserPassesTestMixin, DetailView):
     model = Report
 
     def get_context_data(self, **kwargs) -> dict[str]:
         context = super().get_context_data(**kwargs)
         context = get_simple_search_form(context)
         return context
+    
+    def test_func(self):
+        return self.request.user.is_superuser or self.request.user.has_perm('bazaar.view_report')
 
-class UpdateReport(UpdateView):
+class UpdateReport(UserPassesTestMixin, UpdateView): # You don't need to update a report. Only read and delete
     model = Report
     form_class = ReportForm
     success_url = reverse_lazy('bazaar:report_list')
@@ -268,8 +294,11 @@ class UpdateReport(UpdateView):
         context = super().get_context_data(**kwargs)
         context = get_simple_search_form(context)
         return context
+    
+    def test_func(self):
+        return self.request.user.is_superuser or self.request.user.has_perm('bazaar.view_report')
 
-class DeleteReport(DeleteView):
+class DeleteReport(UserPassesTestMixin, DeleteView):
     model = Report
     success_url = reverse_lazy('bazaar:report_list')
 
@@ -277,14 +306,20 @@ class DeleteReport(DeleteView):
         context = super().get_context_data(**kwargs)
         context = get_simple_search_form(context)
         return context
+    
+    def test_func(self):
+        return self.request.user.is_superuser or self.request.user.has_perm('bazaar.view_report')
 
-class ListReport(ListView):
+class ListReport(UserPassesTestMixin, ListView):
     model = Report
 
     def get_context_data(self, **kwargs) -> dict[str]:
         context = super().get_context_data(**kwargs)
         context = get_simple_search_form(context)
         return context
+    
+    def test_func(self):
+        return self.request.user.is_superuser or self.request.user.has_perm('bazaar.view_report')
     
 class DetailProfile(DetailView):
     model = Profile

@@ -5,4 +5,8 @@
 {% block main %}
     <h1>{{ object.name }}</h1>
     <p>Code: {{ object.code }}</p>
+    <div>
+        <a href="{% url "bazaar:currency_update" pk=object.pk %}">Update</a>
+        <a href="{% url "bazaar:currency_delete" pk=object.pk %}">Delete</a>
+    </div>
 {% endblock %}

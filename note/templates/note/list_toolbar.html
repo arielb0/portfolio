@@ -2,11 +2,11 @@
 
 {% block left_buttons %}
     <div class="nav-item">
-        <a class="btn btn-secondary" href="{% url 'note:create' %}">Create</a>
+        <a class="btn btn-primary" href="{% url 'note:create' %}">Create</a>
     </div>
-{% endblock  %}
+{% endblock %}
 
-{% block right_buttons %}
+{% block right_buttons %}    
     <div class="nav-item">
         <div class="d-flex">
             <span class="nav-link">Action: </span>
@@ -14,7 +14,7 @@
                 <option value="0" default>---</option>
                 <option value="1">Delete</option>
             </select>
-            <input class="btn btn-secondary ms-2" type="submit" value="Go">
+            <input class="btn btn-primary ms-2" type="submit" value="Go">
         </div>
     </div>
-{% endblock  %}
+{% endblock %}

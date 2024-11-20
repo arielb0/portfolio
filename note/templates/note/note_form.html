@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends 'note/base.html' %}
 
 {% block title %}Create a note{% endblock title %}
 
@@ -7,7 +7,7 @@
     <form action="" method="post">
         {% csrf_token %}
         {{ form.as_p }}
-        <input type="submit" value="Create note">
+        <input type="submit" value="{% include "action_label.html" %}" class="btn btn-primary">
     </form>
     
 {% endblock %}

@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends 'note/base.html' %}
 
 {% block title %}Note: {{ object.title }}{% endblock title %}
 
@@ -6,6 +6,6 @@
     <h1>{{ object.title }}</h1>
     <p>{{ object.body }}</p>
     <p>Tags: {{ object.tags }}</p>
-    <a href="{% url 'note:update' object.pk %}">Update note</a>
-    <a href="{% url 'note:delete' object.pk %}">Delete note</a>
+    <a href="{% url 'note:update' object.pk %}" class="btn btn-secondary">Update</a>
+    <a href="{% url 'note:delete' object.pk %}" class="btn btn-danger">Delete</a>
 {% endblock %}

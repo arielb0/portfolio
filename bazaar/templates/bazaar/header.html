@@ -22,13 +22,13 @@
                     <a class="nav-link" href="{% url "bazaar:currency_list" %}">Currencies</a>
                 </li>
             {% endif %}
-            {% if user.is_superuser or 'bazaar.view_report' in user_permissions%}
+            {% if user.is_superuser or 'bazaar.view_report' in user_permissions %}
                 <li class="nav-item">
                     <a class="nav-link" href="{% url "bazaar:report_list" %}">Reports</a>
                 </li>
             {% endif %}
-            {% if user.is_superuser or 'bazaar.view_users' in user_permissions%}
-                <li class="nav-item">
+            {% if user.is_superuser or 'auth.view_user' in user_permissions %}
+                <li class="nav-item">                    
                     <a class="nav-link" target="_blank" href="{% url "user_list" %}">Users</a>
                 </li>
             {% endif %}

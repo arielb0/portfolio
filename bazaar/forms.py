@@ -29,7 +29,7 @@ class CategoryForm(ModelForm):
 
         def get_subcategories(category: Category) -> list[int]:
             '''
-                Given a category model, return all subcategories related to them.               
+                Given a category model, return all subcategories id related to them.               
 
                 Parameters
                 ----------
@@ -59,9 +59,6 @@ class CategoryForm(ModelForm):
         if instance:
 
             self.fields['parent_category'].queryset = Category.objects.exclude(pk__in=get_subcategories(instance))
-            
-
-            
 
     class Meta:
         model = Category
@@ -140,9 +137,8 @@ class ProfileForm(ModelForm):
 
     class Meta:
         model = Profile
-        fields = ['address', 'phone'] #['user', 'address', 'phone']
+        fields = ['address', 'phone']
         widgets = {
-            #'user': HiddenInput(),
             'address': TextInput(attrs = {'class': 'form-control'}),
             'phone': TextInput(attrs = {'class': 'form-control'})
         }

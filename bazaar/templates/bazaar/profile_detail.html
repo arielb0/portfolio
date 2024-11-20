@@ -10,5 +10,6 @@
         <li>Address: {{ object.address }}</li>
         <li>Phone: {{ object.phone }}</li>
         <a href="{% url "bazaar:profile_update" %}">Update Profile</a>
+        <a href="{% url "delete_user" pk=user.pk %}">Delete Profile</a>
     </ul>
 {% endblock %}

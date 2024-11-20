@@ -1,0 +1,15 @@
+{% extends "header.html" %}
+
+{% block offcanvas_header %}
+    <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Note</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+{% endblock %}
+
+{% block offcanvas_body %}
+    <div class="d-flex">
+        <form action="" method="GET">
+            <input type="text" name="search" id="">
+            <input type="submit" value="Search" class="btn btn-primary">
+        </form>
+    </div>
+{% endblock %}

@@ -1,10 +1,10 @@
 {% extends "bazaar/base.html" %}
 
 {% block main %}
-    <h1>{% include "bazaar/action_label.html" %} an advertesiment</h1>
+    <h1>{% include "action_label.html" %} an advertesiment</h1>
     <form action="" enctype="multipart/form-data" method="post">
         {% csrf_token %}
         {{ form.as_p }}
-        <button type="submit">{% include "bazaar/action_label.html" %} Ad</button>
+        <button type="submit">{% include "action_label.html" %} Ad</button>
     </form>
 {% endblock %}

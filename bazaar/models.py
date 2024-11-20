@@ -53,7 +53,7 @@ class Ad(models.Model):
     date = models.DateField(default=date.today)
     alternative_currencies = models.ManyToManyField(Currency, related_name = 'alternative_currencies', blank = True)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
-    moderator = models.ForeignKey(User, on_delete = models.PROTECT, blank = True, null = True)
+    moderator = models.ForeignKey(User, on_delete = models.PROTECT, blank = True, null = True, related_name='moderator')
     PENDING = 0
     STATUS_CHOICES = {
         0: 'Pending',
@@ -72,6 +72,7 @@ class Ad(models.Model):
     picture_8 = models.ImageField(blank = True, upload_to='images/')
     picture_9 = models.ImageField(blank = True, upload_to='images/')
     rank = models.DecimalField(max_digits = 10, decimal_places = 2, default=0)
+    owner = models.ForeignKey(User, on_delete=models.CASCADE, related_name='owner')
 
     def __str__(self):
         return f'{self.currency.code} {self.price} {self.title}'
