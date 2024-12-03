@@ -1,7 +1,7 @@
 from django.http import HttpRequest, HttpResponse, HttpResponseRedirect
-from django.views.generic import CreateView, DetailView, UpdateView, DeleteView, ListView, TemplateView, FormView
+from django.views.generic import CreateView, DetailView, UpdateView, DeleteView, ListView, TemplateView
 from .models import Currency, Category, Ad, Report, Profile
-from .forms import CurrencyForm, CategoryForm, AdForm, ReportForm, ProfileForm, AdvancedSearchForm
+from .forms import CurrencyForm, CategoryForm, AdForm, AdStatusForm, ReportForm, ProfileForm, AdvancedSearchForm
 from accounts.forms import UserAdminForm, UserForm
 from accounts.views import UpdateUser
 from django.urls import reverse_lazy
@@ -86,6 +86,7 @@ class CreateCategory(UserPassesTestMixin, CreateView):
     
     def test_func(self):
         return self.request.user.is_superuser or self.request.user.has_perm('bazaar.add_category')
+    
 
 class DetailCategory(UserPassesTestMixin, DetailView):
     model = Category
@@ -97,6 +98,7 @@ class DetailCategory(UserPassesTestMixin, DetailView):
     
     def test_func(self):
         return self.request.user.is_superuser or self.request.user.has_perm('bazaar.view_category')
+    
 
 class UpdateCategory(UserPassesTestMixin, UpdateView):
     model = Category
@@ -110,6 +112,7 @@ class UpdateCategory(UserPassesTestMixin, UpdateView):
     
     def test_func(self):
         return self.request.user.is_superuser or self.request.user.has_perm('bazaar.change_category')
+    
 
 class DeleteCategory(UserPassesTestMixin, DeleteView):
     model = Category
@@ -122,6 +125,7 @@ class DeleteCategory(UserPassesTestMixin, DeleteView):
     
     def test_func(self):
         return self.request.user.is_superuser or self.request.user.has_perm('bazaar.delete_category')
+    
 
 class ListCategory(UserPassesTestMixin, ListView):
     model = Category
@@ -133,6 +137,7 @@ class ListCategory(UserPassesTestMixin, ListView):
     
     def test_func(self):
         return self.request.user.is_superuser or self.request.user.has_perm('bazaar.view_category')
+    
 
 class CreateAd(LoginRequiredMixin, CreateView):
     model = Ad
@@ -154,6 +159,7 @@ class CreateAd(LoginRequiredMixin, CreateView):
         self.object.save()
         
         return HttpResponseRedirect(self.get_success_url())
+    
 
 class DetailAd(DetailView):
     model = Ad
@@ -162,11 +168,12 @@ class DetailAd(DetailView):
         context = super().get_context_data(**kwargs)
         context = get_simple_search_form(context)
         return context
+    
 
-class UpdateAd(LoginRequiredMixin, UpdateView):
+class UpdateAd(UserPassesTestMixin, UpdateView):
     model = Ad
     form_class = AdForm
-    success_url = reverse_lazy('bazaar:ad_list')
+    success_url = reverse_lazy('bazaar:ad_list')    
 
     def get_context_data(self, **kwargs) -> dict[str]:
         context = super().get_context_data(**kwargs)
@@ -184,12 +191,10 @@ class UpdateAd(LoginRequiredMixin, UpdateView):
         return HttpResponseRedirect(self.get_success_url())
     
     def test_func(self):
-        print(f'User is superuser: {self.request.user.is_superuser}')
-        print(f'User has "bazaar.change_ad" permission')
-        return self.request.user.is_superuser or self.request.user.has_perm('bazaar.view_category')
+        return self.request.user.is_superuser or self.request.user.has_perm('bazaar.change_ad') or self.get_object().owner == self.request.user
 
 
-class DeleteAd(DeleteView):
+class DeleteAd(UserPassesTestMixin, DeleteView):
     model = Ad
     success_url = reverse_lazy('bazaar:ad_list')
 
@@ -197,13 +202,17 @@ class DeleteAd(DeleteView):
         context = super().get_context_data(**kwargs)
         context = get_simple_search_form(context)
         return context
+    
+    def test_func(self):
+        return self.request.user.is_superuser or self.request.user.has_perm('bazaar.delete_ad') or self.get_object().owner == self.request.user
+    
 
 class ListAd(ListView):
     model = Ad
 
     def get_queryset(self):
 
-        queryset = super().get_queryset()
+        queryset = Ad.objects.filter(status = 2)
 
         currency_queryset = self.request.GET.get('query', '')
         price_start = self.request.GET.get('price_start', '')
@@ -250,8 +259,47 @@ class ListAd(ListView):
         context = super().get_context_data(**kwargs)
         context = get_simple_search_form(context, self.request.GET)
         context['advanced_search_form'] = AdvancedSearchForm(data = self.request.GET)
+
+        if 'category' in self.request.GET.keys():
+            context['breadcrumb_current_page'] = Category.objects.get(pk = self.request.GET.get('category'))
+        
+        if 'query' in self.request.GET.keys():
+            context['breadcrumb_current_page'] = f'Search results for "{self.request.GET.get("query")}"'
+        return context
+        
     
-        return context        
+class UpdateAdStatus(UpdateAd):
+    form_class = AdStatusForm
+    success_url = reverse_lazy('bazaar:ad_pending')
+
+    def test_func(self):
+        return self.request.user.is_superuser or self.request.user.has_perm('bazaar.moderate_ad')
+    
+
+class ListPendingAd(UserPassesTestMixin, ListAd):
+
+    def get_template_names(self):
+        return ['bazaar/ad_pending_list.html']
+
+    def get_queryset(self):
+        print('I am executing the view ListPendingAd.')
+        return Ad.objects.filter(status = 0)
+
+    def test_func(self):        
+        return self.request.user.is_superuser or self.request.user.has_perm('bazaar.moderate_ad')
+        
+
+class ListRejectedAd(UserPassesTestMixin, ListAd):
+
+    def get_template_names(self):
+        return ['bazaar/ad_rejected_list.html']
+
+    def get_queryset(self):
+        return Ad.objects.filter(status = 1)
+
+    def test_func(self):
+        return self.request.user.is_superuser or self.request.user.has_perm('bazaar.moderate_ad')
+
 
 class CreateReport(CreateView):
     model = Report

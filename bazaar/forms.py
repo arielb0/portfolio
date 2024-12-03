@@ -57,7 +57,6 @@ class CategoryForm(ModelForm):
         instance = kwargs.get('instance')
         
         if instance:
-
             self.fields['parent_category'].queryset = Category.objects.exclude(pk__in=get_subcategories(instance))
 
     class Meta:
@@ -110,6 +109,15 @@ class AdForm(ModelForm):
             'picture_9': ClearableFileInput(attrs={'class': 'form-control'}),
         }
 
+class AdStatusForm(ModelForm):
+
+    class Meta:
+        model = Ad
+        fields = ['status']
+        widgets = {
+            'status': HiddenInput(),
+        }
+
 class ReportForm(ModelForm):
     
     class Meta:
@@ -142,7 +150,3 @@ class ProfileForm(ModelForm):
             'address': TextInput(attrs = {'class': 'form-control'}),
             'phone': TextInput(attrs = {'class': 'form-control'})
         }
-
-
-
-    

@@ -8,9 +8,6 @@
                 <a href="{% url "bazaar:home" %}">Home</a>
             </li>
             <li class="breadcrumb-item active">
-                <a href="{% url "bazaar:ad_list" %}">Search</a>
-            </li>
-            <li class="breadcrumb-item active">
                 <a href="{% url "bazaar:ad_list" %}?category={{object.category.pk}}">{{ object.category }}</a>
             </li>
         </ol>
@@ -18,8 +15,8 @@
 
     <h1 class="text-center">{{ object.title }}</h1>
 
-    {% if user.pk == object.user.pk %}
-        <div> <!--Show this panel only if user is the owner of the ad.-->
+    {% if user.pk == object.owner.pk or user.is_superuser %}
+        <div>
             <a href="{% url "bazaar:ad_update" pk=object.pk %}">Update</a>
             <a href="{% url "bazaar:ad_delete" pk=object.pk %}">Delete</a>
         </div>
@@ -69,8 +66,10 @@
         <p>{{ object.mail }}</p>
     </div>
     <div>
-        {% if user.is_superuser or 'bazaar:change_ad' in user.get_all_permissions or object.owner.pk == user.pk %}
+        {% if user.is_superuser or 'bazaar.change_ad' in user.get_all_permissions or object.owner.pk == user.pk %}
             <a href="{% url "bazaar:ad_update" pk=object.pk %}">Update</a>
+        {% endif %}
+        {% if user.is_superuser or 'bazaar.delete_ad' in user.get_all_permissions or object.owner.pk == user.pk %}
             <a href="{% url "bazaar:ad_delete" pk=object.pk %}">Delete</a>
         {% endif %}
         <a href="{% url "bazaar:report_create" pk=object.pk %}">Report</a>

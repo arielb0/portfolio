@@ -105,6 +105,9 @@ class Ad(models.Model):
     
     class Meta:
         ordering = ['-rank', '-date']
+        permissions = [
+            ('moderate_ad', 'Can moderate an Ad')
+            ]
 
 class Report(models.Model):
     REASON_CHOICES = {
@@ -132,9 +135,10 @@ class Report(models.Model):
         ordering = ['-date', '-reason']
 
 class Profile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, on_delete = models.CASCADE)
     address = models.CharField(max_length = 64, blank = True)
     phone = models.CharField(max_length = 16, blank = True)
 
     def __str__(self):
         return self.user.username
+    

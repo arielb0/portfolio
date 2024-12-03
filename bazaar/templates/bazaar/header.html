@@ -26,6 +26,12 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{% url "bazaar:report_list" %}">Reports</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url "bazaar:ad_pending" %}">Pending Ads</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url "bazaar:ad_rejected" %}">Rejected Ads</a>
+                </li>
             {% endif %}
             {% if user.is_superuser or 'auth.view_user' in user_permissions %}
                 <li class="nav-item">                    

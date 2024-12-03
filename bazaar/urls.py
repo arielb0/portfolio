@@ -1,7 +1,7 @@
 from django.urls import path
 from .views import CreateCurrency, DetailCurrency, UpdateCurrency, DeleteCurrency, ListCurrency
 from .views import CreateCategory, DetailCategory, UpdateCategory, DeleteCategory, ListCategory
-from .views import CreateAd, DetailAd, UpdateAd, DeleteAd, ListAd
+from .views import CreateAd, DetailAd, UpdateAd, DeleteAd, ListAd, UpdateAdStatus, ListPendingAd, ListRejectedAd
 from .views import CreateReport, DetailReport, UpdateReport, DeleteReport, ListReport
 from .views import DetailProfile, UpdateProfile
 from .views import Home
@@ -36,5 +36,8 @@ urlpatterns = [
     path('profile/update', UpdateProfile.as_view(), name = 'profile_update'),
     path('user/update', UpdateUserProfile.as_view(), name='profile_user_update'),
     path('password/update', PasswordChangeView.as_view(success_url = reverse_lazy('bazaar:profile_detail'), template_name = 'bazaar/profile_form.html'), name = 'profile_password_update'),
+    path('<int:pk>/moderate', UpdateAdStatus.as_view(), name='ad_moderate'),
+    path('pending', ListPendingAd.as_view(), name='ad_pending'),
+    path('rejected', ListRejectedAd.as_view(), name='ad_rejected'),
     path('', Home.as_view(), name='home')
 ]

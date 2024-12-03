@@ -11,9 +11,10 @@ class Command(BaseCommand):
     help = 'Generate fixtures that contain default permission and groups.'
 
     def handle(self, *args: Any, **options: Any) -> str | None:
-        try:
+        try:            
+
             moderator_permissions = [
-                Permission.objects.get(codename = 'delete_ad'),
+                Permission.objects.get(codename = 'moderate_ad'),
                 Permission.objects.get(codename = 'view_report'),
             ]
 
@@ -29,6 +30,7 @@ class Command(BaseCommand):
                 Permission.objects.get(codename = 'change_category'),
                 Permission.objects.get(codename = 'delete_category'),
                 Permission.objects.get(codename = 'change_ad'),
+                Permission.objects.get(codename = 'delete_ad'),
                 Permission.objects.get(codename = 'add_report'),
                 Permission.objects.get(codename = 'change_report'),
                 Permission.objects.get(codename = 'delete_report'),
