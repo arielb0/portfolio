@@ -2,3 +2,4 @@ settings_development_*.py
 settings_production.py
 *.sqlite3
 *.pyc
+*.sql
