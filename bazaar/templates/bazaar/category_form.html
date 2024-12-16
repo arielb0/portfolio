@@ -2,11 +2,11 @@
 
 {% block main %}
     <h1>{% include "action_label.html" %} a category</h1>
-    <form action="" method="post">
+    <form action="" enctype="multipart/form-data" method="post">
         {% csrf_token %}
         {{ form.as_p }}
         <div class="mx-auto p-2" style="width: 200px">
-            <button type="submit">{% include "action_label.html" %} Category</button>
+            <button class="btn btn-primary" type="submit">{% include "action_label.html" %} Category</button>
         </div>
     </form>
 {% endblock %}

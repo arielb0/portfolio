@@ -3,21 +3,28 @@
 {% block main %}
     <h1>User profile</h1>
 
-    <form action="{% url "bazaar:profile_user_update" %}" method="post">
-        {% csrf_token %}
-        {{ user_form.as_p }}
-        <input type="submit" value="{% include "action_label.html" %} basic info">
-    </form>
-
-    <form action="" method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <input type="submit" value="{% include "action_label.html" %} aditional info">
-    </form>
-
-    <form action="{% url "bazaar:profile_password_update" %}" method="post">
-        {% csrf_token %}
-        {{ password_form.as_p }}
-        <input type="submit" value="{% include "action_label.html" %} password">
-    </form>
+    <div class="p-3 m-3 bg-white">
+        <form action="{% url "bazaar:profile_user_update" %}" method="post">
+            {% csrf_token %}
+            {{ user_form.as_p }}
+            <input class="btn btn-primary" type="submit" value="{% include "action_label.html" %} basic info">
+        </form>
+    </div>
+    
+    <div class="p-3 m-3 bg-white">
+        <form action="" method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input class="btn btn-primary" type="submit" value="{% include "action_label.html" %} aditional info">
+        </form>
+    </div>
+    
+    <div class="p-3 m-3 bg-white">
+        <form action="{% url "bazaar:profile_password_update" %}" method="post">
+            {% csrf_token %}
+            {{ password_form.as_p }}
+            <input class="btn btn-primary" type="submit" value="{% include "action_label.html" %} password">
+        </form>
+    </div>
+    
 {% endblock %}

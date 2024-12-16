@@ -5,6 +5,6 @@
     <form action="" enctype="multipart/form-data" method="post">
         {% csrf_token %}
         {{ form.as_p }}
-        <button type="submit">{% include "action_label.html" %} Ad</button>
+        <button class="btn btn-primary" type="submit">{% include "action_label.html" %} Ad</button>
     </form>
 {% endblock %}

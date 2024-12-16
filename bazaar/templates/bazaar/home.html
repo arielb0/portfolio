@@ -5,20 +5,22 @@
     <div class="row">
         {% for object in object_list %}
             {% if object.priority %}
-                <div class="col-4">
-                    <h1>
-                        {% if object.picture %}
-                            <img src="{{ object.picture.url }}" alt="{{ object.name }}">
-                        {% endif %}
-                        {{ object.name }}
-                    </h1>
-                    <ul class="list-group">
-                        {% for child_object in object.subcategories.all %}
-                            <li class="list-group-item">
-                                <a href="{% url "bazaar:ad_list" %}?category={{ child_object.id }}">{{ child_object.name }}</a>
-                            </li>
-                        {% endfor %}
-                    </ul>
+                <div class="col-4 mb-4">
+                    <div class="bg-white">
+                        <h1>
+                            {% if object.picture %}
+                                <img src="{{ object.picture.url }}" alt="{{ object.name }}">
+                            {% endif %}
+                            {{ object.name }}
+                        </h1>
+                        <ul class="list-group">
+                            {% for child_object in object.subcategories.all %}
+                                <li class="list-group-item">
+                                    <a href="{% url "bazaar:ad_list" %}?category={{ child_object.id }}">{{ child_object.name }}</a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
                 </div>
             {% endif %}
         {% endfor %}

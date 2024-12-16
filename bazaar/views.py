@@ -222,6 +222,7 @@ class ListAd(ListView):
         date_start = self.request.GET.get('date_start', '')
         date_end = self.request.GET.get('date_end', '')
         category = self.request.GET.get('category', '')
+        my_ads = self.request.GET.get('my_ads', '')
 
         if currency_queryset:
             queryset = queryset.filter(Q(title__icontains=currency_queryset) | Q(description__icontains=currency_queryset))
@@ -252,7 +253,12 @@ class ListAd(ListView):
         
         if category:
             queryset = queryset.filter(Q(category=category))
-        
+
+        if my_ads:
+            print('Filter using the owner..')
+            queryset = queryset.filter(Q(owner=self.request.user))
+            
+        print(f'The queryset is {queryset}')
         return queryset
 
     def get_context_data(self, **kwargs) -> dict[str]:

@@ -1,12 +1,7 @@
-from typing import Any, Mapping
-from django.core.files.base import File
-from django.db.models.base import Model
 from django.forms import Form, ModelForm, CharField, IntegerField, DateField, ModelChoiceField, ModelMultipleChoiceField
-from django.forms.utils import ErrorList
 from .models import Currency, Category, Ad, Report, Profile
-from django.forms.widgets import TextInput, Textarea, NumberInput, Select, EmailInput, SelectMultiple, ClearableFileInput, HiddenInput
+from django.forms.widgets import TextInput, Textarea, NumberInput, Select, SelectMultiple, ClearableFileInput, HiddenInput
 from django.forms.widgets import DateInput
-from django.db.models import Q
 
 class CurrencyForm(ModelForm):
     

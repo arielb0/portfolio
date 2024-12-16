@@ -14,7 +14,8 @@ class AnswerSerializer(serializers.HyperlinkedModelSerializer):
 class QuestionSerializer(serializers.HyperlinkedModelSerializer):
     answer = serializers.HyperlinkedRelatedField(view_name = 'restaurant:answer-detail'
                                                  , queryset = Answer.objects.all()
-                                                 , allow_null = True)
+                                                 , allow_null = True
+                                                 , required = False)
     class Meta:
         model = Question
         fields = ['id', 'body', 'prediction', 'datetime', 'user', 'answer']

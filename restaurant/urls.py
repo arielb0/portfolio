@@ -19,5 +19,5 @@ urlpatterns = [
     path('review/<int:pk>/update', UpdateReview.as_view(), name='review_update'),
     path('review/<int:pk>/delete', DeleteReview.as_view(), name='review_delete'),
     path('review', ListReview.as_view(), name='review_list'),
-    path('api/', include(router.urls)) # Keep this endpoint (dinamic)
+    path('api/', include(router.urls)), # Keep this endpoint (dynamic)
 ]

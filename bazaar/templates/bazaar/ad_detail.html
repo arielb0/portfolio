@@ -2,76 +2,71 @@
 
 {% block main %}
 
-    <nav aria-label="breadcrumb">
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item active">
-                <a href="{% url "bazaar:home" %}">Home</a>
-            </li>
-            <li class="breadcrumb-item active">
-                <a href="{% url "bazaar:ad_list" %}?category={{object.category.pk}}">{{ object.category }}</a>
-            </li>
-        </ol>
-    </nav>
-
-    <h1 class="text-center">{{ object.title }}</h1>
-
-    {% if user.pk == object.owner.pk or user.is_superuser %}
-        <div>
-            <a href="{% url "bazaar:ad_update" pk=object.pk %}">Update</a>
-            <a href="{% url "bazaar:ad_delete" pk=object.pk %}">Delete</a>
-        </div>
-    {% endif %}
-
-    <div class="carousel slide carousel-fade" id="adCarousel" data-bs-ride="carousel">
-        <div class="carousel-inner">
-            {% for image_number in '0123456789' %}
-                {% cycle object.picture_0 object.picture_1 object.picture_2 object.picture_3 object.picture_4 object.picture_5 object.picture_6 object.picture_7 object.picture_8 object.picture_9 as ad_picture silent %}
-                {% if ad_picture %}
-                    <div class="carousel-item {% if image_number == "0" %}active{% endif %}">
-                        <img class="d-block w-50" src="{{ ad_picture.url }}" alt="Ad image {{ image_number }}">
+    <div class="container">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item active">
+                    <a href="{% url "bazaar:home" %}">Home</a>
+                </li>
+                <li class="breadcrumb-item active">
+                    <a href="{% url "bazaar:ad_list" %}?category={{object.category.pk}}">{{ object.category }}</a>
+                </li>
+            </ol>
+        </nav>
+    
+        <div class="bg-white">
+            <div class="d-flex justify-content-center">
+                <div class="carousel slide carousel-fade" id="adCarousel" data-bs-ride="carousel">
+                    <div class="carousel-inner">
+                        {% for image_number in '0123456789' %}
+                            {% cycle object.picture_0 object.picture_1 object.picture_2 object.picture_3 object.picture_4 object.picture_5 object.picture_6 object.picture_7 object.picture_8 object.picture_9 as ad_picture silent %}
+                            {% if ad_picture %}
+                                <div class="carousel-item {% if image_number == "0" %}active{% endif %}">
+                                    <img class="d-block mx-auto" src="{{ ad_picture.url }}" alt="Ad image {{ image_number }}">
+                                </div>
+                            {% endif %}
+                        {% endfor %}
                     </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#adCarousel" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#adCarousel" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
+                </div>
+            </div>
+            <h1 class="text-center">{{ object.title }}</h1>
+            <p>{{ object.date }}</p>
+            <p>{{ object.price }} {{ object.currency.code }}</p>
+            <p>
+                {% if object.alternative_currencies.all|length > 1 %}
+                    Also I accept: 
+                    {% for alternative_currency in object.alternative_currencies.all %}
+                        {{ alternative_currency.name }} ({{ alternative_currency.code }})
+                    {% endfor %}
                 {% endif %}
-            {% endfor %}
+            </p>
+            <p>{{ object.owner.profile.address }}</p>
+            <p>{{ object.owner.profile.phone }}</p>
+            <p>{{ object.description }}</p>
         </div>
-        <button class="carousel-control-prev" type="button" data-bs-target="#adCarousel" data-bs-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Previous</span>
-        </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#adCarousel" data-bs-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Next</span>
-        </button>
-    </div>
-
-    <div>
-        <p>{{ object.date }}</p>
-        <p>{{ object.price }} {{ object.currency.code }}</p>
-        <p>
-            {% if object.alternative_currencies.all|length > 1 %}
-                Also I accept: 
-                {% for alternative_currency in object.alternative_currencies.all %}
-                    {{ alternative_currency.name }} ({{ alternative_currency.code }})
-                {% endfor %}
+        <div>
+            <p>{{ object.name }}</p>
+            {% if object.phone %}
+                <p>{{ object.phone }}</p>
             {% endif %}
-        </p>
-        <p>{{ object.owner.profile.address }}</p>
-        <p>{{ object.owner.profile.phone }}</p>
-        <p>{{ object.description }}</p>
-    </div>
-    <div>
-        <p>{{ object.name }}</p>
-        {% if object.phone %}
-            <p>{{ object.phone }}</p>
-        {% endif %}
-        <p>{{ object.mail }}</p>
-    </div>
-    <div>
-        {% if user.is_superuser or 'bazaar.change_ad' in user.get_all_permissions or object.owner.pk == user.pk %}
-            <a href="{% url "bazaar:ad_update" pk=object.pk %}">Update</a>
-        {% endif %}
-        {% if user.is_superuser or 'bazaar.delete_ad' in user.get_all_permissions or object.owner.pk == user.pk %}
-            <a href="{% url "bazaar:ad_delete" pk=object.pk %}">Delete</a>
-        {% endif %}
-        <a href="{% url "bazaar:report_create" pk=object.pk %}">Report</a>
+            <p>{{ object.mail }}</p>
+        </div>
+        <div>
+            {% if user.is_superuser or 'bazaar.change_ad' in user.get_all_permissions or object.owner.pk == user.pk %}
+                <a href="{% url "bazaar:ad_update" pk=object.pk %}">Update</a>
+            {% endif %}
+            {% if user.is_superuser or 'bazaar.delete_ad' in user.get_all_permissions or object.owner.pk == user.pk %}
+                <a href="{% url "bazaar:ad_delete" pk=object.pk %}">Delete</a>
+            {% endif %}
+            <a href="{% url "bazaar:report_create" pk=object.pk %}">Report</a>
+        </div>
     </div>
 {% endblock %}

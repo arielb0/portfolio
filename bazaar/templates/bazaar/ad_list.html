@@ -38,15 +38,15 @@
         {% if object_list %}
             {% for object in object_list %}
                 <div class="col-sm-6 col-md-3 col-lg-2">
-                    <div class="card h-100 border-light bg-light p-2">
+                    <div class="card h-100 p-2" style="heigth: 394px">
                         {% if object.picture_0 %}
-                            <img src="{{ MEDIA_URL }}{{ object.picture_0 }}" alt="{{ object.title }}" class="card-img-top" style="object-fit: contain">
+                            <img src="{{ MEDIA_URL }}{{ object.picture_0 }}" alt="{{ object.title }}" class="card-img-top img-thumbnail" style="object-fit: contain">
                         {% else %}
                             <img src="" alt="default ad image" class="card-img-top" style="object-fit: contain">
                         {% endif %}
                         <div class="card-body">
                             <a href="{% url "bazaar:ad_detail" pk=object.pk %}" class="link-underline-light">
-                                <h1 class="card-text">
+                                <h1 class="card-text h4">
                                     {% if object.title|length < 32 %}
                                         {{ object.title }}
                                     {% else %}
@@ -63,14 +63,14 @@
                                     <form action="{% url "bazaar:ad_moderate" pk=object.pk %}" method="post">
                                         {% csrf_token %}
                                         <input type="hidden" name="status" value=1>
-                                        <input type="submit" value="Reject">
+                                        <input class="btn btn-primary" type="submit" value="Reject">
                                     </form>
                                 {% endif %}
                                 {% if object.status == 0 or object.status == 1 %}
                                     <form action="{% url "bazaar:ad_moderate" pk=object.pk %}" method="post">
                                         {% csrf_token %}
                                         <input type="hidden" name="status" value=2>
-                                        <input type="submit" value="Allow">
+                                        <input class="btn btn-secondary" type="submit" value="Allow">
                                     </form>
                                 {% endif %}
                             </div>
@@ -79,7 +79,7 @@
                 </div>
             {% endfor %}
         {% else %}
-            <p class="text-center">{% block no_ads_message %}{% endblock  %}</p>
+            <p class="text-center">{% block no_ads_message %}Your search don't return results.{% endblock  %}</p>
         {% endif %}
     </div>
 

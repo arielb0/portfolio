@@ -1,4 +1,4 @@
-settings_development.py
+settings_development_*.py
 settings_production.py
 *.sqlite3
 *.pyc

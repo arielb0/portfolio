@@ -2,8 +2,6 @@ from django.db import models
 from django.contrib.auth.models import User
 from datetime import date
 
-# Create your models here.
-
 class Currency(models.Model):
     name = models.CharField(unique = True, max_length = 32)
     code = models.CharField(unique = True, max_length = 4)
@@ -37,13 +35,13 @@ class Category(models.Model):
         if self.pk:
             old_model = Category.objects.get(pk = self.pk)
             if old_model.picture and old_model.picture != self.picture:
-                old_model.picture.delete(save = False)
+                old_model.picture.delete(save = False)        
         
         super().save()
     
     class Meta:
         verbose_name_plural = 'categories'
-        ordering = ['-priority']
+        ordering = ['priority']
 
 class Ad(models.Model):
     title = models.CharField(max_length = 64)
@@ -100,6 +98,8 @@ class Ad(models.Model):
 
                 if old_picture and old_picture != new_picture:
                     old_picture.delete(save=False)
+
+        # TODO: For every picture field, create a thumbnail version..
         
         super().save()
     

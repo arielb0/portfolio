@@ -4,5 +4,6 @@
 
 {% block main %}
     <h1>{{ object.name }}</h1>
+    <a class="btn btn-primary" href="{% url "bazaar:category_update" pk=object.pk %}">Update</a>
     <p>Put options to manage category.. and a menu to return to main page.</p>
 {% endblock %}

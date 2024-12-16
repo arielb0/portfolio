@@ -5,6 +5,10 @@ from .forms import ReviewForm
 from django.urls import reverse_lazy
 from .serializers import ReviewSerializer, AnswerSerializer, QuestionSerializer, DataSerializer
 from rest_framework.viewsets import ModelViewSet
+from rest_framework.decorators import action
+from rest_framework.response import Response
+from rest_framework.exceptions import NotFound
+from string import Template
 
 # Create your views here.
 
@@ -49,6 +53,28 @@ class ReviewViewSet(ModelViewSet):
 class AnswerViewSet(ModelViewSet):
     queryset = Answer.objects.all()
     serializer_class = AnswerSerializer
+
+    @action(detail=True, methods=['get'])
+    def chat(self, request, pk = None):
+        
+        try:
+            answer = Answer.objects.get(pk=pk)
+        except:
+            raise NotFound(detail='No Answer matches the given query')
+        
+        template = Template(answer.body)
+        identifiers = template.get_identifiers()
+        mapping = {}
+
+        for identifier in identifiers:
+            try:
+                mapping[identifier] = Data.objects.get(key = identifier).value
+            except:
+                mapping[identifier] = 'identifier_not_found'
+
+        answer.body = template.substitute(mapping)
+
+        return Response(AnswerSerializer(answer).data)
 
 class QuestionViewSet(ModelViewSet):
     queryset = Question.objects.all()

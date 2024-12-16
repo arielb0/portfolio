@@ -5,7 +5,6 @@ from django.db.models import Q
 from django.core.serializers import serialize
 from scull_suite.settings import BASE_DIR
 
-
 class Command(BaseCommand):
     requires_migrations_checks = True
     help = 'Generate fixtures that contain default permission and groups.'

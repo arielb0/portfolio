@@ -9,7 +9,7 @@
         <li>Email: {{ user.email }}</li>
         <li>Address: {{ object.address }}</li>
         <li>Phone: {{ object.phone }}</li>
-        <a href="{% url "bazaar:profile_update" %}">Update Profile</a>
-        <a href="{% url "delete_user" pk=user.pk %}">Delete Profile</a>
+        <a class="btn btn-primary" href="{% url "bazaar:profile_update" %}">Update</a>
+        <a class="btn btn-danger" href="{% url "delete_user" pk=user.pk %}">Delete</a>
     </ul>
 {% endblock %}
