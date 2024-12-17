@@ -184,11 +184,13 @@ class UpdateAd(UserPassesTestMixin, UpdateView):
         self.request = normalize_ad_pictures(request, (748, 420)) # TODO: You need to use self.request.POST = self.request.POST.copy().
         return super().post(request, *args, **kwargs)
 
+    '''
     def form_valid(self, form):
         ad = form.save(commit = False)
-        ad.owner = self.request.user
+        ad.owner = self.request.user # TODO: This is a bug. When admin moderate ad, he/she convert to owner.
         ad.save()
         return HttpResponseRedirect(self.get_success_url())
+    '''
     
     def test_func(self):
         return self.request.user.is_superuser or self.request.user.has_perm('bazaar.change_ad') or self.get_object().owner == self.request.user
@@ -255,10 +257,8 @@ class ListAd(ListView):
             queryset = queryset.filter(Q(category=category))
 
         if my_ads:
-            print('Filter using the owner..')
-            queryset = queryset.filter(Q(owner=self.request.user))
-            
-        print(f'The queryset is {queryset}')
+            queryset = queryset.filter(Q(owner=self.request.user))            
+        
         return queryset
 
     def get_context_data(self, **kwargs) -> dict[str]:

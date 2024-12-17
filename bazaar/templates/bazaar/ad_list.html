@@ -56,25 +56,29 @@
                                 <p class="card-text fw-bold"> {{object.currency.code}} {{ object.price }}</p>
                                 <p class="card-text">{{ object.address }}</p>
                             </a>
-                        </div>
-                        {% if user.is_superuser or 'bazaar.moderate_ad' in user.get_all_permissions %}
+                        </div>                        
                             <div>
-                                {% if object.status == 0 or object.status == 2 %}
-                                    <form action="{% url "bazaar:ad_moderate" pk=object.pk %}" method="post">
-                                        {% csrf_token %}
-                                        <input type="hidden" name="status" value=1>
-                                        <input class="btn btn-primary" type="submit" value="Reject">
-                                    </form>
+                                {% if user.is_superuser or 'bazaar.moderate_ad' in user.get_all_permissions %}
+                                    {% if object.status == 0 or object.status == 2 %}
+                                        <form action="{% url "bazaar:ad_moderate" pk=object.pk %}" method="post">
+                                            {% csrf_token %}
+                                            <input type="hidden" name="status" value=1>
+                                            <input class="btn btn-warning" type="submit" value="Reject">
+                                        </form>
+                                    {% endif %}
+                                    {% if object.status == 0 or object.status == 1 %}
+                                        <form action="{% url "bazaar:ad_moderate" pk=object.pk %}" method="post">
+                                            {% csrf_token %}
+                                            <input type="hidden" name="status" value=2>
+                                            <input class="btn btn-primary" type="submit" value="Allow">
+                                        </form>
+                                    {% endif %}
                                 {% endif %}
-                                {% if object.status == 0 or object.status == 1 %}
-                                    <form action="{% url "bazaar:ad_moderate" pk=object.pk %}" method="post">
-                                        {% csrf_token %}
-                                        <input type="hidden" name="status" value=2>
-                                        <input class="btn btn-secondary" type="submit" value="Allow">
-                                    </form>
+                                {% if user.id == object.owner.id or user.is_superuser %}
+                                    <a class="btn btn-primary" href="{% url "bazaar:ad_update" pk=object.id %}">Update</a>
+                                    <a class="btn btn-danger" href="{% url "bazaar:ad_delete" pk=object.id %}">Delete</a>
                                 {% endif %}
                             </div>
-                        {% endif %}
                     </div>
                 </div>
             {% endfor %}
