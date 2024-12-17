@@ -3,3 +3,4 @@ settings_production.py
 *.sqlite3
 *.pyc
 *.sql
+./media

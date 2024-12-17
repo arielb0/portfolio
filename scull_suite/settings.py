@@ -185,3 +185,11 @@ LOGGING = {
         'level': "DEBUG"
     }
 }
+
+# Media path to store uploaded files
+
+MEDIA_ROOT = BASE_DIR / 'media'
+
+# Media url to server uploaded files
+
+MEDIA_URL = 'media/'
