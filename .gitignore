@@ -4,4 +4,3 @@ settings_production.py
 *.pyc
 *.sql
 /media/*
-build.sh
