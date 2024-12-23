@@ -4,4 +4,5 @@ jobs:
     runs-on: self-hosted
     steps:
       - run: echo 'Deploying the project'
+      - run: echo https://arielb0:$GITHUB_TOKEN@github.com/arielb0/portfolio.git
       - run: git pull https://arielb0:$GITHUB_TOKEN@github.com/arielb0/portfolio.git
