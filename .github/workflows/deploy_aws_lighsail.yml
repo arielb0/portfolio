@@ -11,7 +11,7 @@ jobs:
           sudo systemctl stop nginx
           sudo systemctl stop gunicorn
           
-          if [ -d "GITHUB_WORKSPACE/.git" ]; then
+          if [ -d "$GITHUB_WORKSPACE/.git" ]; then
             echo "Executing git pull"
             git pull $REPO_URL ./
           else
