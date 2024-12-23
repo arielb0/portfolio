@@ -3,7 +3,5 @@ jobs:
   Deploy-my-code-on-AWS-Lighsail-VPS:
     runs-on: self-hosted
     steps:
-      - run: echo 'You push the repository'
-      - run: realpath ./
-      - run: echo $myvariable
-    
+      - run: echo 'Deploy the project'
+      - run: git pull
