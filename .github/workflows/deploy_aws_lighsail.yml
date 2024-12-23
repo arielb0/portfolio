@@ -2,7 +2,8 @@ on: [push]
 jobs:
   Deploy-my-code-on-AWS-Lighsail-VPS:
     runs-on: self-hosted
-    steps:
+    steps:      
+      - working-directory: /var/www/app
       - run: |
           REPO_URL=https://arielb0:$GITHUB_TOKEN@github.com/arielb0/portfolio.git
           VENV_PATH=./portfolio/venv
