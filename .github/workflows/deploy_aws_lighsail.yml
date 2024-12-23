@@ -4,8 +4,8 @@ jobs:
     runs-on: self-hosted
     steps:
       - run: |
-          REPO_URL= https://arielb0:$GITHUB_TOKEN@github.com/arielb0/portfolio.git
-          VENV_PATH = ${GITHUB_WORKSPACE}/venv
+          REPO_URL=https://arielb0:$GITHUB_TOKEN@github.com/arielb0/portfolio.git
+          VENV_PATH=${GITHUB_WORKSPACE}/venv
           
           echo 'Deploying the project'
           sudo systemctl stop nginx
