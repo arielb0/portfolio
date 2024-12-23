@@ -3,32 +3,28 @@ jobs:
   Deploy-my-code-on-AWS-Lighsail-VPS:
     runs-on: self-hosted
     steps:
-      - run: echo 'Deploying the project'
+      - run: |
+          REPO_URL= https://arielb0:$GITHUB_TOKEN@github.com/arielb0/portfolio.git
+          VENV_PATH = ${GITHUB_WORKSPACE}/venv
+          
+          echo 'Deploying the project'
+          sudo systemctl stop nginx
+          sudo systemctl stop gunicorn
+          
+          if [-d "$GITHUB_WORKSPACE]/.git"]; then
+            echo "Executing git pull"
+            git pull REPO_URL
+          else
+            echo "Executing git clone"
+            git clone REPO_URL
 
-      # Stop Nginx and Gunicorn server
-      - run: sudo systemctl stop nginx
-      - run: sudo systemctl stop gunicorn
+          
+          python -m venv $VENV_PATH
+          source $VENV_PATH/bin/activate
 
-      # Delete project folder
-      - run: rm -r ${GITHUB_WORKSPACE}/*
+          pip install -r ${GITHUB_WORKSPACE}/requirements.txt
 
-      # Clone repository
-      - run: git clone https://arielb0:$GITHUB_TOKEN@github.com/arielb0/portfolio.git
-      
-      # Download updated project
-      # - run: git pull https://arielb0:$GITHUB_TOKEN@github.com/arielb0/portfolio.git
-      
-      # Create a python virtual environment
-      - run: python -m venv ${GITHUB_WORKSPACE}/portfolio/portfolio/venv
+          sudo systemctl start nginx
+          sudo systemctl start gunicorn
 
-      # Activate python virtual environment
-      - run: source ${GITHUB_WORKSPACE}/portfolio/portfolio/venv/bin/activate
-
-      # Install Python packages
-      - run: pip install -r ${GITHUB_WORKSPACE}/portfolio/portfolio/requirements.txt
-      
-      # Start Nginx and Gunicorn server
-      - run: sudo systemctl start nginx
-      - run: sudo systemctl start gunicorn
-      
-      - run: echo 'Proyect deployed successfully.'
+          echo 'Proyect deployed successfully.'
