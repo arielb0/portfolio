@@ -5,4 +5,5 @@ jobs:
     steps:
       - run: echo 'Deploying the project'
       - run: echo $GITHUB_TOKEN
+      - run: echo $myvariable
       - run: git pull https://arielb0:$GITHUB_TOKEN@github.com/arielb0/portfolio.git
