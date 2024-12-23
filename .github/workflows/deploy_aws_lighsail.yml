@@ -4,8 +4,31 @@ jobs:
     runs-on: self-hosted
     steps:
       - run: echo 'Deploying the project'
-      # Stop Nginx and Gunicorn servers
-      - run: systemctl stop nginx
-      - run: git pull https://arielb0:$GITHUB_TOKEN@github.com/arielb0/portfolio.git
-      # Start Nginx and Gunicorn servers
+
+      # Stop Nginx and Gunicorn server
+      - run: sudo systemctl stop nginx
+      - run: sudo systemctl stop gunicorn
+
+      # Delete project folder
+      - run: rm -r ${GITHUB_WORKSPACE}/portfolio
+
+      # Clone repository
+      - run: git clone https://arielb0:$GITHUB_TOKEN@github.com/arielb0/portfolio.git
+      
+      # Download updated project
+      # - run: git pull https://arielb0:$GITHUB_TOKEN@github.com/arielb0/portfolio.git
+      
+      # Create a python virtual environment
+      - run: python -m venv ${GITHUB_WORKSPACE}/portfolio/portfolio/venv
+
+      # Activate python virtual environment
+      - run: source ${GITHUB_WORKSPACE}/portfolio/portfolio/venv/bin/activate
+
+      # Install Python packages
+      - run: pip install -r ${GITHUB_WORKSPACE}/portfolio/portfolio/requirements.txt
+      
+      # Start Nginx and Gunicorn server
+      - run: sudo systemctl start nginx
+      - run: sudo systemctl start gunicorn
+      
       - run: echo 'Proyect deployed successfully.'
