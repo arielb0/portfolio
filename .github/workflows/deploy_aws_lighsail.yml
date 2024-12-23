@@ -3,4 +3,4 @@ jobs:
   Deploy-my-code-on-AWS-Lighsail-VPS:
     runs-on: self-hosted
     steps:
-      - run: echo $$GITHUB_WORKSPACE
+      - run: echo $GITHUB_WORKSPACE
