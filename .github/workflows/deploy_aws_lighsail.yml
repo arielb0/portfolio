@@ -10,7 +10,7 @@ jobs:
       - run: sudo systemctl stop gunicorn
 
       # Delete project folder
-      - run: rm -r ${GITHUB_WORKSPACE}/portfolio
+      - run: rm -r ${GITHUB_WORKSPACE}/*
 
       # Clone repository
       - run: git clone https://arielb0:$GITHUB_TOKEN@github.com/arielb0/portfolio.git
