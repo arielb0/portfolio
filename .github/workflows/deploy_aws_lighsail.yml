@@ -5,6 +5,7 @@ jobs:
     steps:
       - run: echo 'Deploying the project'
       # Stop Nginx and Gunicorn servers
+      - run: systemctl stop nginx
       - run: git pull https://arielb0:$GITHUB_TOKEN@github.com/arielb0/portfolio.git
       # Start Nginx and Gunicorn servers
       - run: echo 'Proyect deployed successfully.'
