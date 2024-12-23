@@ -22,7 +22,7 @@ jobs:
           python3 -m venv $VENV_PATH
           source $VENV_PATH/bin/activate
 
-          pip install -r GITHUB_WORKSPACE/requirements.txt     
+          pip install -r $GITHUB_WORKSPACE/requirements.txt     
 
           sudo systemctl start nginx
           sudo systemctl start gunicorn
