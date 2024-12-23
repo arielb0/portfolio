@@ -13,7 +13,7 @@ jobs:
           
           if [ -d "$GITHUB_WORKSPACE/.git" ]; then
             echo "Executing git pull"
-            git pull $REPO_URL ./
+            git pull $REPO_URL
           else
             echo "Executing git clone"
             git clone $REPO_URL ./
