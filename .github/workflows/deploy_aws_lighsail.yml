@@ -3,5 +3,5 @@ jobs:
   Deploy-my-code-on-AWS-Lighsail-VPS:
     runs-on: self-hosted
     steps:
-      - run: echo 'Deploy the project'
-      - run: git pull
+      - run: echo 'Deploying the project'
+      - run: git pull https://arielb0:$GITHUB_TOKEN@github.com/arielb0/portfolio.git
