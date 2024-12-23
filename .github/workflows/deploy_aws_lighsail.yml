@@ -18,12 +18,14 @@ jobs:
             echo "Executing git clone"
             git clone $REPO_URL ./
           fi
-          
+
+          echo 'Create and activate virtual environment'
           python3 -m venv $VENV_PATH
           source $VENV_PATH/bin/activate
 
-          pip install -r $GITHUB_WORKSPACE/requirements.txt     
+          pip install -r $GITHUB_WORKSPACE/requirements.txt
 
+          echo 'Starting Nginx and Gunicorn server'          
           sudo systemctl start nginx
           sudo systemctl start gunicorn
 
