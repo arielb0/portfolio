@@ -5,4 +5,5 @@ jobs:
     steps:
       - run: echo 'You push the repository'
       - run: realpath ./
+      - run: echo $myvariable
     
