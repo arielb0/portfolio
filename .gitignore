@@ -4,3 +4,4 @@ settings_production_*.py
 *.pyc
 *.sql
 /media/*
+staticfiles

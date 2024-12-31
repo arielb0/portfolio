@@ -166,7 +166,7 @@ STATICFILES_DIRS = [
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
-# Useful for production environment
+# Useful to secure production environment
 
 SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SECURE = True
