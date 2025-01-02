@@ -4,6 +4,7 @@
 {% block main %}
     
     <div class="d-flex flex-column min-vh-100 justify-content-center align-items-center">
+        <h1>Scull Suite Register</h1>
         <form action="" method="post">
             {% csrf_token %}
             {{ form.as_p }}
@@ -15,27 +16,4 @@
             <a href="{% url 'password_change' %}">Change password</a>
         {% endif %}
     </div>
-    
-    <!--
-    <h1>{{ action }} account</h1>
-    <form action="" method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <input type="submit" value="{{ action }}">
-    </form>
-    {% if action == 'Update' %}
-        <a href="{% url 'password_change' %}">Change password</a>
-    {% endif %}
-    -->
-    <!--
-    <div class="d-flex flex-column min-vh-100 justify-content-center align-items-center">
-        <form th:action="@{/users/create}" method="post">
-            <div th:replace="~{fragments :: userForm('', '', 'Create user')}"></div>
-        </form>
-        <div class="text-center m-3">
-            <p>Do you have an account?</p>
-            <a class="text-center" href="/login">Login</a>
-        </div>
-    </div>
-    -->
 {% endblock %}
