@@ -1,5 +1,7 @@
 from django.test import TestCase
 from bazaar.models import Currency, Category, Ad
+from django.contrib.auth.models import User
+from django.contrib.auth.models import UserManager
 import datetime
 from datetime import timedelta
 from django.core.management import call_command
@@ -7,13 +9,15 @@ from scull_suite.settings import BASE_DIR
 import os
 from django.contrib.auth.models import Permission, Group
 from django.core.exceptions import ObjectDoesNotExist
+from helpers import Generator
 
 class CommandsTestCase(TestCase):
 
     @classmethod
     def setUpTestData(cls) -> None:
-        # generator = Generator()
+        generator = Generator()
         # cls.category_group = generator.create_category_group_model()
+        cls.owner = generator.create_user_model()
         return super().setUpTestData()
     
     def test_delete_old_ads(self):
@@ -25,14 +29,10 @@ class CommandsTestCase(TestCase):
         usd.save()
 
         electronics = Category(name='Electronics', priority = 1)
-        electronics.save()
+        electronics.save()       
         
         description = 'I have this laptop..'
         price = 500
-        address = 'Atlantis City, Australia'
-        name = 'Peter'
-        phone = '0123456789'
-        mail = 'peter67@terra.com'
         actual_date = datetime.datetime.now()
         category = electronics
 
@@ -41,12 +41,9 @@ class CommandsTestCase(TestCase):
             description = description,
             price = price,
             currency = usd,
-            address = address,
-            name = name,
-            phone = phone,
-            mail = mail,
             date = actual_date,
             category = category,
+            owner = self.owner
         )
         actual_ad.save()
 
@@ -55,12 +52,9 @@ class CommandsTestCase(TestCase):
             description = description,
             price = price,
             currency = usd,
-            address = address,
-            name = name,
-            phone = phone,
-            mail = mail,
             date = actual_date - timedelta(days = 31),
             category = category,
+            owner = self.owner
         )
         old_ad.save()
 

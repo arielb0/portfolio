@@ -193,6 +193,8 @@ class AdTestCase(TestCase):
         cls.moderator = User(username = 'Peter', password = 'weak_password_123_321')
         cls.moderator.save()
 
+        cls.owner = cls.generator.create_user_model()
+
         cls.TITLE = '16GB USB 3.1 ADATA Flash Drive'
         cls.DESCRIPTION = 'I sell this pendrive. It \
         is new. If you are interested, please contact \
@@ -222,7 +224,8 @@ class AdTestCase(TestCase):
             category = self.category,
             moderator = self.moderator,
             status = self.STATUS,
-            rank = self.RANK
+            rank = self.RANK,
+            owner = self.owner
         )
 
         with self.assertRaises(ValidationError):       
@@ -242,7 +245,8 @@ class AdTestCase(TestCase):
             category = self.category,
             moderator = self.moderator,
             status = self.STATUS,
-            rank = self.RANK
+            rank = self.RANK,
+            owner = self.owner
         )
 
     def test_price_max_digits(self):
@@ -259,7 +263,8 @@ class AdTestCase(TestCase):
             category = self.category,
             moderator = self.moderator,
             status = self.STATUS,
-            rank = self.RANK
+            rank = self.RANK,
+            owner = self.owner
         )
 
         with self.assertRaises(ValidationError):
@@ -279,7 +284,8 @@ class AdTestCase(TestCase):
             category = self.category,
             moderator = self.moderator,
             status = self.STATUS,
-            rank = self.RANK
+            rank = self.RANK,
+            owner = self.owner
         )
 
         with self.assertRaises(ValidationError):
@@ -298,7 +304,8 @@ class AdTestCase(TestCase):
             category = self.category,
             moderator = self.moderator,
             status = self.STATUS,
-            rank = self.RANK
+            rank = self.RANK,
+            owner = self.owner
         )
 
         with self.assertRaises(ValidationError):
@@ -318,7 +325,8 @@ class AdTestCase(TestCase):
             category = self.category,
             moderator = self.moderator,
             status = self.STATUS,
-            rank = self.RANK
+            rank = self.RANK,
+            owner = self.owner
         )
 
         with self.assertRaises(ValidationError):
@@ -342,7 +350,8 @@ class AdTestCase(TestCase):
             category = self.category,
             moderator = self.moderator,
             status = '-1',
-            rank = self.RANK
+            rank = self.RANK,
+            owner = self.owner
         )
 
         with self.assertRaises(ValidationError):
@@ -367,7 +376,8 @@ class AdTestCase(TestCase):
             category = self.category,
             moderator = self.moderator,
             status = self.STATUS,
-            rank = self.generator.generate_random_string(11)
+            rank = self.generator.generate_random_string(11),
+            owner = self.owner
         )
 
         with self.assertRaises(ValidationError):
@@ -387,7 +397,8 @@ class AdTestCase(TestCase):
             category = self.category,
             moderator = self.moderator,
             status = self.STATUS,
-            rank = '1.123'
+            rank = '1.123',
+            owner = self.owner
         )
 
         with self.assertRaises(ValidationError):
@@ -420,7 +431,8 @@ class AdTestCase(TestCase):
             picture_7 = f'{self.PICTURE_PATH}/7{self.PICTURE_EXTENSION}',
             picture_8 = f'{self.PICTURE_PATH}/8{self.PICTURE_EXTENSION}',
             picture_9 = f'{self.PICTURE_PATH}/9{self.PICTURE_EXTENSION}',
-            rank = self.RANK
+            rank = self.RANK,
+            owner = self.owner
         )
 
         ad.save()
@@ -448,7 +460,8 @@ class AdTestCase(TestCase):
             currency = self.currency_1,
             date = self.DATE,
             category = self.category,
-            picture_0 = f'{self.PICTURE_PATH}/old_picture.jpg'
+            picture_0 = f'{self.PICTURE_PATH}/old_picture.jpg',
+            owner = self.owner
         )
 
         ad.save()
@@ -470,6 +483,7 @@ class ReportTestCase(TestCase):
         currency.save()
 
         # category_group = cls.generator.create_category_group_model()
+        cls.owner = cls.generator.create_user_model()
         
         category = Category(name = 'Tools', priority = 1)
         category.save()
@@ -482,7 +496,8 @@ class ReportTestCase(TestCase):
             date = '2024-01-01',
             category = category,
             status = '0',
-            rank = '1000'
+            rank = '1000',
+            owner = cls.owner
         )
         ad.save()
 

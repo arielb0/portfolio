@@ -1,6 +1,7 @@
 import shutil
 from scull_suite.settings import MEDIA_ROOT, STATICFILES_DIRS
 from bazaar.models import Category
+from django.contrib.auth.models import User
 from random import choices
 import os
 from django.test.client import Client
@@ -29,6 +30,17 @@ class Generator():
         category.save()
 
         return category
+    
+    def create_user_model(self):
+        '''
+            Create a user model with the following data:
+            username: Peter
+            password: insecurePassw0rD!@
+        '''
+
+        user_model = User.objects.create_user(username = 'Peter', password = 'insecurePassw0rD!@')
+        user_model.save()
+        return user_model
     
     def create_ad_model(self):
         '''
