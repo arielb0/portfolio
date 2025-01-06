@@ -1,5 +1,7 @@
 {% extends "bazaar/base.html" %}
 
+{% block title_prefix %}{% include "action_label.html" %} a category{% endblock %}
+
 {% block main %}
     <h1>{% include "action_label.html" %} a category</h1>
     <form action="" enctype="multipart/form-data" method="post">

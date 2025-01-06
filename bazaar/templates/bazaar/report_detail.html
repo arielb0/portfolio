@@ -1,5 +1,7 @@
 {% extends "bazaar/base.html" %}
 
+{% block title_prefix %}Report detail{% endblock %}
+
 {% block main %}
     <h1>"{{ object.ad.title | capfirst }}" ad is marked as "{{ object.get_reason | lower }}"</h1>
     <p>{{ object.date }}</p>
