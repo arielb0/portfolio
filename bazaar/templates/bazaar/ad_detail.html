@@ -37,27 +37,34 @@
                     </button>
                 </div>
             </div>
+        </div>
+
+        <div class="bg-white">
             <h1 class="text-center">{{ object.title }}</h1>
-            <p>{{ object.date }}</p>
-            <p>{{ object.price }} {{ object.currency.code }}</p>
+        </div>
+
+        <div class='bg-white'>
+            <p><i class='bi bi-calendar'></i> {{ object.date }}</p>
+            <p><i class='bi bi-cash'></i> {{ object.price }} {{ object.currency.code }}</p>
             <p>
                 {% if object.alternative_currencies.all|length > 1 %}
-                    Also I accept: 
+                    Also I accept / give: 
                     {% for alternative_currency in object.alternative_currencies.all %}
                         {{ alternative_currency.name }} ({{ alternative_currency.code }})
                     {% endfor %}
                 {% endif %}
             </p>
-            <p>{{ object.owner.profile.address }}</p>
-            <p>{{ object.owner.profile.phone }}</p>
-            <p>{{ object.description }}</p>
         </div>
-        <div>
-            <p>{{ object.name }}</p>
-            {% if object.phone %}
-                <p>{{ object.phone }}</p>
+        <div class='bg-white'>
+            <pre style="white-space: pre-wrap; word-break: break-all; font-family: inherit; font-size: inherit">{{ object.description }}</pre>
+        </div>
+        <div class='bg-white'>
+            {% if object.owner.profile.address %}
+                <p><i class='bi bi-geo-alt'></i> {{ object.owner.profile.address }}</p>
             {% endif %}
-            <p>{{ object.mail }}</p>
+            {% if object.owner.profile.phone %}
+                <p><i class='bi bi-telephone'></i> {{ object.owner.profile.phone }}</p>
+            {% endif %}
         </div>
         <div>
             {% if user.is_superuser or 'bazaar.change_ad' in user.get_all_permissions or object.owner.pk == user.pk %}

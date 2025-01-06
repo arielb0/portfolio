@@ -91,7 +91,7 @@ DATABASES = {
         'USER': 'scull_suite',
         'PASSWORD': 'insecure-passw0rD!',
         'HOST': '127.0.0.1',
-        'PORT': '5432',        
+        'PORT': '5432',
     },
     'OPTIONS': {
             'client_encoding': 'UTF8',
