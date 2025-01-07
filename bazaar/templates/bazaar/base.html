@@ -1,5 +1,11 @@
 {% extends "base.html" %}
 
+{% load static %}
+
+{% block page_icon %}{% static "shop.svg" %}{% endblock %}
+
+{% block page_description %}Buy, sell, rent things or services using fiat and crypto.{% endblock %}
+
 {% block title %}{% block title_prefix %}{% endblock title_prefix %}, Bazaar{% endblock title %}
 
 

@@ -5,7 +5,7 @@
 {% block main %}
 
     <div class="container">
-        <nav aria-label="breadcrumb">
+        <nav aria-label="breadcrumb" class="bg-white">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item active">
                     <a href="{% url "bazaar:home" %}">Home</a>
@@ -17,26 +17,28 @@
         </nav>
     
         <div class="bg-white">
-            <div class="d-flex justify-content-center">
-                <div class="carousel slide carousel-fade" id="adCarousel" data-bs-ride="carousel">
-                    <div class="carousel-inner">
-                        {% for image_number in '0123456789' %}
-                            {% cycle object.picture_0 object.picture_1 object.picture_2 object.picture_3 object.picture_4 object.picture_5 object.picture_6 object.picture_7 object.picture_8 object.picture_9 as ad_picture silent %}
-                            {% if ad_picture %}
-                                <div class="carousel-item {% if image_number == "0" %}active{% endif %}">
-                                    <img class="d-block mx-auto" src="{{ ad_picture.url }}" alt="Ad image {{ image_number }}">
-                                </div>
-                            {% endif %}
-                        {% endfor %}
+            <div class="row">
+                <div class="col-md-8 offset-md-2">
+                    <div class="carousel carousel-fade" id="adCarousel">
+                        <div class="carousel-inner">
+                            {% for image_number in '0123456789' %}
+                                {% cycle object.picture_0 object.picture_1 object.picture_2 object.picture_3 object.picture_4 object.picture_5 object.picture_6 object.picture_7 object.picture_8 object.picture_9 as ad_picture silent %}
+                                {% if ad_picture %}
+                                    <div class="carousel-item {% if image_number == "0" %}active{% endif %}">
+                                        <img class="d-block mx-auto" src="{{ ad_picture.url }}" alt="Ad image {{ image_number }}">
+                                    </div>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                        <button class="carousel-control-prev" type="button" data-bs-target="#adCarousel" data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Previous</span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#adCarousel" data-bs-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Next</span>
+                        </button>
                     </div>
-                    <button class="carousel-control-prev" type="button" data-bs-target="#adCarousel" data-bs-slide="prev">
-                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                        <span class="visually-hidden">Previous</span>
-                    </button>
-                    <button class="carousel-control-next" type="button" data-bs-target="#adCarousel" data-bs-slide="next">
-                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                        <span class="visually-hidden">Next</span>
-                    </button>
                 </div>
             </div>
         </div>

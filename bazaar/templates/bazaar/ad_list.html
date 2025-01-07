@@ -1,10 +1,10 @@
 {% extends "bazaar/base.html" %}
 
-{% block title_prefix %}Search results{% endblock %}
+{% block title_prefix %}{{ breadcrumb_current_page }}{% endblock %}
 
 {% block main %}
         
-    <div class="row">
+    <div class="row" class="bg-white">
         <ol class="breadcrumb">
             <li class="breadcrumb-item active" aria-current="page">
                 <a href="{% url "bazaar:home" %}">Home</a>
@@ -77,8 +77,10 @@
                                         </form>
                                     {% endif %}
                                 {% endif %}
-                                {% if user.id == object.owner.id or user.is_superuser %}
+                                {% if user.is_superuser or 'bazaar.change_ad' in user.get_all_permissions or user.id == object.owner.id  %}
                                     <a class="btn btn-primary" href="{% url "bazaar:ad_update" pk=object.id %}">Update</a>
+                                {% endif %}
+                                {% if user.is_superuser or 'bazaar.delete_ad' in user.get_all_permissions or user.id == object.owner.id %}
                                     <a class="btn btn-danger" href="{% url "bazaar:ad_delete" pk=object.id %}">Delete</a>
                                 {% endif %}
                             </div>
