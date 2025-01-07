@@ -11,7 +11,7 @@
                     <a href="{% url "bazaar:home" %}">Home</a>
                 </li>
                 <li class="breadcrumb-item active">
-                    <a href="{% url "bazaar:ad_list" %}?category={{object.category.pk}}">{{ object.category }}</a>
+                    <a href="{% url "bazaar:ad_list" %}?category={{object.category.slug}}">{{ object.category }}</a>
                 </li>
             </ol>
         </nav>
@@ -72,10 +72,10 @@
         </div>
         <div>
             {% if user.is_superuser or 'bazaar.change_ad' in user.get_all_permissions or object.owner.pk == user.pk %}
-                <a class="btn btn-primary" href="{% url "bazaar:ad_update" pk=object.pk %}">Update</a>
+                <a class="btn btn-primary" href="{% url "bazaar:ad_update" slug=object.slug %}">Update</a>
             {% endif %}
             {% if user.is_superuser or 'bazaar.delete_ad' in user.get_all_permissions or object.owner.pk == user.pk %}
-                <a class="btn btn-danger" href="{% url "bazaar:ad_delete" pk=object.pk %}">Delete</a>
+                <a class="btn btn-danger" href="{% url "bazaar:ad_delete" slug=object.slug %}">Delete</a>
             {% endif %}
             <a class="btn btn-info" href="{% url "bazaar:report_create" pk=object.pk %}">Report</a>
         </div>

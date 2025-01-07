@@ -12,7 +12,7 @@
 
     <div class="d-flex flex-column min-vh-100 justify-content-center align-items-center">
         <form action="{% url 'login' %}" method="post" class="bg-dark-subtle p-5">
-            <h1 class="text-center">Scull Suite Login</h1>
+            <h1 class="text-center">Login</h1>
             {% csrf_token %}
             <div>
                 {{ form.username.errors }}

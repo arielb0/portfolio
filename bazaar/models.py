@@ -1,13 +1,21 @@
 from django.db import models
 from django.contrib.auth.models import User
 from datetime import date
+from django.utils.text import slugify
 
 class Currency(models.Model):
     name = models.CharField(unique = True, max_length = 32)
     code = models.CharField(unique = True, max_length = 4)
+    slug = models.SlugField(unique=True, blank=True)
 
     def __str__(self):
         return f'{self.name} ({self.code})'
+    
+    def save(self, *args, **kwargs):
+        if not self.pk:
+            self.slug = slugify(self.name)
+            
+        return super().save()
 
     class Meta:
         verbose_name_plural = 'currencies'
@@ -17,6 +25,7 @@ class Category(models.Model):
     picture = models.ImageField(upload_to = 'images/categories', blank=True, null=True)
     priority = models.IntegerField(blank=True, null=True)
     parent_category = models.ForeignKey('self', on_delete = models.CASCADE, blank=True, null=True, related_name = 'subcategories')
+    slug = models.SlugField(unique=True, blank=True)
 
     def __str__(self):
         if self.parent_category:
@@ -35,7 +44,9 @@ class Category(models.Model):
         if self.pk:
             old_model = Category.objects.get(pk = self.pk)
             if old_model.picture and old_model.picture != self.picture:
-                old_model.picture.delete(save = False)        
+                old_model.picture.delete(save = False)
+        else:
+            self.slug = slugify(self.name)
         
         super().save()
     
@@ -71,6 +82,7 @@ class Ad(models.Model):
     picture_9 = models.ImageField(blank = True, upload_to='images/')
     rank = models.DecimalField(max_digits = 10, decimal_places = 2, default=0)
     owner = models.ForeignKey(User, on_delete=models.CASCADE, related_name='owner')
+    slug = models.SlugField(unique=True, blank=True)
 
     def __str__(self):
         return f'{self.currency.code} {self.price} {self.title}'
@@ -98,6 +110,8 @@ class Ad(models.Model):
 
                 if old_picture and old_picture != new_picture:
                     old_picture.delete(save=False)
+        else:
+            self.slug = slugify(self.title)
 
         # TODO: For every picture field, create a thumbnail version..
         

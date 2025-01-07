@@ -48,7 +48,7 @@
                             <img src="" alt="default ad image" class="card-img-top" style="object-fit: contain">
                         {% endif %}
                         <div class="card-body">
-                            <a href="{% url "bazaar:ad_detail" pk=object.pk %}" class="link-underline-light">
+                            <a href="{% url "bazaar:ad_detail" slug=object.slug %}" class="link-underline-light">
                                 <p class="card-text h4">
                                     {% if object.title|length < 32 %}
                                         {{ object.title }}
@@ -63,14 +63,14 @@
                             <div>
                                 {% if user.is_superuser or 'bazaar.moderate_ad' in user.get_all_permissions %}
                                     {% if object.status == 0 or object.status == 2 %}
-                                        <form action="{% url "bazaar:ad_moderate" pk=object.pk %}" method="post">
+                                        <form action="{% url "bazaar:ad_moderate" slug=object.slug %}" method="post">
                                             {% csrf_token %}
                                             <input type="hidden" name="status" value=1>
                                             <input class="btn btn-warning" type="submit" value="Reject">
                                         </form>
                                     {% endif %}
                                     {% if object.status == 0 or object.status == 1 %}
-                                        <form action="{% url "bazaar:ad_moderate" pk=object.pk %}" method="post">
+                                        <form action="{% url "bazaar:ad_moderate" slug=object.slug %}" method="post">
                                             {% csrf_token %}
                                             <input type="hidden" name="status" value=2>
                                             <input class="btn btn-primary" type="submit" value="Allow">
@@ -78,10 +78,10 @@
                                     {% endif %}
                                 {% endif %}
                                 {% if user.is_superuser or 'bazaar.change_ad' in user.get_all_permissions or user.id == object.owner.id  %}
-                                    <a class="btn btn-primary" href="{% url "bazaar:ad_update" pk=object.id %}">Update</a>
+                                    <a class="btn btn-primary" href="{% url "bazaar:ad_update" slug=object.slug %}">Update</a>
                                 {% endif %}
                                 {% if user.is_superuser or 'bazaar.delete_ad' in user.get_all_permissions or user.id == object.owner.id %}
-                                    <a class="btn btn-danger" href="{% url "bazaar:ad_delete" pk=object.id %}">Delete</a>
+                                    <a class="btn btn-danger" href="{% url "bazaar:ad_delete" slug=object.slug %}">Delete</a>
                                 {% endif %}
                             </div>
                     </div>

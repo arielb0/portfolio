@@ -254,10 +254,10 @@ class ListAd(ListView):
             queryset = queryset.filter(Q(date__lte=date_end))
         
         if category:
-            queryset = queryset.filter(Q(category=category))
+            queryset = queryset.filter(Q(category__slug=category))
 
         if my_ads:
-            queryset = queryset.filter(Q(owner=self.request.user))            
+            queryset = queryset.filter(Q(owner=self.request.user))
         
         return queryset
 
@@ -267,7 +267,7 @@ class ListAd(ListView):
         context['advanced_search_form'] = AdvancedSearchForm(data = self.request.GET)
 
         if 'category' in self.request.GET.keys():
-            context['breadcrumb_current_page'] = Category.objects.get(pk = self.request.GET.get('category'))
+            context['breadcrumb_current_page'] = Category.objects.get(slug = self.request.GET.get('category'))
         
         if 'query' in self.request.GET.keys():
             context['breadcrumb_current_page'] = f'Search results for "{self.request.GET.get("query")}"'

@@ -14,13 +14,13 @@
             {% for object in object_list %}
                 <tr>
                     <td>
-                        <a href="{% url "bazaar:currency_detail" pk=object.pk %}">{{ object }}</a>
+                        <a href="{% url "bazaar:currency_detail" slug=object.slug %}">{{ object }}</a>
                     </td>
                     <td>
-                        <a href="{% url "bazaar:currency_update" pk=object.pk %}" class="link">
+                        <a href="{% url "bazaar:currency_update" slug=object.slug %}" class="link">
                             Update
                         </a>
-                        <a href="{% url "bazaar:currency_delete" pk=object.pk %}" class="link">
+                        <a href="{% url "bazaar:currency_delete" slug=object.slug %}" class="link">
                             Delete
                         </a>
                     </td>

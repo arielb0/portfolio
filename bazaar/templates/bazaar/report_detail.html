@@ -7,7 +7,7 @@
     <p>{{ object.date }}</p>
     <p>{{ object.description }}</p>
     <p>Options:</p>
-    <a href="{% url "bazaar:ad_detail" pk=object.ad.pk %}">See ad</a>
-    <a href="{% url "bazaar:ad_delete" pk=object.ad.pk %}">Delete ad and notify user</a>
+    <a href="{% url "bazaar:ad_detail" slug=object.ad.slug %}">See ad</a>
+    <a href="{% url "bazaar:ad_delete" slug=object.ad.slug %}">Delete ad and notify user</a>
     <a href="{% url "bazaar:report_delete" pk=object.pk %}">Delete report</a>
 {% endblock %}
