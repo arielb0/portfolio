@@ -2,6 +2,7 @@ from django.forms import Form, ModelForm, CharField, IntegerField, DateField, Mo
 from .models import Currency, Category, Ad, Report, Profile
 from django.forms.widgets import TextInput, Textarea, NumberInput, Select, SelectMultiple, ClearableFileInput, HiddenInput
 from django.forms.widgets import DateInput
+from django.utils.translation import gettext_lazy as _
 
 class CurrencyForm(ModelForm):
     
@@ -125,16 +126,16 @@ class ReportForm(ModelForm):
         }
 
 class SimpleSearchForm(Form):
-    query = CharField(required = False, widget = TextInput(attrs={'class': 'form-control me-2'}))
+    query = CharField(label = _('Query'), required = False, widget = TextInput(attrs={'class': 'form-control me-2'}))
 
 class AdvancedSearchForm(SimpleSearchForm):
-    price_start = IntegerField(required = False, widget = NumberInput(attrs={'class': 'form-control'}))
-    price_end = IntegerField(required = False, widget = NumberInput(attrs={'class': 'form-control'}))
-    currencies = ModelMultipleChoiceField(required = False, queryset=Currency.objects.all(), widget = SelectMultiple(attrs={'class': 'form-select'}), to_field_name = 'slug')
-    address = CharField(required = False, widget = TextInput(attrs={'class': 'form-control'}))
-    date_start = DateField(required = False, widget = DateInput(attrs={'class': 'form-control', 'type': 'date'}))
-    date_end = DateField(required = False, widget = DateInput(attrs={'class': 'form-control', 'type': 'date'}))
-    category = ModelChoiceField(required = False, queryset = Category.objects.filter(subcategories = None), widget = Select(attrs={'class': 'form-select'}), to_field_name = 'slug')
+    price_start = IntegerField(label = _('Price start'), required = False, widget = NumberInput(attrs={'class': 'form-control'}))
+    price_end = IntegerField(label = _('Price end'), required = False, widget = NumberInput(attrs={'class': 'form-control'}))
+    currencies = ModelMultipleChoiceField(label = _('Currencies'), required = False, queryset=Currency.objects.all(), widget = SelectMultiple(attrs={'class': 'form-select'}), to_field_name = 'slug')
+    address = CharField(label = _('Address'), required = False, widget = TextInput(attrs={'class': 'form-control'}))
+    date_start = DateField(label = _('Date start'), required = False, widget = DateInput(attrs={'class': 'form-control', 'type': 'date'}))
+    date_end = DateField(label = _('Date end'), required = False, widget = DateInput(attrs={'class': 'form-control', 'type': 'date'}))
+    category = ModelChoiceField(label = _('Category'), required = False, queryset = Category.objects.filter(subcategories = None), widget = Select(attrs={'class': 'form-select'}), to_field_name = 'slug')
 
 class ProfileForm(ModelForm):
 

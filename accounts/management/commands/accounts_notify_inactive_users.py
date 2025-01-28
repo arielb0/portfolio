@@ -43,6 +43,6 @@ class Command(BaseCommand):
                 raise CommandError('Message could not be send.')
             
         else:
-            print('Could not have inactive users to notify for inactivity.')
+            print('Could not have inactive users to notify.')
 
         

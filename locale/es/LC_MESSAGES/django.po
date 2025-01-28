@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-01-28 13:52+0000\n"
+"POT-Creation-Date: 2025-01-28 18:02+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -244,6 +244,41 @@ msgstr "Reiniciar mi contraseña"
 msgid "Register"
 msgstr "Registrar"
 
+#: bazaar/forms.py:129
+msgid "Query"
+msgstr "Consulta"
+
+#: bazaar/forms.py:132
+msgid "Price start"
+msgstr "Intervalo inicial de precio"
+
+#: bazaar/forms.py:133
+msgid "Price end"
+msgstr "Intervalo final de precio"
+
+#: bazaar/forms.py:134 bazaar/templates/bazaar/currency_list.html:5
+#: bazaar/templates/bazaar/currency_list.html:8
+#: bazaar/templates/bazaar/header.html:24
+msgid "Currencies"
+msgstr "Divisas"
+
+#: bazaar/forms.py:135 bazaar/templates/bazaar/profile_detail.html:14
+msgid "Address"
+msgstr "Dirección"
+
+#: bazaar/forms.py:136
+msgid "Date start"
+msgstr "Intervalo inicial de fecha"
+
+#: bazaar/forms.py:137
+msgid "Date end"
+msgstr "Intervalo final de fecha"
+
+#: bazaar/forms.py:138 bazaar/templates/bazaar/category_form.html:13
+#: bazaar/templates/bazaar/category_list.html:12
+msgid "Category"
+msgstr "Categoría"
+
 #: bazaar/models.py:8 bazaar/models.py:25
 msgid "name"
 msgstr "Nombre"
@@ -437,9 +472,14 @@ msgstr "Búsqueda Avanzada"
 msgid "Clean filters"
 msgstr "Limpiar filtros"
 
+#: bazaar/templates/bazaar/ad_list.html:33
+#: bazaar/templates/bazaar/header.html:13
+msgid "Search"
+msgstr "Buscar"
+
 #: bazaar/templates/bazaar/ad_list.html:42 bazaar/views.py:290
 msgid "Search results"
-msgstr "Resultados de búsqueda"
+msgstr "Resultados de la búsqueda"
 
 #: bazaar/templates/bazaar/ad_list.html:50
 msgid "Default ad image"
@@ -508,11 +548,6 @@ msgstr ""
 msgid "a category"
 msgstr "una categoría"
 
-#: bazaar/templates/bazaar/category_form.html:13
-#: bazaar/templates/bazaar/category_list.html:12
-msgid "Category"
-msgstr "Categoría"
-
 #: bazaar/templates/bazaar/category_list.html:5
 #: bazaar/templates/bazaar/category_list.html:8
 #: bazaar/templates/bazaar/header.html:19 bazaar/templates/bazaar/home.html:14
@@ -549,12 +584,6 @@ msgstr "una divisa"
 msgid "Currency"
 msgstr "Divisa"
 
-#: bazaar/templates/bazaar/currency_list.html:5
-#: bazaar/templates/bazaar/currency_list.html:8
-#: bazaar/templates/bazaar/header.html:24
-msgid "Currencies"
-msgstr "Divisas"
-
 #: bazaar/templates/bazaar/currency_list.html:9
 msgid "New Currency"
 msgstr "Nueva divisa"
@@ -562,10 +591,6 @@ msgstr "Nueva divisa"
 #: bazaar/templates/bazaar/header.html:7
 msgid "Close"
 msgstr "Cerrar"
-
-#: bazaar/templates/bazaar/header.html:13
-msgid "Search"
-msgstr "Buscar"
 
 #: bazaar/templates/bazaar/header.html:29
 #: bazaar/templates/bazaar/report_list.html:5
@@ -607,10 +632,6 @@ msgstr "Anuncios clasificados con dinero fiudiciario y criptomonedas"
 #: bazaar/templates/bazaar/profile_form.html:8
 msgid "User Profile"
 msgstr "Perfil de usuario"
-
-#: bazaar/templates/bazaar/profile_detail.html:14
-msgid "Address"
-msgstr "Dirección"
 
 #: bazaar/templates/bazaar/profile_detail.html:15
 msgid "Phone"
