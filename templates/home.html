@@ -1,133 +1,57 @@
 {% extends 'base.html' %}
 
 {% load static %}
+{% load i18n %}
 
 {% block title %}Scull Suite{% endblock %}
 
 {% block header %}
-    {% include "home_header.html" with icon="briefcase" title="Portfolio" %}
+    {% include "home_header.html" with icon="briefcase" title="Scull Suite" %}
 {% endblock %}
 
-{% block main %}   
+{% block main %}
 
     <main class="container-fluid">
         
         <div id="start" class="text-light d-flex flex-column min-vh-100 justify-content-center align-items-center" style="background-image:url('{% static 'img/web_developer1.jpg' %}')">
             
-            <h1 class="bg-dark">Ariel Hernandez Scull</h1>
-            <h2 class="bg-dark">Web / ML Developer</h2>
-            <a class="btn btn-primary" href="#portfolio">Show portfolio</a>
+            <h1 class="bg-dark">Scull Suite</h1>
+            <h2 class="bg-dark">{% translate "Applications to make your life easier" %}</h2>
+            <a class="btn btn-primary" href="#portfolio">{% translate "Show applications" %}</a>
         </div>
 
-        <section id="portfolio" class="d-flex flex-column min-vh-100 text-center">
+        <section id="applications" class="d-flex flex-column min-vh-100 text-center">
             
-            <h2>Portfolio</h2>
+            <h2>{% translate "Applications" %}</h2>
 
             <div class="row">
 
                 <div class="col-sm-4">
                     <div class="card">
                         
-                        <img class="card-img" src="{% static 'img/restaurant_app.jpg' %}" alt="Restaurant project using Django and other tools">
+                        <img class="card-img" src="{% static 'img/restaurant_app.jpg' %}" alt="{% translate "Restaurant application" %}">
                         
                         <div class="card-body">
-                                
-                            <div>                                
-                                <img style="width:5vw" src="{% static 'img/python.svg' %}" alt="Python logo">
-                                <img style="width:5vw" src="{% static 'img/numpy.svg' %}" alt="Numpy logo">
-                                <img style="width:5vw" src="{% static 'img/pandas.svg' %}" alt="Pandas logo">
-                                <img style="width:5vw" src="{% static 'img/scikitlearn.svg' %}" alt="Scikitlearn logo">
-                                <img style="width:5vw" src="{% static 'img/open_neural_network_exchange_logo.svg' %}" alt="Open Neural Network Exchange logo">
-                                <img style="width:5vw" src="{% static 'img/django.svg' %}" alt="Django logo">
-                                <img style="width:5vw" src="{% static 'img/bootstrap.svg' %}" alt="Bootstrap logo">
-                            </div>
-                            
                             <p class="card-text">
-                                A restaurant web application demostration. Here I applied Natural Language Processing (NLP) to 
-                                classify user reviews and get user satisfaction. This application use 
-                                <a href="https://www.kaggle.com/datasets/gorororororo23/european-restaurant-reviews" target="_blank">European Restaurant Reviews dataset</a>.
+                                Esta aplicación permite automatizar, mediante un asistente virtual,
+                                la atencion de preguntas frecuentes por parte de los clientes de tu 
+                                restaurante. En breve se añadiran mas funcionalidades. Mantente alerta!
                             </p>
-        
                             <a href="{% url "restaurant:home" %}" target="_blank">Restaurant</a>
                         </div>
-                        
                     </div>
                 </div>
 
-                <div class="col-sm-4">
-                    <div class="card">
-                        
-                        <img class="card-img" src="{% static 'img/titanic_survivor_app.png' %}" alt="Titanic project using Django and other tools">
-                        
-                        <div class="card-body">
-                                
-                            <div>                                
-                                <img style="width:5vw" src="{% static 'img/python.svg' %}" alt="Python logo">
-                                <img style="width:5vw" src="{% static 'img/numpy.svg' %}" alt="Numpy logo">
-                                <img style="width:5vw" src="{% static 'img/pandas.svg' %}" alt="Pandas logo">
-                                <img style="width:5vw" src="{% static 'img/scikitlearn.svg' %}" alt="Scikitlearn logo">
-                                <img style="width:5vw" src="{% static 'img/django.svg' %}" alt="Django logo">
-                                <img style="width:5vw" src="{% static 'img/bootstrap.svg' %}" alt="Bootstrap logo">
-                            </div>
-                            
-                            <p class="card-text">
-                                Web application that try to predict if you survive to Titanic sinking, using
-                                Machine Learning algorithm over <a href="https://www.kaggle.com/datasets/vinicius150987/titanic3" target="_blank">Titanic Dataset</a>.
-                            </p>
-        
-                            <a href="{% url "titanic:form" %}" target="_blank">Titanic</a>
-                        </div>
-                        
-                    </div>
-                </div>
-
-                <div class="col-sm-4">
-                    <div class="card">
-                        
-                        <img class="card-img" src="{% static 'img/recommender_engine_app.jpg' %}" alt="Screenshoot of Movie Recommender application">
-                        
-                        <div class="card-body">
-                                
-                            <div>                                
-                                <img style="width:5vw" src="{% static 'img/python.svg' %}" alt="Python logo">
-                                <img style="width:5vw" src="{% static 'img/numpy.svg' %}" alt="Numpy logo">
-                                <img style="width:5vw" src="{% static 'img/pandas.svg' %}" alt="Pandas logo">
-                                <img style="width:5vw" src="{% static 'img/scikitlearn.svg' %}" alt="Scikitlearn logo">
-                                <img style="width:5vw" src="{% static 'img/django.svg' %}" alt="Django logo">
-                                <img style="width:5vw" src="{% static 'img/bootstrap.svg' %}" alt="Bootstrap logo">
-                            </div>
-                            
-                            <p class="card-text">
-                                Web application that recommend similar movies, using pairwise distance between them and 
-                                <a href="https://datasets.imdbws.com/" target="_blank">Title Basics IMdb dataset</a>.
-                            </p>
-        
-                            <a href="{% url "movie:search_form" %}" target="_blank">Movie</a>
-                        </div>
-                        
-                    </div>
-                </div>                
-
-            </div>
-
-            <div class="row">
-                
                 <div class="col-sm-4">
                     <div class="card">
                         
                         <img class="card-img" src="{% static 'img/note_project.png' %}" alt="Note project using Django and other tools">
                         
                         <div class="card-body">
-                                
-                            <div>                                    
-                                <img style="width:5vw" src="{% static 'img/postgresql.svg' %}" alt="PostgreSQL logo">
-                                <img style="width:5vw" src="{% static 'img/python.svg' %}" alt="Python logo">
-                                <img style="width:5vw" src="{% static 'img/django.svg' %}" alt="Django logo">
-                                <img style="width:5vw" src="{% static 'img/bootstrap.svg' %}" alt="Bootstrap logo">
-                            </div>
-                            
                             <p class="card-text">
-                                This application allows us manage notes, using web browser.
+                                ¿Tienes notas en papel o digitales por todas partes? Es una pesadilla gestionarlas
+                                y acaba con tu productividad.. Pues con esta aplicación podras gestionar tus notas, 
+                                desde cualquier dispositivo y lugar. Pruébala!
                             </p>
         
                             <a href="{% url "note:list" %}" target="_blank">Note</a>
@@ -142,39 +66,21 @@
                         <img class="card-img" src="{% static 'img/bazaar_project.jpg' %}" alt="Bazaar project using Django and other tools">
                         
                         <div class="card-body">
-                                
-                            <div>                                    
-                                <img style="width:5vw" src="{% static 'img/postgresql.svg' %}" alt="PostgreSQL logo">
-                                <img style="width:5vw" src="{% static 'img/python.svg' %}" alt="Python logo">
-                                <img style="width:5vw" src="{% static 'img/django.svg' %}" alt="Django logo">
-                                <img style="width:5vw" src="{% static 'img/bootstrap.svg' %}" alt="Bootstrap logo">
-                            </div>
-                            
                             <p class="card-text">
-                                This application allows buy and sell things. It is a virtual bazar.
-                            </p>
-        
+                                Esta aplicación te permite comprar, vender y alquilar bienes y servicios, utilizando
+                                dinero fiudiciario y criptomonedas. Busca y encuentra lo que necesitas aquí!
+                            </p>        
                             <a href="{% url "bazaar:home" %}" target="_blank">Bazaar</a>
                         </div>
-                        
                     </div>
                 </div>
-
-            </div>            
+            </div>
             
-        </section>
-
-        <section class="text-center" id="code">
-            
-            <h2>Code</h2>
-            
-            <p>You can see the code of the projects on <a href="https://github.com/arielb0" target="_blank">Github</a></p>
-
         </section>
 
         <section class="text-center" id="contact_me">
             
-            <h2>Contact</h2>
+            <h2>{% translate "Contact" %}</h2>
 
             <img class="img-fluid" src="{% static 'img/telegram.svg' %}" alt="Telegram">
             <a href="http://t.me/ascull" target="_blank">Telegram</a>

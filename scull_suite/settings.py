@@ -47,8 +47,6 @@ INSTALLED_APPS = [
     'rest_framework',
     'accounts',
     'note',
-    'titanic',
-    'movie',
     'bazaar',
     'restaurant',
 ]

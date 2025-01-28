@@ -1,6 +1,0 @@
-{% extends "base.html" %}
-
-{% block header %}
-    {% url "titanic:form" as titanic_form %}
-    {% include "header.html" with url=titanic_form icon='journal' title='Titanic' %}
-{% endblock %}

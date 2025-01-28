@@ -1,8 +1,0 @@
-{% extends "movie/base.html" %}
-
-{% block main %}
-    <div>
-        {% url "movie:search_result" as form_url %}
-        {% include "movie/form.html" with url=form_url %}
-    </div>
-{% endblock %}
