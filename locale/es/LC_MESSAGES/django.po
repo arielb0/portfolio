@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-01-28 11:35+0000\n"
+"POT-Creation-Date: 2025-01-28 13:52+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -95,7 +95,7 @@ msgstr "Grupos"
 msgid "Actions"
 msgstr "Acciones"
 
-#: accounts/templates/auth/user_list.html:35
+#: accounts/templates/auth/user_list.html:35 accounts/views.py:50
 #: bazaar/templates/bazaar/ad_detail.html:78
 #: bazaar/templates/bazaar/ad_list.html:83
 #: bazaar/templates/bazaar/category_detail.html:9
@@ -239,6 +239,10 @@ msgstr ""
 #: accounts/templates/registration/mod_password_reset_form.html:11
 msgid "Reset my password"
 msgstr "Reiniciar mi contraseña"
+
+#: accounts/views.py:27 bazaar/templates/bazaar/header.html:66
+msgid "Register"
+msgstr "Registrar"
 
 #: bazaar/models.py:8 bazaar/models.py:25
 msgid "name"
@@ -592,10 +596,6 @@ msgstr "Perfil"
 #: bazaar/templates/bazaar/header.html:58
 msgid "Logout"
 msgstr "Cerrar sesión"
-
-#: bazaar/templates/bazaar/header.html:66
-msgid "Register"
-msgstr "Registrarse"
 
 #: bazaar/templates/bazaar/home.html:5
 msgid "Classified ads with fiat and crypto"
