@@ -1,24 +1,26 @@
 {% extends "bazaar/base.html" %}
 
-{% block title_prefix %}Reports{% endblock %}
+{% load i18n %}
+
+{% block title_prefix %}{% translate "Reports" %}{% endblock %}
 
 {% block main %}
-    <h1>Reports</h1>
+    <h1>{% translate "Reports" %}</h1>
     <table class="table">
         <tr>
-            <th>Date</th>
-            <th>Report</th>
-            <th>Reported Ad</th>
-            <th>Actions</th>
+            <th>{% translate "Date" %}</th>
+            <th>{% translate "Report" %}</th>
+            <th>{% translate "Reported Ad" %}</th>
+            <th>{% translate "Actions" %}</th>
         </tr>
         {% for object in object_list %}
             <tr>
                 <td>{{ object.date }}</td>
-                <td><a href="{% url "bazaar:report_detail" pk=object.pk %}">"{{ object.ad.title}}" ad is reported as "{{ object.get_reason }}"</a></td>
+                <td><a href="{% url "bazaar:report_detail" pk=object.pk %}">"{{ object.ad.title}}" {% translate " ad is reported as " %}"{{ object.get_reason }}"</a></td>
                 <td><a href="{% url "bazaar:ad_detail" slug=object.ad.slug %}">{{ object.ad.title }}</a></td>
                 <td>
-                    <a href="{% url "bazaar:ad_delete" slug=object.ad.slug %}">Delete ad</a>
-                    <a href="{% url "bazaar:report_delete" pk=object.pk %}">Delete report</a>
+                    <a href="{% url "bazaar:ad_delete" slug=object.ad.slug %}">{% translate "Delete ad" %}</a>
+                    <a href="{% url "bazaar:report_delete" pk=object.pk %}">{% translate "Delete report" %}</a>
                 </td>
             </tr>
         {% endfor %}

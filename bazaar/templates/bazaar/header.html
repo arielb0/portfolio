@@ -1,67 +1,69 @@
 {% extends "header.html" %}
 
+{% load i18n %}
+
 {% block offcanvas_header %}
     <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Bazaar</h5>
-    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="{% translate "Close" %}"></button>
 {% endblock %}
 
 {% block offcanvas_body %}
     <form class="d-flex" role="search" action="{% url "bazaar:ad_list" %}" method="get">
         {{ simple_search_form.query }}
-        <button class="btn btn-outline-success">Search</button>
+        <button class="btn btn-outline-success">{% translate "Search" %}</button>
     </form>
     <ul class="navbar-nav">
         {% with user_permissions=user.get_all_permissions %}
             {% if user.is_superuser or 'bazaar.view_category' in user_permissions %}
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url "bazaar:category_list" %}">Categories</a>
+                    <a class="nav-link" href="{% url "bazaar:category_list" %}">{% translate "Categories" %}</a>
                 </li>                
             {% endif %}
             {% if user.is_superuser or 'bazaar.view_currency' in user_permissions%}
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url "bazaar:currency_list" %}">Currencies</a>
+                    <a class="nav-link" href="{% url "bazaar:currency_list" %}">{% translate "Currencies" %}</a>
                 </li>
             {% endif %}
             {% if user.is_superuser or 'bazaar.view_report' in user_permissions %}
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url "bazaar:report_list" %}">Reports</a>
+                    <a class="nav-link" href="{% url "bazaar:report_list" %}">{% translate "Reports" %}</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url "bazaar:ad_pending" %}">Pending Ads</a>
+                    <a class="nav-link" href="{% url "bazaar:ad_pending" %}">{% translate "Pending Ads" %}</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url "bazaar:ad_rejected" %}">Rejected Ads</a>
+                    <a class="nav-link" href="{% url "bazaar:ad_rejected" %}">{% translate "Rejected Ads" %}</a>
                 </li>
             {% endif %}
             {% if user.is_superuser or 'auth.view_user' in user_permissions %}
                 <li class="nav-item">                    
-                    <a class="nav-link" target="_blank" href="{% url "user_list" %}">Users</a>
+                    <a class="nav-link" target="_blank" href="{% url "user_list" %}">{% translate "Users" %}</a>
                 </li>
             {% endif %}
         {% endwith %}
 
         {% if user.is_authenticated %}
             <li class="nav-item">
-                <a class="nav-link" href="{% url "bazaar:ad_create" %}">New Ad</a>
+                <a class="nav-link" href="{% url "bazaar:ad_create" %}">{% translate "New Ad" %}</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{% url "bazaar:ad_list" %}?my_ads=true">My Ads</a>
+                <a class="nav-link" href="{% url "bazaar:ad_list" %}?my_ads=true">{% translate "My Ads" %}</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{% url "bazaar:profile_detail" %}">Profile</a>
+                <a class="nav-link" href="{% url "bazaar:profile_detail" %}">{% translate "Profile" %}</a>
             </li>
             <li class="nav-item">
                 <form action="{% url "logout" %}?next={{ request.path }}" method="post">
                     {% csrf_token %}
-                    <input class="nav-link" type="submit" value="Logout">
+                    <input class="nav-link" type="submit" value="{% translate "Logout" %}">
                 </form>
             </li>
         {% else %}
             <li class="nav-item">
-                <a class="nav-link" href="{% url "login" %}?next={{ request.path }}">Login</a>
+                <a class="nav-link" href="{% url "login" %}?next={{ request.path }}">{% translate "Login" %}</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{% url "register" %}">Register</a>
+                <a class="nav-link" href="{% url "register" %}">{% translate "Register" %}</a>
             </li>
         {% endif %}
     </ul>

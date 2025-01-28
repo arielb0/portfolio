@@ -1,10 +1,12 @@
 {% extends 'base.html' %}
 
+{% load i18n %}
+
 {% block title %}{{ action }} account{% endblock title %}
 {% block main %}
     
     <div class="d-flex flex-column min-vh-100 justify-content-center align-items-center">
-        <h1>{{ action }} account</h1>
+        <h1>{% blocktranslate %}{{ action }} account{% endblocktranslate %}</h1>
         <form action="" method="post">
             {% csrf_token %}
             {{ form.as_p }}
@@ -13,7 +15,7 @@
             </div>
         </form>
         {% if action == 'Update' %}
-            <a href="{% url 'password_change' %}">Change password</a>
+            <a href="{% url 'password_change' %}">{% translate "Change password" %}</a>
         {% endif %}
     </div>
 {% endblock %}

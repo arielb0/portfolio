@@ -130,11 +130,11 @@ class SimpleSearchForm(Form):
 class AdvancedSearchForm(SimpleSearchForm):
     price_start = IntegerField(required = False, widget = NumberInput(attrs={'class': 'form-control'}))
     price_end = IntegerField(required = False, widget = NumberInput(attrs={'class': 'form-control'}))
-    currencies = ModelMultipleChoiceField(required = False, queryset=Currency.objects.all(), widget = SelectMultiple(attrs={'class': 'form-select'}))
+    currencies = ModelMultipleChoiceField(required = False, queryset=Currency.objects.all(), widget = SelectMultiple(attrs={'class': 'form-select'}), to_field_name = 'slug')
     address = CharField(required = False, widget = TextInput(attrs={'class': 'form-control'}))
     date_start = DateField(required = False, widget = DateInput(attrs={'class': 'form-control', 'type': 'date'}))
     date_end = DateField(required = False, widget = DateInput(attrs={'class': 'form-control', 'type': 'date'}))
-    category = ModelChoiceField(required = False, queryset = Category.objects.filter(subcategories = None), widget = Select(attrs={'class': 'form-select'}))
+    category = ModelChoiceField(required = False, queryset = Category.objects.filter(subcategories = None), widget = Select(attrs={'class': 'form-select'}), to_field_name = 'slug')
 
 class ProfileForm(ModelForm):
 

@@ -1,5 +1,7 @@
 {% extends "bazaar/base.html" %}
 
+{% load i18n %}
+
 {% block title_prefix %}{{ object.title }}{% endblock %}
 
 {% block main %}
@@ -8,7 +10,7 @@
         <nav aria-label="breadcrumb" class="bg-white">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item active">
-                    <a href="{% url "bazaar:home" %}">Home</a>
+                    <a href="{% url "bazaar:home" %}">{% translate "Home" %}</a>
                 </li>
                 <li class="breadcrumb-item active">
                     <a href="{% url "bazaar:ad_list" %}?category={{object.category.slug}}">{{ object.category }}</a>
@@ -25,18 +27,18 @@
                                 {% cycle object.picture_0 object.picture_1 object.picture_2 object.picture_3 object.picture_4 object.picture_5 object.picture_6 object.picture_7 object.picture_8 object.picture_9 as ad_picture silent %}
                                 {% if ad_picture %}
                                     <div class="carousel-item {% if image_number == "0" %}active{% endif %}">
-                                        <img class="d-block mx-auto" src="{{ ad_picture.url }}" alt="Ad image {{ image_number }}">
+                                        <img class="d-block mx-auto" src="{{ ad_picture.url }}" alt="{% blocktranslate %} Ad image {{ image_number }}{% endblocktranslate %}">
                                     </div>
                                 {% endif %}
                             {% endfor %}
                         </div>
                         <button class="carousel-control-prev" type="button" data-bs-target="#adCarousel" data-bs-slide="prev">
                             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                            <span class="visually-hidden">Previous</span>
+                            <span class="visually-hidden">{% translate "Previous" %}</span>
                         </button>
                         <button class="carousel-control-next" type="button" data-bs-target="#adCarousel" data-bs-slide="next">
                             <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                            <span class="visually-hidden">Next</span>
+                            <span class="visually-hidden">{% translate "Next" %}</span>
                         </button>
                     </div>
                 </div>
@@ -52,7 +54,7 @@
             <p><i class='bi bi-cash'></i> {{ object.price }} {{ object.currency.code }}</p>
             <p>
                 {% if object.alternative_currencies.all|length > 1 %}
-                    Also I accept / give: 
+                    {% translate "Also I accept / give:" %} 
                     {% for alternative_currency in object.alternative_currencies.all %}
                         {{ alternative_currency.name }} ({{ alternative_currency.code }})
                     {% endfor %}
@@ -63,6 +65,7 @@
             <pre style="white-space: pre-wrap; word-break: break-all; font-family: inherit; font-size: inherit">{{ object.description }}</pre>
         </div>
         <div class='bg-white'>
+            <p><i class='bi bi-person'></i> {{ object.owner.username }}</p>
             {% if object.owner.profile.address %}
                 <p><i class='bi bi-geo-alt'></i> {{ object.owner.profile.address }}</p>
             {% endif %}
@@ -72,12 +75,12 @@
         </div>
         <div>
             {% if user.is_superuser or 'bazaar.change_ad' in user.get_all_permissions or object.owner.pk == user.pk %}
-                <a class="btn btn-primary" href="{% url "bazaar:ad_update" slug=object.slug %}">Update</a>
+                <a class="btn btn-primary" href="{% url "bazaar:ad_update" slug=object.slug %}">{% translate "Update" %}</a>
             {% endif %}
             {% if user.is_superuser or 'bazaar.delete_ad' in user.get_all_permissions or object.owner.pk == user.pk %}
-                <a class="btn btn-danger" href="{% url "bazaar:ad_delete" slug=object.slug %}">Delete</a>
+                <a class="btn btn-danger" href="{% url "bazaar:ad_delete" slug=object.slug %}">{% translate "Delete" %}</a>
             {% endif %}
-            <a class="btn btn-info" href="{% url "bazaar:report_create" pk=object.pk %}">Report</a>
+            <a class="btn btn-info" href="{% url "bazaar:report_create" pk=object.pk %}">{% translate "Report" %}</a>
         </div>
     </div>
 {% endblock %}

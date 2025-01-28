@@ -1,5 +1,7 @@
 {% extends "bazaar/base.html" %}
 
+{% load i18n %}
+
 {% block title_prefix %}{{ breadcrumb_current_page }}{% endblock %}
 
 {% block main %}
@@ -7,7 +9,7 @@
     <div class="row" class="bg-white">
         <ol class="breadcrumb">
             <li class="breadcrumb-item active" aria-current="page">
-                <a href="{% url "bazaar:home" %}">Home</a>
+                <a href="{% url "bazaar:home" %}">{% translate "Home" %}</a>
             </li>
             <li class="breadcrumb-item" aria-current="page">
                 {% block current_page %}
@@ -21,11 +23,11 @@
         <div class="accordion" id="accordionAdvancedSearch">
             <div class="accordion-item">
                 <div class="accordion-header">
-                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">Advanced Search</button>
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">{% translate "Advanced Search" %}</button>
                 </div>
                 <div id="collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionAdvancedSearch">
                     <div class="accordion-body">
-                        <a href="{% url "bazaar:ad_list" %}">Clean filters</a>
+                        <a href="{% url "bazaar:ad_list" %}">{% translate "Clean filters" %}</a>
                         <form action="{% url "bazaar:ad_list" %}">
                             {{ advanced_search_form.as_p }}
                             <input class="btn btn-success" type="submit" value="Search">
@@ -37,7 +39,7 @@
     </div>
     
     <div class="row">
-        <h1>Search results</h1>
+        <h1>{% translate "Search results" %}</h1>
         {% if object_list %}
             {% for object in object_list %}
                 <div class="col-sm-6 col-md-3 col-lg-2">
@@ -45,7 +47,7 @@
                         {% if object.picture_0 %}
                             <img src="{{ object.picture_0.url }}" alt="{{ object.title }}" class="card-img-top img-thumbnail" style="object-fit: contain">
                         {% else %}
-                            <img src="" alt="default ad image" class="card-img-top" style="object-fit: contain">
+                            <img src="" alt="{% translate "Default ad image" %}" class="card-img-top" style="object-fit: contain">
                         {% endif %}
                         <div class="card-body">
                             <a href="{% url "bazaar:ad_detail" slug=object.slug %}" class="link-underline-light">
@@ -66,29 +68,29 @@
                                         <form action="{% url "bazaar:ad_moderate" slug=object.slug %}" method="post">
                                             {% csrf_token %}
                                             <input type="hidden" name="status" value=1>
-                                            <input class="btn btn-warning" type="submit" value="Reject">
+                                            <input class="btn btn-secondary" type="submit" value="{% translate 'Reject' %}">
                                         </form>
                                     {% endif %}
                                     {% if object.status == 0 or object.status == 1 %}
                                         <form action="{% url "bazaar:ad_moderate" slug=object.slug %}" method="post">
                                             {% csrf_token %}
                                             <input type="hidden" name="status" value=2>
-                                            <input class="btn btn-primary" type="submit" value="Allow">
+                                            <input class="btn btn-secondary" type="submit" value="{% translate 'Allow' %}">
                                         </form>
                                     {% endif %}
                                 {% endif %}
                                 {% if user.is_superuser or 'bazaar.change_ad' in user.get_all_permissions or user.id == object.owner.id  %}
-                                    <a class="btn btn-primary" href="{% url "bazaar:ad_update" slug=object.slug %}">Update</a>
+                                    <a class="btn btn-primary" href="{% url "bazaar:ad_update" slug=object.slug %}">{% translate "Update" %}</a>
                                 {% endif %}
                                 {% if user.is_superuser or 'bazaar.delete_ad' in user.get_all_permissions or user.id == object.owner.id %}
-                                    <a class="btn btn-danger" href="{% url "bazaar:ad_delete" slug=object.slug %}">Delete</a>
+                                    <a class="btn btn-danger" href="{% url "bazaar:ad_delete" slug=object.slug %}">{% translate "Delete" %}</a>
                                 {% endif %}
                             </div>
                     </div>
                 </div>
             {% endfor %}
         {% else %}
-            <p class="text-center">{% block no_ads_message %}Your search don't return results.{% endblock  %}</p>
+            <p class="text-center">{% block no_ads_message %}{% translate "Your search don't return results." %}{% endblock  %}</p>
         {% endif %}
     </div>
 

@@ -1,6 +1,8 @@
 {% extends "bazaar/base.html" %}
 
-{% block title_prefix %}Classified ads with fiat and crypto{% endblock %}
+{% load i18n %}
+
+{% block title_prefix %}{% translate "Classified ads with fiat and crypto" %}{% endblock %}
 
 {% block main %}
 
@@ -9,7 +11,7 @@
             padding: 0;margin: -1px;overflow: hidden;clip: rect(0, 0, 0, 0);
             white-space: nowrap;
             border: 0;">
-                Categories
+                {% translate "Categories" %}
         </h1>
         {% for object in object_list %}
             {% if object.priority %}

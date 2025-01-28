@@ -1,10 +1,11 @@
 {% extends "base.html" %}
 
 {% load static %}
+{% load i18n %}
 
 {% block page_icon %}{% static "shop.svg" %}{% endblock %}
 
-{% block page_description %}Buy, sell, rent things or services using fiat and crypto.{% endblock %}
+{% block page_description %}{% translate "Buy, sell, rent things or services using fiat and crypto." %}{% endblock %}
 
 {% block title %}{% block title_prefix %}{% endblock title_prefix %}, Bazaar{% endblock title %}
 
@@ -17,7 +18,7 @@
 {% block footer %}
     <div class="navbar navbar-expand bg-body-tertiary">
         <div class="container-fluid justify-content-center">
-            <p class="navbar-text">Bazaar 2024-02-28 {% now "Y-m-d" %}. All rights reserved.</p>
+            <p class="navbar-text">Bazaar 2024-02-28 {% now "Y-m-d" %}. {% translate "All rights reserved." %}</p>
         </div>
     </div>
 {% endblock %}

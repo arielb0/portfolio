@@ -1,9 +1,11 @@
 {% extends "bazaar/base.html" %}
 
-{% block title_prefix %}User profile{% endblock  %}
+{% load i18n %}
+
+{% block title_prefix %}{% translate "User Profile" %}{% endblock  %}
 
 {% block main %}
-    <h1>User profile</h1>
+    <h1>{% translate "User Profile" %}</h1>
 
     <div class="p-3 m-3 bg-white">
         <form action="{% url "bazaar:profile_user_update" %}" method="post">

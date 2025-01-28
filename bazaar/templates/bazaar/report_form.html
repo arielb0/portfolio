@@ -1,12 +1,14 @@
 {% extends "bazaar/base.html" %}
 
-{% block title_prefix %}Update a report{% endblock %}
+{% load i18n %}
+
+{% block title_prefix %}{% translate "Update a report" %}{% endblock %}
 
 {% block main %}    
-    <h1>{% include "action_label.html" %} a report</h1>
+    <h1>{% include "action_label.html" %} {% translate "a report" %}</h1>
     <form action="" method="post">
         {% csrf_token %}
         {{ form.as_p }}
-        <button type="submit" class="btn btn-primary">{% include "action_label.html" %} Report</button>
+        <button type="submit" class="btn btn-primary">{% include "action_label.html" %} {% translate "Report" %}</button>
     </form>
 {% endblock %}

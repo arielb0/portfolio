@@ -1,12 +1,15 @@
 {% extends 'base.html' %}
 
-{% block title %}Email Verification{% endblock title %}
+{% load i18n %}
+
+{% block title %}{% translate "Email Verification" %}{% endblock title %}
 
 {% block main %}
-    <h1>Congratulations!!</h1>
+    <h1>{% translate " Congratulations" %}!</h1>
     <p>
-        Dear user, your account is almost ready! For security reasons, we need to verify
+        {% translate "Dear user, your account is almost ready! For security reasons, we need to verify
         your email address. To do that, you need to reset your password using the link 
-        above: <a href="{% url 'password_reset' %}">Reset password</a>
+        above: " %}
+        <a href="{% url 'password_reset' %}">{% translate "Reset password" %}</a>
     </p>
 {% endblock %}

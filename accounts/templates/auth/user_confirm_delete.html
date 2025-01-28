@@ -1,11 +1,13 @@
 {% extends 'base.html' %}
 
+{% load i18n %}
+
 {% block main %}
-    <h1>Confirmation</h1>
-    <p>Are you sure? This process can be undone.</p>
+    <h1>{% translate "Confirmation" %}</h1>
+    <p>{% translate "Are you sure? This process can be undone." %} </p>
     <form action="" method="post">
         {% csrf_token %}
         {{ form.as_p }}
-        <input type="submit" value="Delete account">
+        <input type="submit" value="{% translate 'Delete account' %}">
     </form>
 {% endblock %}

@@ -1,11 +1,13 @@
 {% extends "bazaar/ad_list.html" %}
 
-{% block title_prefix %}Pending ads{% endblock %}
+{% load i18n %}
+
+{% block title_prefix %}{% translate "Pending ads" %}{% endblock %}
 
 {% block current_page %}
-    Pending Ads
+    {% translate "Pending ads" %}
 {% endblock  %}
 
 {% block no_ads_message %}
-    There are not pending ads.
+    {% translate "There are not pending ads." %}
 {% endblock %}

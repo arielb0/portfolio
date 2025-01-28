@@ -1,13 +1,15 @@
 {% extends "bazaar/base.html" %}
 
-{% block title_prefix %}Report detail{% endblock %}
+{% load i18n %}
+
+{% block title_prefix %}{% translate "Report detail" %}{% endblock %}
 
 {% block main %}
-    <h1>"{{ object.ad.title | capfirst }}" ad is marked as "{{ object.get_reason | lower }}"</h1>
+    <h1>"{{ object.ad.title | capfirst }}"{% translate " ad is marked as " %}"{{ object.get_reason | lower }}"</h1>
     <p>{{ object.date }}</p>
     <p>{{ object.description }}</p>
-    <p>Options:</p>
-    <a href="{% url "bazaar:ad_detail" slug=object.ad.slug %}">See ad</a>
-    <a href="{% url "bazaar:ad_delete" slug=object.ad.slug %}">Delete ad and notify user</a>
-    <a href="{% url "bazaar:report_delete" pk=object.pk %}">Delete report</a>
+    <p>{% translate "Options" %}:</p>
+    <a href="{% url "bazaar:ad_detail" slug=object.ad.slug %}">{% translate "See ad" %}</a>
+    <a href="{% url "bazaar:ad_delete" slug=object.ad.slug %}">{% translate "Delete ad and notify user" %}</a>
+    <a href="{% url "bazaar:report_delete" pk=object.pk %}">{% translate "Delete report" %}</a>
 {% endblock %}

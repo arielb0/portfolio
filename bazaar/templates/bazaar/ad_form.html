@@ -1,12 +1,14 @@
 {% extends "bazaar/base.html" %}
 
-{% block title_prefix %}{% include "action_label.html" %} an advertesiment{% endblock %}
+{% load i18n %}
+
+{% block title_prefix %}{% include "action_label.html" %} {% translate "an advertesiment" %}{% endblock %}
 
 {% block main %}
-    <h1>{% include "action_label.html" %} an advertesiment</h1>
+    <h1>{% include "action_label.html" %} {% translate "an advertesiment" %}</h1>
     <form action="" enctype="multipart/form-data" method="post">
         {% csrf_token %}
         {{ form.as_p }}
-        <button class="btn btn-primary" type="submit">{% include "action_label.html" %} Ad</button>
+        <button class="btn btn-primary" type="submit">{% include "action_label.html" %} {% translate "Ad" %}</button>
     </form>
 {% endblock %}

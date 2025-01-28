@@ -1,19 +1,21 @@
 {% extends "base.html" %}
 
-{% block title %}Users{% endblock %}
+{% load i18n %}
+
+{% block title %}{% translate "Users" %}{% endblock %}
 
 {% block main %}
-    <h1>Users</h1>
-    <a href="{% url "register" %}">Create user</a>
+    <h1>{% translate "Users" %}</h1>
+    <a href="{% url "register" %}">{% translate "Create user" %}</a>
     <table class="table">
         <thead>
             <tr>
-                <th scope="col">Username</th>
-                <th scope="col">First Name</th>
-                <th scope="col">Last Name</th>
-                <th scope="col">Email</th>
-                <th scope="col">Groups</th>
-                <th scope="col">Actions</th>
+                <th scope="col">{% translate "Username" %}</th>
+                <th scope="col">{% translate "First Name" %}</th>
+                <th scope="col">{% translate "Last Name" %}</th>
+                <th scope="col">{% translate "Email" %}</th>
+                <th scope="col">{% translate "Groups" %}</th>
+                <th scope="col">{% translate "Actions" %}</th>
             </tr>
         </thead>
         <tbody>
@@ -30,8 +32,8 @@
                         {% endfor %}
                     </td>
                     <td>
-                        <a href="{% url "update_user" pk=object.pk %}">Update</a>
-                        <a href="{% url "delete_user" pk=object.pk %}">Delete</a>
+                        <a href="{% url "update_user" pk=object.pk %}">{% translate "Update" %}</a>
+                        <a href="{% url "delete_user" pk=object.pk %}">{% translate "Delete" %}</a>
                     </td>
                 </tr>
             {% endfor %}

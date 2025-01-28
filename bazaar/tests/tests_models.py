@@ -177,6 +177,7 @@ class AdTestCase(TestCase):
     def setUpTestData(cls) -> None:
 
         cls.generator = Generator()
+        password = 'weak_password_123_321'
 
         cls.currency_1 = Currency(name = 'US Dollar', code = 'USD')
         cls.currency_1.save()
@@ -190,10 +191,9 @@ class AdTestCase(TestCase):
         cls.category = Category(name = 'Storage devices', priority = 1)
         cls.category.save()
 
-        cls.moderator = User(username = 'Peter', password = 'weak_password_123_321')
-        cls.moderator.save()
+        cls.moderator = cls.generator.create_user_model(username='Peter', password = password)
 
-        cls.owner = cls.generator.create_user_model()
+        cls.owner = cls.generator.create_user_model(username='John', password = password)
 
         cls.TITLE = '16GB USB 3.1 ADATA Flash Drive'
         cls.DESCRIPTION = 'I sell this pendrive. It \
@@ -478,12 +478,13 @@ class ReportTestCase(TestCase):
     @classmethod
     def setUpTestData(cls) -> None:
         cls.generator = Generator()
+        password = 'weak_password_123_321'
 
         currency = Currency(name = 'US Dollar', code = 'USD')
         currency.save()
 
         # category_group = cls.generator.create_category_group_model()
-        cls.owner = cls.generator.create_user_model()
+        cls.owner = cls.generator.create_user_model(username = 'Peter', password = password)
         
         category = Category(name = 'Tools', priority = 1)
         category.save()
@@ -501,17 +502,11 @@ class ReportTestCase(TestCase):
         )
         ad.save()
 
-        moderator = User(
-            username = 'Peter',
-            password = 'weak_password_0687'
-        )
-        moderator.save()
-
         cls.REASON = '0'
         cls.DESCRIPTION = 'These ads contains promotions to illegal stuff, like weapon.'
         cls.DATE = '2024-01-02'
         cls.READED = True
-        cls.MODERATOR = moderator
+        cls.MODERATOR = cls.generator.create_user_model(username = 'John', password = password)
         cls.AD = ad
         return super().setUpTestData()
     

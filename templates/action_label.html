@@ -1,1 +1,2 @@
-{% if object.pk %}Update{% else %}Create{% endif %}
+{% load i18n %}
+{% if object.pk %}{% translate "Update" %}{% else %}{% translate "Create" %}{% endif %}

@@ -1,6 +1,5 @@
 from django.test import TestCase
 from django.urls import reverse, resolve
-from ..models import Currency, Category, Ad, Report
 from ..views import CreateCurrency, DetailCurrency, UpdateCurrency, DeleteCurrency, ListCurrency
 from ..views import CreateCategory, DetailCategory, UpdateCategory, DeleteCategory, ListCategory
 from ..views import CreateAd, DetailAd, UpdateAd, DeleteAd, ListAd
@@ -8,6 +7,7 @@ from ..views import CreateReport, DetailReport, UpdateReport, DeleteReport, List
 from django.views import View
 from typing import Callable
 from bazaar.tests.helpers import Generator
+from datetime import date
 
 class ViewClassUtil():
       '''
@@ -58,13 +58,14 @@ class CurrencyURLsTestCase(TestCase):
         @classmethod
         def setUpTestData(cls) -> None:
                 
-                cls.currency = Currency(name = 'US Dollar', code = 'USD')
-                cls.currency.save()
+                cls.generator = Generator()
+
+                cls.currency = cls.generator.create_currency_model(name = 'United States Dollar', code = 'USD')
                 
                 cls.CURRENCY_CREATE_URL = reverse('bazaar:currency_create')
-                cls.CURRENCY_DETAIL_URL = reverse('bazaar:currency_detail', kwargs={'pk': cls.currency.pk})
-                cls.CURRENCY_UPDATE_URL = reverse('bazaar:currency_update', kwargs={'pk': cls.currency.pk})
-                cls.CURRENCY_DELETE_URL = reverse('bazaar:currency_delete', kwargs={'pk': cls.currency.pk})
+                cls.CURRENCY_DETAIL_URL = reverse('bazaar:currency_detail', kwargs={'slug': cls.currency.slug})
+                cls.CURRENCY_UPDATE_URL = reverse('bazaar:currency_update', kwargs={'slug': cls.currency.slug})
+                cls.CURRENCY_DELETE_URL = reverse('bazaar:currency_delete', kwargs={'slug': cls.currency.slug})
                 cls.CURRENCY_LIST_URL = reverse('bazaar:currency_list')
 
                 return super().setUpTestData()
@@ -86,10 +87,10 @@ class CurrencyURLsTestCase(TestCase):
         
         def test_currency_detail_url_path(self):
             '''
-                Test if currency_detail url return a /bazaar/currency/<int:pk> path .
+                Test if currency_detail url return a /bazaar/currency/<slug:slug>/detail path .
             '''
 
-            self.assertEqual(reverse('bazaar:currency_detail', kwargs={'pk': self.currency.pk}), f'/bazaar/currency/{self.currency.pk}')
+            self.assertEqual(reverse('bazaar:currency_detail', kwargs={'slug': self.currency.slug}), f'/bazaar/currency/{self.currency.slug}/detail')
 
         def test_currency_detail_url_view(self):
             '''
@@ -101,10 +102,10 @@ class CurrencyURLsTestCase(TestCase):
 
         def test_currency_update_url_path(self):
             '''
-                Test if currency_update url return a /bazaar/currency/<int:pk>/update path .
+                Test if currency_update url return a /bazaar/currency/<slug:slug>/update path .
             '''
 
-            self.assertEqual(reverse('bazaar:currency_update', kwargs={'pk': self.currency.pk}), f'/bazaar/currency/{self.currency.pk}/update')
+            self.assertEqual(reverse('bazaar:currency_update', kwargs={'slug': self.currency.slug}), f'/bazaar/currency/{self.currency.slug}/update')
 
         def test_currency_update_url_view(self):
             '''
@@ -116,10 +117,10 @@ class CurrencyURLsTestCase(TestCase):
 
         def test_currency_delete_url_path(self):
             '''
-                Test if currency_delete url return a /bazaar/currency/<int:pk>/delete path .
+                Test if currency_delete url return a /bazaar/currency/<slug:slug>/delete path .
             '''
 
-            self.assertEqual(reverse('bazaar:currency_delete', kwargs={'pk': self.currency.pk}), f'/bazaar/currency/{self.currency.pk}/delete')
+            self.assertEqual(reverse('bazaar:currency_delete', kwargs={'slug': self.currency.slug}), f'/bazaar/currency/{self.currency.slug}/delete')
 
         def test_currency_delete_url_view(self):
             '''
@@ -148,26 +149,18 @@ class CategoryURLsTestCase(TestCase):
      
     @classmethod
     def setUpTestData(cls) -> None:
-        # cls.generator = Generator()
+        cls.generator = Generator()
 
-        # cls.category_group = cls.generator.create_category_group_model()
-
-        cls.category = Category(name = 'Laptops', priority = 1)
-        cls.category.save()
+        cls.category = cls.generator.create_category_model(name = 'Laptops', priority = 1)        
 
         cls.CATEGORY_CREATE_URL = reverse('bazaar:category_create')
-        cls.CATEGORY_DETAIL_URL = reverse('bazaar:category_detail', kwargs={'pk': cls.category.pk})
-        cls.CATEGORY_UPDATE_URL = reverse('bazaar:category_update', kwargs={'pk': cls.category.pk})
-        cls.CATEGORY_DELETE_URL = reverse('bazaar:category_delete', kwargs={'pk': cls.category.pk})
+        cls.CATEGORY_DETAIL_URL = reverse('bazaar:category_detail', kwargs={'slug': cls.category.slug})
+        cls.CATEGORY_UPDATE_URL = reverse('bazaar:category_update', kwargs={'slug': cls.category.slug})
+        cls.CATEGORY_DELETE_URL = reverse('bazaar:category_delete', kwargs={'slug': cls.category.slug})
         cls.CATEGORY_LIST_URL = reverse('bazaar:category_list')
         
         return super().setUpTestData()
-    '''
-    @classmethod
-    def tearDownClass(cls) -> None:
-          cls.category_group.delete()
-          return super().tearDownClass()
-    '''
+    
     def test_category_create_url_path(self):
          '''
             Test if bazaar:category_create Django url return /bazaar/category/create path.
@@ -185,10 +178,10 @@ class CategoryURLsTestCase(TestCase):
 
     def test_category_detail_url_path(self):
          '''
-            Test if bazaar:category_detail Django url return /bazaar/category/<int:pk> path.
+            Test if bazaar:category_detail Django url return /bazaar/category/<slug:slug>/detail path.
          '''
 
-         self.assertEqual(self.CATEGORY_DETAIL_URL, f'/bazaar/category/{self.category.pk}')
+         self.assertEqual(self.CATEGORY_DETAIL_URL, f'/bazaar/category/{self.category.slug}/detail')
          
     def test_category_detail_view(self):
          '''
@@ -200,10 +193,10 @@ class CategoryURLsTestCase(TestCase):
 
     def test_category_update_url_path(self):
          '''
-            Test if bazaar:category_update Django url return the correct path (/bazaar/category/<int:pk>/update)
+            Test if bazaar:category_update Django url return the correct path (/bazaar/category/<slug:slug>/update)
          '''
 
-         self.assertEqual(self.CATEGORY_UPDATE_URL, f'/bazaar/category/{self.category.pk}/update')
+         self.assertEqual(self.CATEGORY_UPDATE_URL, f'/bazaar/category/{self.category.slug}/update')
 
     def test_category_update_view(self):
          '''
@@ -215,10 +208,10 @@ class CategoryURLsTestCase(TestCase):
 
     def test_category_delete_url_path(self):
          '''
-            Test if bazaar:category_delete Django url pattern return the correct path (/bazaar/category/<int:pk>/delete).
+            Test if bazaar:category_delete Django url pattern return the correct path (/bazaar/category/<slug:slug>/delete).
          '''
 
-         self.assertEqual(self.CATEGORY_DELETE_URL, f'/bazaar/category/{self.category.pk}/delete')
+         self.assertEqual(self.CATEGORY_DELETE_URL, f'/bazaar/category/{self.category.slug}/delete')
 
     def test_category_delete_view(self):
          '''
@@ -246,68 +239,52 @@ class CategoryURLsTestCase(TestCase):
 class AdURLTestCase(TestCase):
      
      @classmethod
-     def setUpTestData(cls) -> None:
+     def setUpTestData(cls) -> None:        
          
-         # cls.generator = Generator()
+         cls.generator = Generator()
 
-         usd_currency = Currency(
-              name = 'United States Dollar', 
-              code = 'USD'
-            )
-         usd_currency.save()
+         usd_currency = cls.generator.create_currency_model(
+              name = 'United States Dollar', code = 'USD')
 
-         ada_currency = Currency(
-              name = 'ADA (Cardano)',
-              code = 'ADA'
-         )
-         ada_currency.save()
-
-         eur_currency = Currency(
+         ada_currency = cls.generator.create_currency_model(
+              name = 'ADA (Cardano)', code = 'ADA')
+         
+         eur_currency = cls.generator.create_currency_model(
               name = 'European currency',
-              code = 'EUR'
-         )
-         eur_currency.save()
+              code = 'EUR')         
 
-         # cls.category_group = cls.generator.create_category_group_model()
+         cls.cloths_and_shoes_category = cls.generator.create_category_model(name='Cloths and shoes', priority = 1)
 
-         cloths_and_shoes_category = Category(name='Cloths and shoes', priority = 1)
-         cloths_and_shoes_category.save()
-         
-         cls.ad = Ad(
+         owner = cls.generator.create_user_model(username = 'John', password = 'insecurePassw0rd!')
+
+         cls.ad = cls.generator.create_ad_model(
               title='Artisan shoes',
               description='Artisan shoes, good quality',
               price=20,
               currency= usd_currency,
-              address='New Economy, 42 Street, New Zeland',
-              name='Smith Doe',
-              phone='0123456789',
-              mail='smithdoe01@yahoo.com',
-              category=cloths_and_shoes_category,
-              rank=1
-         )
-         cls.ad.save()
+              category=cls.cloths_and_shoes_category,
+              date = date.today(),
+              status = 2,
+              rank=1,
+              owner=owner)
+         
          cls.ad.alternative_currencies.add(ada_currency, eur_currency)
+         cls.ad.save()
 
          cls.AD_CREATE_URL = reverse('bazaar:ad_create')
-         cls.AD_DETAIL_URL = reverse('bazaar:ad_detail', kwargs={'pk': cls.ad.pk})
-         cls.AD_UPDATE_URL = reverse('bazaar:ad_update', kwargs={'pk': cls.ad.pk})
-         cls.AD_DELETE_URL = reverse('bazaar:ad_delete', kwargs={'pk': cls.ad.pk})
+         cls.AD_DETAIL_URL = reverse('bazaar:ad_detail', kwargs={'slug': cls.ad.slug})
+         cls.AD_UPDATE_URL = reverse('bazaar:ad_update', kwargs={'slug': cls.ad.slug})
+         cls.AD_DELETE_URL = reverse('bazaar:ad_delete', kwargs={'slug': cls.ad.slug})
          cls.AD_LIST_URL = reverse('bazaar:ad_list')
 
          return super().setUpTestData()
-     '''
-     @classmethod
-     def tearDownClass(cls) -> None:
-          cls.category_group.delete()
-          return super().tearDownClass()
-     '''
-     
+          
      def test_ad_create_url_path(self):
           '''
-            Test if bazaar:ad_create Django url return '/bazaar/create' path.
+            Test if bazaar:ad_create Django url return '/bazaar/ad/create' path.
           '''
 
-          self.assertEqual(self.AD_CREATE_URL, '/bazaar/create')
+          self.assertEqual(self.AD_CREATE_URL, '/bazaar/ad/create')
 
      def test_ad_create_url_view(self):
           '''
@@ -319,10 +296,10 @@ class AdURLTestCase(TestCase):
 
      def test_ad_detail_url_path(self):
           '''
-            Test if bazaar:ad_detail Django url return /bazaar/<int:pk> path
+            Test if bazaar:ad_detail Django url return /bazaar/ad/<slug:slug>/detail path
           '''
 
-          self.assertEqual(self.AD_DETAIL_URL, f'/bazaar/{self.ad.pk}')
+          self.assertEqual(self.AD_DETAIL_URL, f'/bazaar/ad/{self.ad.slug}/detail')
 
      def test_ad_detail_view(self):
           '''
@@ -334,10 +311,10 @@ class AdURLTestCase(TestCase):
 
      def test_ad_update_url_path(self):
           '''
-            Test if bazaar:ad_update Django url return /bazaar/<int:pk>/update path
+            Test if bazaar:ad_update Django url return /bazaar/ad/<slug:slug>/update path
           '''
 
-          self.assertEqual(self.AD_UPDATE_URL, f'/bazaar/{self.ad.pk}/update')
+          self.assertEqual(self.AD_UPDATE_URL, f'/bazaar/ad/{self.ad.slug}/update')
 
      def test_ad_update_view(self):
           '''
@@ -349,10 +326,10 @@ class AdURLTestCase(TestCase):
 
      def test_ad_delete_url_path(self):
          '''
-            Test if bazaar:ad_delete Django url return /bazaar/<int:pk>/delete path
+            Test if bazaar:ad_delete Django url return /bazaar/ad/<slug:slug>/delete path
          '''
 
-         self.assertTrue(self.AD_DELETE_URL, f'/bazaar/{self.ad.pk}/delete')
+         self.assertTrue(self.AD_DELETE_URL, f'/bazaar/ad/{self.ad.slug}/delete')
 
      def test_ad_delete_view(self):
           '''
@@ -364,10 +341,10 @@ class AdURLTestCase(TestCase):
 
      def test_ad_list_url_path(self):
           '''
-            Test if bazaar:ad_list Django url return /bazaar
+            Test if bazaar:ad_list Django url return /bazaar/ad
           '''
 
-          self.assertTrue(self.AD_LIST_URL, '/bazaar')
+          self.assertTrue(self.AD_LIST_URL, '/bazaar/ad')
 
      def test_ad_list_view(self):
           '''
@@ -381,55 +358,47 @@ class ReportURLTestCase(TestCase):
      
      @classmethod
      def setUpTestData(cls) -> None:
-         
-         usd = Currency(name='United States Dollar', code='USD')
-         usd.save()
-         
-         # generator = Generator()
-         # cls.category_group = generator.create_category_group_model()
-         smartphones = Category(name = 'smartphones', priority = 1)
-         smartphones.save()
 
-         ad = Ad(
-            title = 'Offensive title',
-            description = 'Here are a offensive description',  
-            price = 1000,
-            currency = usd,
-            address = 'Moon City, Nowhere',
-            name = 'Jordan',
-            phone = '',
-            mail = 'jordanbatusto@gmail.com',
-            category = smartphones
-         )
-         ad.save()
+         cls.generator = Generator()
 
-         cls.report = Report(
+         usd = cls.generator.create_currency_model(name = 'United States Dollar', code = 'USD')
+
+         smartphones = cls.generator.create_category_model(name = 'Smartphones', priority = 1)
+
+         owner = cls.generator.create_user_model(username = 'John', password = 'insecurePassw0rd!')
+
+         cls.ad = cls.generator.create_ad_model(
+              title = 'Offensive title',
+              description = 'Here are a offensive description',  
+              price = 1000,
+              currency = usd,
+              date = date.today(),
+              category = smartphones,
+              status = 2,
+              rank = 1,
+              owner = owner
+          )
+
+         cls.report = cls.generator.create_report_model(
               reason = 1,
               description = 'This add is offensive',
-              ad = ad,
-         )
-         cls.report.save()
+              ad = cls.ad,
+          )
 
-         cls.REPORT_CREATE_URL = reverse('bazaar:report_create', kwargs={'pk': ad.pk})
+         cls.REPORT_CREATE_URL = reverse('bazaar:report_create', kwargs={'pk': cls.ad.pk})
          cls.REPORT_DETAIL_URL = reverse('bazaar:report_detail', kwargs={'pk': cls.report.pk})
          cls.REPORT_UPDATE_URL = reverse('bazaar:report_update', kwargs={'pk': cls.report.pk})
          cls.REPORT_DELETE_URL = reverse('bazaar:report_delete', kwargs={'pk': cls.report.pk})
          cls.REPORT_LIST_URL = reverse('bazaar:report_list')
 
-         return super().setUpTestData()
-     '''
-     @classmethod
-     def tearDownClass(cls) -> None:
-          cls.category_group.delete()
-          return super().tearDownClass()
-     '''
+         return super().setUpTestData()     
     
      def test_report_create_url_path(self):
          '''
-            Test if bazaar:report_create Django url has the correct path (/bazaar/report/create)
+            Test if bazaar:report_create Django url has the correct path (/bazaar/report/create/ad/<int:pk>)
          '''
 
-         self.assertEqual(self.REPORT_CREATE_URL, '/bazaar/report/create/ad/1')
+         self.assertEqual(self.REPORT_CREATE_URL, f'/bazaar/report/create/ad/{self.ad.pk}')
 
      def test_report_create_view(self):
          '''

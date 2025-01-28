@@ -16,4 +16,4 @@ class Command(BaseCommand):
         if objects_deleted[0] == 0:
             return 'No old ads to delete!'
 
-        return f'Deleted old ads sucessfully.'
+        return 'Deleted old ads sucessfully.'

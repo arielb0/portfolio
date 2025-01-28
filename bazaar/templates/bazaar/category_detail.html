@@ -1,9 +1,11 @@
 {% extends "bazaar/base.html" %}
 
+{% load i18n %}
+
 {% block title_prefix %}{{ object.name }}{% endblock %}
 
 {% block main %}
     <h1>{{ object.name }}</h1>
-    <a class="btn btn-primary" href="{% url "bazaar:category_update" slug=object.slug %}">Update</a>
-    <p>Put options to manage category.. and a menu to return to main page.</p>
+    <a class="btn btn-primary" href="{% url "bazaar:category_update" slug=object.slug %}">{% translate "Update" %}</a>
+    <a class="btn btn-danger" href="{% url "bazaar:category_delete" slug=object.slug %}">{% translate "Delete" %}</a>
 {% endblock %}

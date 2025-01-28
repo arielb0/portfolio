@@ -6,9 +6,10 @@ from accounts.forms import UserAdminForm, UserForm
 from accounts.views import UpdateUser
 from django.urls import reverse_lazy
 from django.db.models import Q
-from .helpers import normalize_ad_pictures, get_simple_search_form, get_profile_view_context, get_user_form, set_profile_user
+from .helpers import normalize_ad_pictures, get_simple_search_form
 from django.contrib.auth.mixins import UserPassesTestMixin, LoginRequiredMixin
 from django.contrib.auth.forms import PasswordChangeForm
+from django.utils.translation import gettext_lazy as _
 
 # Create your views here.
 
@@ -173,7 +174,7 @@ class DetailAd(DetailView):
 class UpdateAd(UserPassesTestMixin, UpdateView):
     model = Ad
     form_class = AdForm
-    success_url = reverse_lazy('bazaar:ad_list')    
+    success_url = reverse_lazy('bazaar:ad_list')
 
     def get_context_data(self, **kwargs) -> dict[str]:
         context = super().get_context_data(**kwargs)
@@ -184,13 +185,17 @@ class UpdateAd(UserPassesTestMixin, UpdateView):
         self.request = normalize_ad_pictures(request, (748, 420)) # TODO: You need to use self.request.POST = self.request.POST.copy().
         return super().post(request, *args, **kwargs)
 
-    '''
+    
     def form_valid(self, form):
-        ad = form.save(commit = False)
-        ad.owner = self.request.user # TODO: This is a bug. When admin moderate ad, he/she convert to owner.
-        ad.save()
+        
+        if not (self.request.user.is_superuser or self.request.user.groups.filter(Q(name = 'Bazaar Superuser') | Q(name = 'Bazaar Moderator')).exists()):
+            ad = form.save(commit = False)
+            ad.status = 0 # Pending status..
+            ad.save()
+        else:
+            form.save(commit = True)
+
         return HttpResponseRedirect(self.get_success_url())
-    '''
     
     def test_func(self):
         return self.request.user.is_superuser or self.request.user.has_perm('bazaar.change_ad') or self.get_object().owner == self.request.user
@@ -214,21 +219,23 @@ class ListAd(ListView):
 
     def get_queryset(self):
 
-        queryset = Ad.objects.filter(status = 2)
+        if 'my_ads' not in self.request.GET.keys():
+            queryset = Ad.objects.filter(status = 2)
+        else:
+            queryset = Ad.objects.all()
 
-        currency_queryset = self.request.GET.get('query', '')
+        keyword_queryset = self.request.GET.get('query', '')
         price_start = self.request.GET.get('price_start', '')
         price_end = self.request.GET.get('price_end', '')
         currencies = self.request.GET.getlist('currencies', [])
-        address = self.request.GET.get('address', '')
         date_start = self.request.GET.get('date_start', '')
         date_end = self.request.GET.get('date_end', '')
         category = self.request.GET.get('category', '')
         my_ads = self.request.GET.get('my_ads', '')
 
-        if currency_queryset:
-            queryset = queryset.filter(Q(title__icontains=currency_queryset) | Q(description__icontains=currency_queryset))
-
+        if keyword_queryset:
+            queryset = queryset.filter(Q(title__icontains=keyword_queryset) | Q(description__icontains=keyword_queryset))
+        
         if price_start:
             queryset = queryset.filter(Q(price__gte=price_start))
 
@@ -237,15 +244,12 @@ class ListAd(ListView):
 
         if currencies:
             currencies = self.request.GET.getlist('currencies')
-            currency_queryset = Q(currency=currencies[0])
+            currency_query = Q(currency__slug=currencies[0])
 
             for currency in currencies[1:]:
-                currency_queryset = Q(currency_queryset | Q(alternative_currencies=currency))
+                currency_query = Q(currency_query | Q(alternative_currencies__slug=currency))
 
-            queryset = queryset.filter(currency_queryset).distinct()
-
-        if address:
-            queryset = queryset.filter(Q(address__icontains=address))
+            queryset = queryset.filter(currency_query).distinct()
 
         if date_start:
             queryset = queryset.filter(Q(date__gte=date_start))
@@ -266,11 +270,25 @@ class ListAd(ListView):
         context = get_simple_search_form(context, self.request.GET)
         context['advanced_search_form'] = AdvancedSearchForm(data = self.request.GET)
 
-        if 'category' in self.request.GET.keys():
-            context['breadcrumb_current_page'] = Category.objects.get(slug = self.request.GET.get('category'))
+        get_keys = self.request.GET.keys()
         
-        if 'query' in self.request.GET.keys():
-            context['breadcrumb_current_page'] = f'Search results for "{self.request.GET.get("query")}"'
+        if 'query' in get_keys and self.request.GET.get('query') != '':
+            context['breadcrumb_current_page'] = _(f'Search results for "{self.request.GET.get("query")}"')
+
+        if 'category' in get_keys and self.request.GET.get('category') != '':
+            context['breadcrumb_current_page'] = Category.objects.get(slug = self.request.GET.get('category'))
+
+        if 'my_ads' in get_keys:
+            context['breadcrumb_current_page'] = _('My Ads')
+
+        if 'price_start' in get_keys or 'price_end' in get_keys \
+            or 'currency' in get_keys or 'address' in get_keys \
+            or 'date_start' in get_keys or 'date_end' in get_keys:
+
+            context['breadcrumb_current_page'] = _('Advanced Search')
+
+        context['breadcrumb_current_page'] = _('Search results')
+        
         return context
         
     
@@ -288,7 +306,6 @@ class ListPendingAd(UserPassesTestMixin, ListAd):
         return ['bazaar/ad_pending_list.html']
 
     def get_queryset(self):
-        print('I am executing the view ListPendingAd.')
         return Ad.objects.filter(status = 0)
 
     def test_func(self):        

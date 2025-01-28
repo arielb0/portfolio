@@ -1,11 +1,13 @@
 {% extends "bazaar/ad_list.html" %}
 
-{% block title_prefix %}Rejected ads{% endblock %}
+{% load i18n %}
+
+{% block title_prefix %}{% translate "Rejected ads" %}{% endblock %}
 
 {% block current_page %}
-    Rejected Ads
+    {% translate "Rejected ads" %}
 {% endblock  %}
 
 {% block no_ads_message %}
-    There are not rejected ads.
+    {% translate "There are not rejected ads." %}
 {% endblock %}

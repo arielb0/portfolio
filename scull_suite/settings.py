@@ -11,27 +11,22 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
-import os
-from dotenv import load_dotenv
-
-load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get('SECRET_KEY')
+SECRET_KEY = 'django-insecure-61zo)6&i*^ykfmkv_)97zw)8^#j1kq^**5hs0^x^x#=f^%l7fw'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-#DEBUG = True
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost', '.scullsuite.com']
+ALLOWED_HOSTS = []
 
-CSRF_TRUSTED_ORIGINS = ['https://scullsuite.com', 'https://www.scullsuite.com']
 
 # Application definition
 
@@ -43,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'corsheaders',
+    'rest_framework_simplejwt',
     'rest_framework',
     'accounts',
     'note',
@@ -53,9 +49,10 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -76,6 +73,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'django.template.context_processors.media',
             ],
         },
     },
@@ -87,23 +85,21 @@ WSGI_APPLICATION = 'scull_suite.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-# Used to connect to local database
-# default = 'postgresql://scull_suite:scull_suite@localhost:5432/scull_suite' 
 
-DATABASES = {
+DATABASES = {    
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.environ.get('DB_NAME'),
-        'USER': os.environ.get('DB_USER'),
-        'PASSWORD': os.environ.get('DB_PASSWORD'),
-        'HOST': os.environ.get('DB_HOST'),
-        'PORT': os.environ.get('DB_PORT')
+        'NAME': 'scull_suite',
+        'USER': 'scull_suite',
+        'PASSWORD': 'insecure-passw0rD!',
+        'HOST': '127.0.0.1',
+        'PORT': '5432',
     },
-    'options': {
-        'client_encoding': 'UTF8',
-        'default_transaction_isolation': 'read_commited',
-        'timezone': 'UTC'
-    }
+    'OPTIONS': {
+            'client_encoding': 'UTF8',
+            'timezone': 'UTC',
+            'default_transaction_isolation': 'read committed'
+        }
 }
 
 # Password validation
@@ -136,6 +132,11 @@ USE_I18N = True
 
 USE_TZ = True
 
+LOCALE_PATHS = [
+    BASE_DIR / 'locale',
+]
+
+
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
@@ -148,44 +149,13 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Email backend.
 
-# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-
-# Email configuration for SMTP backend
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_PORT = 587
-EMAIL_USE_TLS = True
-EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER') 
-EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD') 
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 # Static files directories
 
 STATICFILES_DIRS = [
     BASE_DIR / 'static',
 ]
-
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-
-# Useful to secure production environment and avoid some attacks.
-
-SESSION_COOKIE_SECURE = True
-CSRF_COOKIE_SECURE = True
-SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-SECURE_SSL_REDIRECT = True
-
-LOGGING = {
-    'version': 1,
-    'disable_existing_loggers': False,
-    'handlers': {
-        'console': {
-            'class': 'logging.StreamHandler',            
-        }        
-    },
-    'root': {
-        'handlers': ['console'],
-        'level': "DEBUG"
-    }
-}
 
 # Media path to store uploaded files
 
@@ -194,3 +164,16 @@ MEDIA_ROOT = BASE_DIR / 'media'
 # Media url to server uploaded files
 
 MEDIA_URL = 'media/'
+
+# Only for development mode. Don't use this configuration on production,
+# is dangerous.
+
+CORS_ALLOW_ALL_ORIGINS = True
+
+# Django REST Framework configuration
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'accounts.authentication.CookieJWTAuthentication',
+    )
+}

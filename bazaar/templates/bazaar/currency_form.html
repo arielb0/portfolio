@@ -1,9 +1,11 @@
 {% extends "bazaar/base.html" %}
 
-{% block title_prefix %}{% include "action_label.html" %} a currency{% endblock  %}
+{% load i18n %}
+
+{% block title_prefix %}{% include "action_label.html" %} {% translate "a currency" %}{% endblock  %}
 
 {% block main %}
-    <h1>{% include "action_label.html" %} a currency</h1>
+    <h1>{% include "action_label.html" %} {% translate "a currency" %}</h1>
     <form action="" method="post">
         {% csrf_token %}
         {% for field in form %}
@@ -14,7 +16,7 @@
             </div>
         {% endfor %}        
         <div class="mx-auto p-2" style="width: 200px">
-            <button type="submit" class="btn btn-success">{% include "action_label.html" %} Currency</button>
+            <button type="submit" class="btn btn-success">{% include "action_label.html" %} {% translate "Currency" %}</button>
         </div>
     </form>
 {% endblock %}

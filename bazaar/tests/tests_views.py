@@ -11,7 +11,8 @@ from django.contrib.auth.forms import PasswordChangeForm
 from django.urls import reverse_lazy
 import datetime
 from django.contrib.auth.models import User, Group
-from .helpers import get_view_status_code, test_view_test_func
+from .helpers import get_view_status_code, test_view_test_func, Generator
+from datetime import date
 
 class AuthorizationTest(TestCase):
     '''
@@ -53,10 +54,6 @@ class AuthorizationTest(TestCase):
         cls.regular_user =  User.objects.create_user(cls.REGULAR_USERNAME, cls.REGULAR_EMAIL, cls.PASSWORD)
         cls.regular_user.save()
 
-        # TODO: If you need, create profiles here.\
-        # You don't need to create Profiles, remenber that profiles are created
-        # automatically.
-
 class CurrencyTestCase(AuthorizationTest):
 
     @classmethod
@@ -66,9 +63,9 @@ class CurrencyTestCase(AuthorizationTest):
         cls.CURRENCY.save()
 
         cls.CURRENCY_CREATE_URL = reverse_lazy('bazaar:currency_create')
-        cls.CURRENCY_DETAIL_URL = reverse_lazy('bazaar:currency_detail', kwargs = {'pk': cls.CURRENCY.pk})
-        cls.CURRENCY_UPDATE_URL = reverse_lazy('bazaar:currency_update', kwargs = {'pk': cls.CURRENCY.pk})
-        cls.CURRENCY_DELETE_URL = reverse_lazy('bazaar:currency_delete', kwargs = {'pk': cls.CURRENCY.pk})
+        cls.CURRENCY_DETAIL_URL = reverse_lazy('bazaar:currency_detail', kwargs = {'slug': cls.CURRENCY.slug})
+        cls.CURRENCY_UPDATE_URL = reverse_lazy('bazaar:currency_update', kwargs = {'slug': cls.CURRENCY.slug})
+        cls.CURRENCY_DELETE_URL = reverse_lazy('bazaar:currency_delete', kwargs = {'slug': cls.CURRENCY.slug})
         cls.CURRENCY_LIST_URL = reverse_lazy('bazaar:currency_list')
 
         return super().setUpTestData()
@@ -260,9 +257,9 @@ class CategoryTestCase(AuthorizationTest):
         cls.CATEGORY.save()
 
         cls.CATEGORY_CREATE_URL = reverse_lazy('bazaar:category_create')
-        cls.CATEGORY_DETAIL_URL = reverse_lazy('bazaar:category_detail', kwargs = {'pk': cls.CATEGORY.pk})
-        cls.CATEGORY_UPDATE_URL = reverse_lazy('bazaar:category_update', kwargs = {'pk': cls.CATEGORY.pk})
-        cls.CATEGORY_DELETE_URL = reverse_lazy('bazaar:category_delete', kwargs = {'pk': cls.CATEGORY.pk})
+        cls.CATEGORY_DETAIL_URL = reverse_lazy('bazaar:category_detail', kwargs = {'slug': cls.CATEGORY.slug})
+        cls.CATEGORY_UPDATE_URL = reverse_lazy('bazaar:category_update', kwargs = {'slug': cls.CATEGORY.slug})
+        cls.CATEGORY_DELETE_URL = reverse_lazy('bazaar:category_delete', kwargs = {'slug': cls.CATEGORY.slug})
         cls.CATEGORY_LIST_URL = reverse_lazy('bazaar:category_list')
 
         return super().setUpTestData()
@@ -410,24 +407,29 @@ class AdTestCase(TestCase):
         # Currency
         # Category
         # User ?
-        cls.CURRENCY = Currency(name = 'United States Dollar', code = 'USD')        
-        cls.CURRENCY.save()
+        # TODO: Refractor this code.
+        cls.generator = Generator()
 
-        cls.CATEGORY = Category(name = 'Grocery')
-        cls.CATEGORY.save()
+        cls.CURRENCY = cls.generator.create_currency_model(name = 'Canadian Dollar', code = 'CAD')
+        
+        cls.CATEGORY = cls.generator.create_category_model(name = 'Grocery', priority = 1)        
 
-        cls.USER = User(username = 'Manolo', password = 'Password')
-        cls.USER.save()
+        cls.USER = cls.generator.create_user_model(username = 'John', password = 'insecurePassw0rd!')        
 
-        cls.AD = Ad(
-            title = 'I sell cucumbers', 
+        cls.AD = cls.generator.create_ad_model(
+            title = 'I sell cucumbers',
             description = 'I have some fresh cucumbers. You can buy it.',
             price = 10,
-            ) # TODO: Complete this setUpTestData
-        cls.AD.save()
+            currency = cls.CURRENCY,
+            date = date.today(),
+            category = cls.CATEGORY,
+            status = 2,
+            rank = 1,
+            owner = cls.USER
+        )
 
         cls.AD_CREATE_URL = reverse_lazy('bazaar:ad_create')
-        cls.AD_DETAIL_URL = reverse_lazy('bazaar:ad_detail', kwargs = {'pk': {}})
+        cls.AD_DETAIL_URL = reverse_lazy('bazaar:ad_detail', kwargs = {'slug': cls.AD.slug })
         cls.AD_LIST_URL = reverse_lazy('bazaar:ad_list')
 
         return super().setUpTestData()
@@ -508,93 +510,79 @@ class AdTestCase(TestCase):
             method. This method filter ads, using GET parameters.
         '''
 
-        '''
-         create a group of keywords
-         use the keywords to create a ad (ad_with_keywords)        
-         create an ad without keywords (ad_without_keywords)
-         search ads using the keywords.
-         check if the returned ad is ad_with_keyword
-        '''
+        dollar = self.generator.create_currency_model(name='United States Dollar', code='USD')
+        euro = self.generator.create_currency_model(name='European Union Currency', code='EUR')
+        yen = self.generator.create_currency_model(name='Japanese Yen', code='JPY')
         
-        dollar = Currency(name='United States Dollar', code='USD')
-        dollar.save()
+        electronic = self.generator.create_category_model(name='Electronic', priority = 1)
 
-        euro = Currency(name='European Union Currency', code='EUR')
-        euro.save()
-
-        yen = Currency(name='Japanese Yen', code='JPY')
-        yen.save()
-        
-        electronic = Category(name='Electronic', priority = 1)
-        electronic.save()
+        owner = self.generator.create_user_model(username = 'Peter', password = 'insecurePassw0rd!')
         
         key = 'smartphone'
         description = 'snapdragon'
         currency = dollar
-        address = 'Ice town, Antartida'
         alternative_currency_1 = euro
         alternative_currency_2 = yen
         category = electronic
 
-        ad_with_keywords = Ad(
+        ad_with_keywords = self.generator.create_ad_model(
             title = f'I sell {key}',
             description = f'This {key} has {description}',
             price = 90,
             currency = currency,
-            address = f'{address}. Number 12345',
-            date = datetime.date(2005, 1, 1),
-            category = category
+            date = date(2005, 1, 1),
+            category = category,
+            status = 2,
+            rank = 1,
+            owner = owner
         )
-
-        ad_with_keywords.save()
+        
         ad_with_keywords.alternative_currencies.add(alternative_currency_1)
         ad_with_keywords.alternative_currencies.add(alternative_currency_2)
         ad_with_keywords.save()
 
-        bitcoin = Currency(name='Bitcoin', code='BTC')
-        bitcoin.save()
-        litecoin = Currency(name='Litecoin', code='LTC')
-        litecoin.save()
-        bitcoin_cash = Currency(name='Bitcoin Cash', code='BCH')
-        bitcoin_cash.save()
-        cloths = Category(name='Cloths', priority = 2)
-        cloths.save()
+        bitcoin = self.generator.create_currency_model(name='Bitcoin', code='BTC')
+        litecoin = self.generator.create_currency_model(name='Litecoin', code='LTC')
+        bitcoin_cash = self.generator.create_currency_model(name='Bitcoin Cash', code='BCH')
+        
+        cloths = self.generator.create_category_model(name='Cloths', priority = 2)
 
-        ad_without_keywords = Ad(
+        ad_without_keywords = self.generator.create_ad_model(
             title = 'I sell clothes',
             description = 'I have several sizes and colors of t-shirts',
             price = 150,
             currency = bitcoin,
-            address = 'Frozen neighborhood, Artic',
-            date = datetime.date(2022, 1, 1),
-            category = cloths
+            date = date.today(),
+            category = cloths,
+            status = 2,
+            rank = 1,
+            owner = owner
         )
-
-        ad_without_keywords.save()
+        
         ad_without_keywords.alternative_currencies.add(litecoin)
         ad_without_keywords.alternative_currencies.add(bitcoin_cash)
         ad_without_keywords.save()
         
         query_strings = {
             'query': key,
-            'currencies': [currency.pk, alternative_currency_1.pk, alternative_currency_2.pk],
-            'address': address,
-            'category': category.pk
-            }
+            'currencies': [currency.slug, alternative_currency_1.slug, alternative_currency_2.slug],
+            'category': category.slug
+        }
         
         for key, value in query_strings.items():
-            response = self.client.get(reverse_lazy('bazaar:ad_list'), {key: value})            
+            # I don't know why the sentence below don't work..
+            # response = self.client.get(path = reverse_lazy('bazaar:ad_list'), query_strings = {key: value})
+            response = self.client.get(reverse_lazy('bazaar:ad_list'), {key: value})
             self.assertEqual(response.context['object_list'].get(), ad_with_keywords)
-            
+ 
         query_strings = {
-            'price': (50, 100), 
+            'price': (50, 100),
             'date': (datetime.date(2000,1, 1), datetime.date(2010, 1, 1))
             }
         
         for key, range in query_strings.items():
             # Create a query using a range
             response = self.client.get(reverse_lazy('bazaar:ad_list'), {f'{key}_start': range[0], f'{key}_end': range[1]})
-            
             self.assertEqual(response.context['object_list'].get(), ad_with_keywords)
 
     def test_list_ad_get_context_data(self):
@@ -612,34 +600,37 @@ class ReportTestCase(TestCase):
     @classmethod
     def setUpTestData(cls) -> None:
 
-        cls.dollar = Currency(name='United States Dollar', code='USD')
-        cls.litecoin = Currency(name='Litecoin', code='LTC')
-        cls.dollar.save()
-        cls.litecoin.save()
+        cls.generator = Generator()
+        
+        cls.dollar = cls.generator.create_currency_model(name='United States Dollar', code='USD')
+        cls.litecoin = cls.generator.create_currency_model(name='Litecoin', code='LTC')
 
-        # cls.generator = Generator()
-        # cls.category_group = cls.generator.create_category_group_model()
+        cls.smartphones = cls.generator.create_category_model(name = 'Smartphones', priority = 1)
 
-        cls.smartphones = Category(name = 'Smartphones', priority = 1)
-        cls.smartphones.save()
-
-        cls.ad = Ad(
+        cls.owner = cls.generator.create_user_model(username = 'John', password = 'insecurePassw0rd!')
+        
+        cls.ad = cls.generator.create_ad_model(
             title = 'Cheap robbed smartphone',
             description = '''I sell this robbed smartphone, only on 25$. Hurry 
                 up! I have more! You can contact me using my anonymous mail 
                 address smartphonetheft@dark.com or you can see me on the dark..''',
             price = 25,
             currency = cls.dollar,
-            address = 'Underground Bridge, Atlantis',
-            name = 'John Doe',
-            phone = '',
-            mail = 'smartphonetheft@dark.com',
-            category = cls.smartphones
+            date = date.today(),
+            category = cls.smartphones,
+            status = 2,
+            rank = 1,
+            owner = cls.owner
         )
-        cls.ad.save()
+        
         cls.ad.alternative_currencies.set([cls.litecoin])
+        cls.ad.save()
 
-        cls.report = Report()
+        cls.report = cls.generator.create_report_model(
+            reason = 0,
+            description = 'This ad show a stolen object.',
+            ad = cls.ad
+        )
                 
         cls.LIST_REPORT_URL = reverse_lazy('bazaar:report_list')
 

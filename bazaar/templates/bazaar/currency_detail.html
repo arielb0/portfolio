@@ -1,12 +1,14 @@
 {% extends "bazaar/base.html" %}
 
+{% load i18n %}
+
 {% block title_prefix %}{{ object.code }}{% endblock  %}
 
 {% block main %}
     <h1>{{ object.name }}</h1>
-    <p>Code: {{ object.code }}</p>
+    <p>{% translate "Code" %}: {{ object.code }}</p>
     <div>
-        <a href="{% url "bazaar:currency_update" slug=object.slug %}">Update</a>
-        <a href="{% url "bazaar:currency_delete" slug=object.slug %}">Delete</a>
+        <a href="{% url "bazaar:currency_update" slug=object.slug %}">{% translate "Update" %}</a>
+        <a href="{% url "bazaar:currency_delete" slug=object.slug %}">{% translate "Delete" %}</a>
     </div>
 {% endblock %}

@@ -1,11 +1,13 @@
 import shutil
 from scull_suite.settings import MEDIA_ROOT, STATICFILES_DIRS
-from bazaar.models import Category
+from bazaar.models import Currency, Category, Ad, Report, Profile
 from django.contrib.auth.models import User
 from random import choices
 import os
 from django.test.client import Client
 from django.test import TestCase
+from typing import List
+from datetime import date
 
 class Generator():
     '''
@@ -13,46 +15,64 @@ class Generator():
         for testing purpouses.
     '''
 
-    def create_category_model(self) -> Category:
+    def create_currency_model(self, name, code) -> Currency:
+        '''
+            Create and save a currency model
+        '''
+        currency = Currency(name = name, code = code)
+        currency.save()
+        return currency
+
+    def create_category_model(self, name, priority) -> Category:
         '''
             Create a Category model object with the following data:
 
-            name: Groceries
             picture: /img/grocery.webp
-            priority: 1
         '''
 
-        picture = f'{MEDIA_ROOT}/images/groups/grocery.webp'
+        picture = f'{MEDIA_ROOT}/images/categories/grocery.webp'
         if not os.path.exists(picture):
             shutil.copy(f'{STATICFILES_DIRS[0]}/img/grocery.webp', picture)
 
-        category = Category(name = 'Groceries', picture = picture, priority = 1)
+        category = Category(name = name, picture = picture, priority = priority)
         category.save()
 
         return category
     
-    def create_user_model(self):
+    def create_ad_model(self, title: str, description: str, price: float
+                        , currency: Currency, date: date, category: Category, status: int
+                        , rank: int, owner: User) -> Ad:
         '''
-            Create a user model with the following data:
-            username: Peter
-            password: insecurePassw0rD!@
+            Create a ad model.
         '''
 
-        user_model = User.objects.create_user(username = 'Peter', password = 'insecurePassw0rD!@')
+        ad = Ad(title = title, description = description, price = price
+                , currency = currency, date = date, category = category,
+                status = status, rank = rank, owner = owner)
+        ad.save()
+
+        return ad
+    
+    def create_report_model(self, reason: int, description: str, ad: Ad):
+        '''
+            Create a Report model
+        '''
+
+        report = Report(reason = reason, description = description, ad = ad)
+        report.save()
+
+        return report
+    
+    def create_user_model(self, username: str, password: str) -> User:
+        '''
+            Create a user model
+        '''
+
+        user_model = User.objects.create_user(username = username, password = password)
         user_model.save()
         return user_model
     
-    def create_ad_model(self):
-        '''
-            Create a ad model with the following data:
-
-            title: I sell cucumbers
-            description: I have some fresh cucumbers.
-            price: 10
-            currency: A model created with create_currency_model() method
-            address: Kennedy Street, 45
-            name:
-        '''
+    
 
     
     def generate_random_string(self, length:int) -> str:

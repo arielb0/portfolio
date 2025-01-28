@@ -7,9 +7,10 @@ from datetime import timedelta
 from django.core.management import call_command
 from scull_suite.settings import BASE_DIR
 import os
-from django.contrib.auth.models import Permission, Group
+from django.contrib.auth.models import Group
 from django.core.exceptions import ObjectDoesNotExist
-from helpers import Generator
+from .helpers import Generator
+from django.core import mail
 
 class CommandsTestCase(TestCase):
 
@@ -17,7 +18,7 @@ class CommandsTestCase(TestCase):
     def setUpTestData(cls) -> None:
         generator = Generator()
         # cls.category_group = generator.create_category_group_model()
-        cls.owner = generator.create_user_model()
+        cls.owner = generator.create_user_model(username = 'Peter', password = 'insecurePassw0rD!')
         return super().setUpTestData()
     
     def test_delete_old_ads(self):
@@ -58,7 +59,7 @@ class CommandsTestCase(TestCase):
         )
         old_ad.save()
 
-        call_command('delete_old_ads')
+        call_command('bazaar_delete_old_ads')
 
         self.assertQuerySetEqual(Ad.objects.all(), Ad.objects.filter(pk=actual_ad.pk))
 
@@ -102,7 +103,7 @@ class CommandsTestCase(TestCase):
         bazaar_moderator_permissions = bazaar_moderator.permissions.all().values_list('codename', flat = True)
         bazaar_superuser_permissions = bazaar_superuser.permissions.all().values_list('codename', flat = True)
 
-        self.assertIn('delete_ad', bazaar_moderator_permissions)
+        self.assertIn('moderate_ad', bazaar_moderator_permissions)
         self.assertIn('view_report', bazaar_moderator_permissions)
 
         for model in ['currency', 'category', 'ad', 'report', 'user']:

@@ -8,6 +8,7 @@ from rest_framework.viewsets import ModelViewSet
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from rest_framework.exceptions import NotFound
+from rest_framework.permissions import IsAuthenticated
 from string import Template
 
 # Create your views here.
@@ -50,9 +51,11 @@ class ReviewViewSet(ModelViewSet):
     queryset = Review.objects.all()
     serializer_class = ReviewSerializer
     
+# Protect this view using authentication
 class AnswerViewSet(ModelViewSet):
     queryset = Answer.objects.all()
     serializer_class = AnswerSerializer
+    permission_classes = [IsAuthenticated]
 
     @action(detail=True, methods=['get'])
     def chat(self, request, pk = None):
