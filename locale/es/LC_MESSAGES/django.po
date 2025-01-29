@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-01-29 08:26+0000\n"
+"POT-Creation-Date: 2025-01-29 09:44+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -122,10 +122,19 @@ msgid "Email Verification"
 msgstr "Verificación de correo electrónico"
 
 #: accounts/templates/registration/email_verification.html:8
-msgid " Congratulations"
+#, fuzzy
+#| msgid " Congratulations"
+msgid "Congratulations"
 msgstr "Felicidades"
 
-#: accounts/templates/registration/email_verification.html:13
+#: accounts/templates/registration/email_verification.html:10
+msgid ""
+"Dear user, your account is almost ready! For security reasons, we need to "
+"verify your email address. To do that, you need to reset your password using "
+"the link above: "
+msgstr "¡Estimado usuario, su cuenta esta casi lista! Por razones de seguridad, necesitamos verificar su dirección de correo electrónico. Para ello, necesitara establecer su contraseña utilizando el enlace que se muestra a continuación:"
+
+#: accounts/templates/registration/email_verification.html:11
 msgid "Reset password"
 msgstr "Restablecer contraseña"
 
@@ -196,6 +205,14 @@ msgstr "Cambiar mi contraseña"
 #: accounts/templates/registration/mod_password_reset_done.html:6
 msgid "Password reset sent"
 msgstr "Reinicio de contraseña enviado"
+
+#: accounts/templates/registration/mod_password_reset_done.html:8
+msgid ""
+"We've emailed you instructions for setting your password, if an account "
+"exists with the email you entered. You should receive them shortly. If you "
+"don't receive an email, please make sure you've entered the address you "
+"registered with, and check your spam folder."
+msgstr "Le hemos enviado un correo con instrucciones para establecer su contraseña, que sera entregado si la cuenta y el correo existen. Debe de recibir el correo en breve. Si no recibe el correo, verifique que escribió la dirección correctamente y compruebe su carpeta de spam."
 
 #: accounts/templates/registration/mod_password_reset_email.html:2
 #, python-format
@@ -710,7 +727,7 @@ msgstr "Crear"
 msgid "Scull Suite, applications to make your life easier"
 msgstr "Scull Suite, aplicaciones para hacerte la vida mas fácil"
 
-#: templates/home.html:19
+#: templates/home.html:6 templates/home.html:19
 msgid "Applications to make your life easier"
 msgstr "Aplicaciones para hacerte la vida mas fácil"
 

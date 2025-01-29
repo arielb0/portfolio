@@ -3,7 +3,7 @@
 {% load static %}
 {% load i18n %}
 
-{% block title %}Scull Suite{% endblock %}
+{% block title %}Scull Suite, {% translate "Applications to make your life easier" %}{% endblock %}
 
 {% block header %}
     {% include "home_header.html" with icon="briefcase" title="Scull Suite" %}
@@ -17,7 +17,7 @@
             
             <h1 class="bg-dark">Scull Suite</h1>
             <h2 class="bg-dark">{% translate "Applications to make your life easier" %}</h2>
-            <a class="btn btn-primary" href="#portfolio">{% translate "Show applications" %}</a>
+            <a class="btn btn-primary" href="#applications">{% translate "Show applications" %}</a>
         </div>
 
         <section id="applications" class="d-flex flex-column min-vh-100 text-center">

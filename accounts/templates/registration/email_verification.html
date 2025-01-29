@@ -5,11 +5,10 @@
 {% block title %}{% translate "Email Verification" %}{% endblock title %}
 
 {% block main %}
-    <h1>{% translate " Congratulations" %}!</h1>
+    <h1>{% translate "Congratulations" %}!</h1>
     <p>
-        {% translate "Dear user, your account is almost ready! For security reasons, we need to verify
-        your email address. To do that, you need to reset your password using the link 
-        above: " %}
+        {% translate "Dear user, your account is almost ready! For security reasons, we need to verify your email address. To do that, you need to reset your password using the link above: " %}
         <a href="{% url 'password_reset' %}">{% translate "Reset password" %}</a>
     </p>
+    
 {% endblock %}
