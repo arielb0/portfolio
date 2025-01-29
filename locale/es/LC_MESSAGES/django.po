@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-01-28 18:02+0000\n"
+"POT-Creation-Date: 2025-01-29 08:26+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -588,7 +588,7 @@ msgstr "Divisa"
 msgid "New Currency"
 msgstr "Nueva divisa"
 
-#: bazaar/templates/bazaar/header.html:7
+#: bazaar/templates/bazaar/header.html:7 templates/home_header.html:7
 msgid "Close"
 msgstr "Cerrar"
 
@@ -705,3 +705,31 @@ msgstr "Resultados de la busqueda para \"{self.request.GET.get(\"query\")}\""
 #: templates/action_label.html:2
 msgid "Create"
 msgstr "Crear"
+
+#: templates/base.html:14
+msgid "Scull Suite, applications to make your life easier"
+msgstr "Scull Suite, aplicaciones para hacerte la vida mas fácil"
+
+#: templates/home.html:19
+msgid "Applications to make your life easier"
+msgstr "Aplicaciones para hacerte la vida mas fácil"
+
+#: templates/home.html:20
+msgid "Show applications"
+msgstr "Mostrar aplicaciones"
+
+#: templates/home.html:25 templates/home_header.html:16
+msgid "Applications"
+msgstr "Aplicaciones"
+
+#: templates/home.html:32
+msgid "Restaurant application"
+msgstr "Aplicación Restaurante"
+
+#: templates/home.html:83 templates/home_header.html:19
+msgid "Contact"
+msgstr "Contacto"
+
+#: templates/home_header.html:13
+msgid "Start"
+msgstr "Inicio"
