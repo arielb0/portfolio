@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-01-29 09:44+0000\n"
+"POT-Creation-Date: 2025-02-07 15:03+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -102,7 +102,7 @@ msgstr "Acciones"
 #: bazaar/templates/bazaar/category_list.html:23
 #: bazaar/templates/bazaar/currency_detail.html:11
 #: bazaar/templates/bazaar/currency_list.html:23
-#: bazaar/templates/bazaar/profile_detail.html:16 templates/action_label.html:2
+#: bazaar/templates/bazaar/profile_detail.html:16 templates/action_label.html:3
 msgid "Update"
 msgstr "Actualizar"
 
@@ -132,7 +132,11 @@ msgid ""
 "Dear user, your account is almost ready! For security reasons, we need to "
 "verify your email address. To do that, you need to reset your password using "
 "the link above: "
-msgstr "¡Estimado usuario, su cuenta esta casi lista! Por razones de seguridad, necesitamos verificar su dirección de correo electrónico. Para ello, necesitara establecer su contraseña utilizando el enlace que se muestra a continuación:"
+msgstr ""
+"¡Estimado usuario, su cuenta esta casi lista! Por razones de seguridad, "
+"necesitamos verificar su dirección de correo electrónico. Para ello, "
+"necesitara establecer su contraseña utilizando el enlace que se muestra a "
+"continuación:"
 
 #: accounts/templates/registration/email_verification.html:11
 msgid "Reset password"
@@ -212,7 +216,11 @@ msgid ""
 "exists with the email you entered. You should receive them shortly. If you "
 "don't receive an email, please make sure you've entered the address you "
 "registered with, and check your spam folder."
-msgstr "Le hemos enviado un correo con instrucciones para establecer su contraseña, que sera entregado si la cuenta y el correo existen. Debe de recibir el correo en breve. Si no recibe el correo, verifique que escribió la dirección correctamente y compruebe su carpeta de spam."
+msgstr ""
+"Le hemos enviado un correo con instrucciones para establecer su contraseña, "
+"que sera entregado si la cuenta y el correo existen. Debe de recibir el "
+"correo en breve. Si no recibe el correo, verifique que escribió la dirección "
+"correctamente y compruebe su carpeta de spam."
 
 #: accounts/templates/registration/mod_password_reset_email.html:2
 #, python-format
@@ -539,6 +547,18 @@ msgstr ""
 "criptomonedas."
 
 #: bazaar/templates/bazaar/base.html:21
+msgid "Terms and conditions"
+msgstr "Términos y Condiciones"
+
+#: bazaar/templates/bazaar/base.html:22
+msgid "About us"
+msgstr "Acerca de Nosotros"
+
+#: bazaar/templates/bazaar/base.html:23
+msgid "Privacy Policy"
+msgstr "Política de Privacidad"
+
+#: bazaar/templates/bazaar/base.html:25
 msgid "All rights reserved."
 msgstr "Todos los derechos reservados."
 
@@ -671,7 +691,8 @@ msgid "Report detail"
 msgstr "Detalles del reporte"
 
 #: bazaar/templates/bazaar/report_detail.html:8
-msgid " ad is marked as "
+#: bazaar/templates/bazaar/report_list.html:19
+msgid " ad is reported as "
 msgstr " anuncio reportado como "
 
 #: bazaar/templates/bazaar/report_detail.html:11
@@ -707,10 +728,6 @@ msgstr "Fecha"
 msgid "Reported Ad"
 msgstr "Anuncio reportado"
 
-#: bazaar/templates/bazaar/report_list.html:19
-msgid " ad is reported as "
-msgstr " anuncio reportado como "
-
 #: bazaar/templates/bazaar/report_list.html:22
 msgid "Delete ad"
 msgstr "Eliminar anuncio"
@@ -719,7 +736,7 @@ msgstr "Eliminar anuncio"
 msgid "Search results for \"{self.request.GET.get(\"query\")}\""
 msgstr "Resultados de la busqueda para \"{self.request.GET.get(\"query\")}\""
 
-#: templates/action_label.html:2
+#: templates/action_label.html:3
 msgid "Create"
 msgstr "Crear"
 
@@ -750,3 +767,6 @@ msgstr "Contacto"
 #: templates/home_header.html:13
 msgid "Start"
 msgstr "Inicio"
+
+#~ msgid " ad is marked as "
+#~ msgstr " anuncio reportado como "

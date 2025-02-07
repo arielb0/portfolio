@@ -4,7 +4,7 @@ from .views import CreateCategory, DetailCategory, UpdateCategory, DeleteCategor
 from .views import CreateAd, DetailAd, UpdateAd, DeleteAd, ListAd, UpdateAdStatus, ListPendingAd, ListRejectedAd
 from .views import CreateReport, DetailReport, UpdateReport, DeleteReport, ListReport
 from .views import DetailProfile, UpdateProfile
-from .views import Home
+from .views import Home, TermsAndConditions, AboutUs, PrivacyPolicy
 from .views import UpdateUserProfile
 from django.contrib.auth.views import PasswordChangeView
 from django.urls import reverse_lazy
@@ -39,5 +39,8 @@ urlpatterns = [
     path('profile/update', UpdateProfile.as_view(), name = 'profile_update'),
     path('user/update', UpdateUserProfile.as_view(), name='profile_user_update'),
     path('password/update', PasswordChangeView.as_view(success_url = reverse_lazy('bazaar:profile_detail'), template_name = 'bazaar/profile_form.html'), name = 'profile_password_update'),
-    path('', Home.as_view(), name='home')
+    path('', Home.as_view(), name='home'),
+    path('terms-and-conditions', TermsAndConditions.as_view(), name='terms_and_conditions'),
+    path('about-us', AboutUs.as_view(), name='about_us'),
+    path('privacy-policy', PrivacyPolicy.as_view(), name='privacy_policy')
 ]

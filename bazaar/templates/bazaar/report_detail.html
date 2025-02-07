@@ -5,7 +5,7 @@
 {% block title_prefix %}{% translate "Report detail" %}{% endblock %}
 
 {% block main %}
-    <h1>"{{ object.ad.title | capfirst }}"{% translate " ad is marked as " %}"{{ object.get_reason | lower }}"</h1>
+    <h1>"{{ object.ad.title | capfirst }}"{% translate " ad is reported as " %}"{{ object.get_reason | lower }}"</h1>
     <p>{{ object.date }}</p>
     <p>{{ object.description }}</p>
     <p>{% translate "Options" %}:</p>

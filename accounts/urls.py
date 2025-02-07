@@ -24,5 +24,5 @@ urlpatterns = [
     path("email_verification/", TemplateView.as_view(template_name="registration/email_verification.html"), name="email_verification"),
     # API authentication
     path('api/login', ApiLoginView.as_view(), name = 'api_login'),
-    path('api/refresh', RefreshTokenView.as_view(), name = 'api_refresh')
+    path('api/refresh', RefreshTokenView.as_view(), name = 'api_refresh'),
 ]

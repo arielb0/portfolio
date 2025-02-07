@@ -9,7 +9,6 @@
 
 {% block title %}{% block title_prefix %}{% endblock title_prefix %}, Bazaar{% endblock title %}
 
-
 {% block header %}
     {% url "bazaar:home" as header_url %}
     {% include "bazaar/header.html" with url=header_url icon='shop' title='Bazaar' show_user_menu=True %}
@@ -18,7 +17,12 @@
 {% block footer %}
     <div class="navbar navbar-expand bg-body-tertiary">
         <div class="container-fluid justify-content-center">
-            <p class="navbar-text">Bazaar 2024-02-28 {% now "Y-m-d" %}. {% translate "All rights reserved." %}</p>
+            <div class="navbar-nav">
+                <a class="nav-link" href="{% url "bazaar:terms_and_conditions" %}">{% translate "Terms and conditions" %}</a>
+                <a class="nav-link" href="{% url "bazaar:about_us" %}">{% translate "About us" %}</a>
+                <a class="nav-link" href="{% url "bazaar:privacy_policy" %}">{% translate "Privacy Policy" %}</a>
+            </div>
+            <span class="navbar-text">Bazaar 2024-02-28 {% now "Y-m-d" %}. {% translate "All rights reserved." %}</span>
         </div>
     </div>
 {% endblock %}

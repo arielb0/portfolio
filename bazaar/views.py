@@ -431,3 +431,12 @@ class Home(TemplateView):
         context = get_simple_search_form(context)
        
         return context
+    
+class TermsAndConditions(TemplateView):
+    template_name = 'bazaar/terms_and_conditions.html'
+
+class AboutUs(TemplateView):
+    template_name = 'bazaar/about_us.html'
+
+class PrivacyPolicy(TemplateView):
+    template_name = 'bazaar/privacy_policy.html'
