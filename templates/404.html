@@ -1,0 +1,15 @@
+{% extends "bazaar/base.html" %}
+
+{% block title %}{% translate "Error 404 (Not found)" %}{% endblock %}
+
+{% block main %}
+
+    <h1>{% translate "Error 404 (Not found)" %}</h1> <!--Put styles here-->
+
+    <h2>{% translate "Nothing was found" %}</h2>
+
+    <p>{% translate "The page you are looking for might have been removed had it's name changed or is temporarily unavailable" %}</p>
+
+    <a class="btn btn-primary" href="{% url bazaar:home %}">{% translate "Back to Homepage" %}</a>
+    
+{% endblock %}

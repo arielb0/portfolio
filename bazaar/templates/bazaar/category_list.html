@@ -10,6 +10,7 @@
     <table class="table table-striped table-hover text-center">
         <thead>
             <th>{% translate "Category" %}</th>
+            <th>{% translate "Description" %}</th>
             <th>{% translate "Actions" %}</th>
         </thead>
         <tbody>
@@ -18,6 +19,7 @@
                     <td>
                         <a href="{% url "bazaar:category_detail" slug=object.slug %}">{{ object }}</a>
                     </td>
+                    <td>{{ object.description }}</td>
                     <td>
                         <a href="{% url "bazaar:category_update" slug=object.slug %}" class="link">
                             {% translate "Update" %}

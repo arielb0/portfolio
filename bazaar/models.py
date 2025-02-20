@@ -23,6 +23,7 @@ class Currency(models.Model):
 
 class Category(models.Model):
     name = models.CharField(verbose_name = _('name'), unique = True, max_length = 32)
+    description = models.TextField(verbose_name = _('description'), max_length = 255)
     picture = models.ImageField(verbose_name = _('picture'), upload_to = 'images/categories', blank=True, null=True)
     priority = models.IntegerField(verbose_name = _('priority'), blank=True, null=True)
     parent_category = models.ForeignKey('self', verbose_name = _('parent category'), on_delete = models.CASCADE, blank=True, null=True, related_name = 'subcategories')

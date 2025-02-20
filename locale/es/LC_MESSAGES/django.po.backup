@@ -662,9 +662,11 @@ msgstr "Cerrar sesión"
 msgid ""
 "Buy and sell clothes, food and houses in Cuba with classified ads. Publish "
 "for free and reach more people with Bazaar."
-msgstr "Compra y vende ropa, comida y casas en Cuba con anuncios clasificados. Publica gratis y llega a más personas con Bazaar."
+msgstr ""
 
 #: bazaar/templates/bazaar/home.html:7
+#, fuzzy
+#| msgid "Buy and sell in Cuba - Classified ads for clothes, food and houses "
 msgid "Buy and sell in Cuba - Clothing, food and houses classifieds "
 msgstr ""
 "Compra y venta en Cuba - Anuncios clasificados de ropa, comida y casas "
@@ -793,3 +795,10 @@ msgstr "Contacto"
 #: templates/home_header.html:13
 msgid "Start"
 msgstr "Inicio"
+
+#~ msgid ""
+#~ "Post and find ads for clothes, food and houses in Cuba. Buy, sell and "
+#~ "discover opportunities."
+#~ msgstr ""
+#~ "Publica y encuentra anuncios de ropa, comida y casas en Cuba. Compra, "
+#~ "vende y descubre oportunidades."

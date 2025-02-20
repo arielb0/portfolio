@@ -5,9 +5,7 @@
 
 {% block page_icon %}{% static "shop.svg" %}{% endblock %}
 
-{% block page_description %}{% translate "Buy, sell, rent things or services using fiat and crypto." %}{% endblock %}
-
-{% block title %}{% block title_prefix %}{% endblock title_prefix %}, Bazaar{% endblock title %}
+{% block title %}{% block title_prefix %}{% endblock title_prefix %} | Bazaar{% endblock title %}
 
 {% block header %}
     {% url "bazaar:home" as header_url %}
@@ -22,7 +20,8 @@
                 <a class="nav-link" href="{% url "bazaar:about_us" %}">{% translate "About us" %}</a>
                 <a class="nav-link" href="{% url "bazaar:privacy_policy" %}">{% translate "Privacy Policy" %}</a>
             </div>
-            <span class="navbar-text">Bazaar 2024-02-28 {% now "Y-m-d" %}. {% translate "All rights reserved." %}</span>
+            <!--Development start date: 2024-02-28-->
+            <span class="navbar-text">&copy {% now "Y" %} Bazaar. {% translate "All rights reserved." %}</span>
         </div>
     </div>
 {% endblock %}

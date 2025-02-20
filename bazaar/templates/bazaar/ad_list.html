@@ -2,6 +2,8 @@
 
 {% load i18n %}
 
+{% block page_description %}{{ category_description|default:_("Search results") }}{% endblock %}
+
 {% block title_prefix %}{{ breadcrumb_current_page }}{% endblock %}
 
 {% block main %}

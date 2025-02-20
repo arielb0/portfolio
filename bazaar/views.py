@@ -277,6 +277,7 @@ class ListAd(ListView):
 
         if 'category' in get_keys and self.request.GET.get('category') != '':
             context['breadcrumb_current_page'] = Category.objects.get(slug = self.request.GET.get('category'))
+            context['category_description'] = Category.objects.get(slug = self.request.GET.get('category')).description
 
         if 'my_ads' in get_keys:
             context['breadcrumb_current_page'] = _('My Ads')

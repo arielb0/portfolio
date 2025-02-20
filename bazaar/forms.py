@@ -57,9 +57,10 @@ class CategoryForm(ModelForm):
 
     class Meta:
         model = Category
-        fields = ['name', 'picture', 'priority', 'parent_category']
+        fields = ['name', 'description', 'picture', 'priority', 'parent_category']
         widgets = {
             'name': TextInput(attrs={'class': 'form-control'}),
+            'description': Textarea(attrs = {'class': 'form-control'}),
             'picture': ClearableFileInput(attrs={'class': 'form-control'}),
             'priority': NumberInput(attrs={'class': 'form-control'}),
             'parent_category': Select(attrs={'class': 'form-select'})
