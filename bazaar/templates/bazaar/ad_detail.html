@@ -13,11 +13,18 @@
             "@context": "https://schema.org",
             "@type": "Product",
             "name": "{{ object.title }}",
-            "description": "{{ object.description }}",
+            "description": "{{ object.description|truncatechars:60 }}",
             {% if object.picture_0 %}
                 "image": "{{ request.get_host }}/{{ object.picture_0 }}",
             {% endif %}
-            "url": "{{ request.get_host }}/{% url 'bazaar:ad_detail' slug=object.slug %}"
+            "url": "{{ request.get_host }}/{% url 'bazaar:ad_detail' slug=object.slug %}",
+            "offers": {
+            "@type": "AggregateOffer",
+            "offerCount": 1,
+            "lowPrice": {{ object.price }},
+            "highPrice": {{ object.price }},
+            "priceCurrency": "{{ object.currency.code }}"
+            }
         }
     </script>
 {% endblock  %}
