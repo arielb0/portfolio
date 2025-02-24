@@ -2,7 +2,25 @@
 
 {% load i18n %}
 
+{% block canonical_href %}{{ request.scheme }}://{{ request.get_host }}{% url "bazaar:ad_detail" slug=object.slug %}{% endblock  %}
+{% block page_description %}{{ object.description | truncatechars:157 }}{% endblock  %}
+
 {% block title_prefix %}{{ object.title }}{% endblock %}
+
+{% block rich_snippet %}
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "Product",
+            "name": "{{ object.title }}",
+            "description": "{{ object.description }}",
+            {% if object.picture_0 %}
+                "image": "{{ request.get_host }}/{{ object.picture_0 }}",
+            {% endif %}
+            "url": "{{ request.get_host }}/{% url 'bazaar:ad_detail' slug=object.slug %}"
+        }
+    </script>
+{% endblock  %}
 
 {% block main %}
 

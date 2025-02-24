@@ -2,6 +2,9 @@
 
 {% load i18n %}
 
+{% block canonical_href %}{{ request.scheme }}://{{ request.get_host }}{% url "bazaar:currency_detail" slug=object.slug %}{% endblock %}
+{% block page_description %}{% translate "Currency detail" %}{% endblock %}
+
 {% block title_prefix %}{{ object.code }}{% endblock  %}
 
 {% block main %}

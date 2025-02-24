@@ -2,6 +2,9 @@
 
 {% load i18n %}
 
+{% block canonical_href %}{{ request.scheme }}://{{ request.get_host }}{% url "bazaar:report_delete" pk=object.pk %}{% endblock %}
+{% block page_description %}{% translate "Confirm delete report" %}{% endblock %}
+
 {% block title_prefix %}{% translate "Confirm delete report" %}{% endblock %}
 
 {% block main %}

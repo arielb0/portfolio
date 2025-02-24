@@ -2,6 +2,9 @@
 
 {% load i18n %}
 
+{% block canonical_href %}{{ request.scheme }}://{{ request.get_host }}{% url "bazaar:ad_rejected" %}{% endblock %}
+{% block page_description %}{% translate "Rejected ads" %}{% endblock %}
+
 {% block title_prefix %}{% translate "Rejected ads" %}{% endblock %}
 
 {% block current_page %}

@@ -1,6 +1,9 @@
 {% extends "bazaar/base.html" %}
 
-{% block title %}Politica de Privacidad de Bazaar{% endblock  %}
+{% block canonical_href %}{{ request.scheme }}://{{ request.get_host }}{% url "bazaar:privacy_policy" %}{% endblock %}
+{% block page_description %}En Bazaar, la privacidad de nuestros usuarios es una prio...{% endblock %}
+
+{% block title %}Politica de Privacidad de Bazaar{% endblock %}
 
 {% block main %}
 <h1>Politica de Privacidad de Bazaar</h1>

@@ -1,5 +1,8 @@
 {% extends "bazaar/base.html" %}
 
+{% block canonical_href %}{{ request.scheme }}://{{ request.get_host }}{% url "bazaar:about_us" %}{% endblock %}
+{% block page_description %}Nuestra mision es facilitar el intercambio entre personas...{% endblock %}
+
 {% block title %}Quienes somos{% endblock %}
 
 {% block main %}

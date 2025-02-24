@@ -2,6 +2,9 @@
 
 {% load i18n %}
 
+{% block canonical_href %}{{ request.scheme }}://{{ request.get_host }}{% url "bazaar:profile_update" %}{% endblock %}
+{% block page_description %}{% translate "User Profile" %}{% endblock %}
+
 {% block title_prefix %}{% translate "User Profile" %}{% endblock  %}
 
 {% block main %}

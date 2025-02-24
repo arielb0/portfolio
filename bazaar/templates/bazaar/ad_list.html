@@ -2,6 +2,7 @@
 
 {% load i18n %}
 
+{% block canonical_href %}{{ request.scheme }}://{{ request.get_host }}{% url "bazaar:ad_list" %}{% if request.META.QUERY_STRING %}/?{{ request.META.QUERY_STRING }}{% endif %}{% endblock %}
 {% block page_description %}{{ category_description|default:_("Search results") }}{% endblock %}
 
 {% block title_prefix %}{{ breadcrumb_current_page }}{% endblock %}

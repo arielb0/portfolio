@@ -2,6 +2,9 @@
 
 {% load i18n %}
 
+{% block canonical_href %}{{ request.scheme }}://{{ request.get_host }}{% url "bazaar:currency_list" %}{% endblock %}
+{% block page_description %}{% translate "Currency list" %}{% endblock %}
+
 {% block title_prefix %}{% translate "Currencies" %}{% endblock %}
 
 {% block main %}

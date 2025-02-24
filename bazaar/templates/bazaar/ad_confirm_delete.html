@@ -2,6 +2,9 @@
 
 {% load i18n %}
 
+{% block canonical_href %}{{ request.scheme }}://{{ request.get_host }}{% url "bazaar:ad_delete" slug=object.slug %}{% endblock %}
+{% block page_description %}{% translate "Confirm ad delete" %}{% endblock %}
+
 {% block title_prefix %}{% translate "Confirm ad delete" %}{% endblock %}
 
 {% block main %}

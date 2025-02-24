@@ -2,6 +2,9 @@
 
 {% load i18n %}
 
+{% block canonical_href %}{{ request.scheme }}://{{ request.get_host }}{% if object.pk %}{% url "bazaar:category_update" slug=object.slug%}{% else %}{% url "bazaar:category_create" %}{% endif %}{% endblock %}
+{% block page_description %}{% if object.pk %}{{ object.description }} {% else %}Create new category{% endif %}{% endblock %}
+
 {% block title_prefix %}{% include "action_label.html" %} {% translate "a category" %}{% endblock %}
 
 {% block main %}

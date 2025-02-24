@@ -2,6 +2,9 @@
 
 {% load i18n %}
 
+{% block canonical_href %}{{ request.scheme }}://{{ request.get_host }}{% url "bazaar:category_delete" slug=object.slug%}{% endblock %}
+{% block page_description %}{{ category_description|default:_("Search results") }}{% endblock %}
+
 {% block title_prefix %}{% translate "Confirm category delete" %}{% endblock %}
 
 {% block title %}{% translate "Confirm action" %}{% endblock %}

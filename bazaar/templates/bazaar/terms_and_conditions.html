@@ -1,5 +1,8 @@
 {% extends "bazaar/base.html" %}
 
+{% block canonical_href %}{{ request.scheme }}://{{ request.get_host }}{% url "bazaar:terms_and_conditions" %}{% endblock %}
+{% block page_description %}Bienvenido a Bazaar, una plataforma para la compra-venta...{% endblock %}
+
 {% block title %}Términos y Condiciones de Uso de Bazaar{% endblock %}
 
 {% block main %}

@@ -2,6 +2,7 @@
 
 {% load i18n %}
 
+{% block canonical_href %}{{ request.scheme }}://{{ request.get_host }}{% url "bazaar:home" %}{% endblock %}
 {% block page_description %}{% translate "Buy and sell clothes, food and houses in Cuba with classified ads. Publish for free and reach more people with Bazaar." %}{% endblock %}
 
 {% block title_prefix %}{% translate "Buy and sell in Cuba - Clothing, food and houses classifieds " %}{% endblock %}

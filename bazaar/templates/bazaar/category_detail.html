@@ -2,10 +2,14 @@
 
 {% load i18n %}
 
+{% block canonical_href %}{{ request.scheme }}://{{ request.get_host }}{% url "bazaar:category_detail" slug=object.slug%}{% endblock %}
+{% block page_description %}{{ object.description }}{% endblock %}
+
 {% block title_prefix %}{{ object.name }}{% endblock %}
 
 {% block main %}
     <h1>{{ object.name }}</h1>
+    <p>{{ object.description }}</p>
     <a class="btn btn-primary" href="{% url "bazaar:category_update" slug=object.slug %}">{% translate "Update" %}</a>
     <a class="btn btn-danger" href="{% url "bazaar:category_delete" slug=object.slug %}">{% translate "Delete" %}</a>
 {% endblock %}

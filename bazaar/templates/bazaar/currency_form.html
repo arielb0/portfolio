@@ -2,6 +2,9 @@
 
 {% load i18n %}
 
+{% block canonical_href %}{{ request.scheme }}://{{ request.get_host }}{% if object.pk %}{% url "bazaar:currency_update" slug=object.slug%}{% else %}{% url "bazaar:currency_create" %}{% endif %}{% endblock %}
+{% block page_description %}{% if object.pk %}{{ object.name }} {% else %}{% translate "Create new currency" %}{% endif %}{% endblock %}
+
 {% block title_prefix %}{% include "action_label.html" %} {% translate "a currency" %}{% endblock  %}
 
 {% block main %}

@@ -10,12 +10,13 @@
     <link rel="stylesheet" href="{% static 'bootstrap-icons-1.11.3/font/bootstrap-icons.min.css' %}">
     <link rel="stylesheet" href="{% static "css/main.css" %}">
     <link rel="shortcut icon" href="{% block page_icon %}{% static "favicon.ico" %}{% endblock %}" type="image/x-icon">
-    <link rel="canonical" href="https://scullsuite.com/" />
+    <link rel="canonical" href="{% block canonical_href %}{{ request.get_host }}{% endblock %}" />
     <meta name='description' content="{% block page_description %}{% translate "Scull Suite, applications to make your life easier" %}{% endblock %}">
     <title>{% block title %}{% endblock %}</title>
     <!--To monetize my site-->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8728947711978649"
      crossorigin="anonymous"></script>
+     {% block rich_snippet %}{% endblock %}
 </head>
 <body>
     <div class="container-fluid bg-secondary-subtle">

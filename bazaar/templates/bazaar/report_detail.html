@@ -2,6 +2,9 @@
 
 {% load i18n %}
 
+{% block canonical_href %}{{ request.scheme }}://{{ request.get_host }}{% url "bazaar:report_detail" pk=object.pk %}{% endblock %}
+{% block page_description %}{% translate "Report detail" %}{% endblock %}
+
 {% block title_prefix %}{% translate "Report detail" %}{% endblock %}
 
 {% block main %}

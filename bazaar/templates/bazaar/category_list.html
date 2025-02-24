@@ -2,6 +2,9 @@
 
 {% load i18n %}
 
+{% block canonical_href %}{{ request.scheme }}://{{ request.get_host }}{% url "bazaar:category_list" %}{% endblock %}
+{% block page_description %}{% translate "Category List" %}{% endblock %}
+
 {% block title_prefix %}{% translate "Categories" %}{% endblock %}
 
 {% block main %}
