@@ -42,6 +42,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
+    'django.contrib.sitemaps',
     'corsheaders',
     'rest_framework_simplejwt',
     'rest_framework',
@@ -198,3 +200,6 @@ MEDIA_ROOT = BASE_DIR / 'media'
 # Media url to server uploaded files
 
 MEDIA_URL = 'media/'
+
+# To enable the sitemap framework.
+SITE_ID = 1

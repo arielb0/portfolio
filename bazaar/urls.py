@@ -8,6 +8,8 @@ from .views import Home, TermsAndConditions, AboutUs, PrivacyPolicy
 from .views import UpdateUserProfile
 from django.contrib.auth.views import PasswordChangeView
 from django.urls import reverse_lazy
+from django.contrib.sitemaps.views import sitemap
+from .sitemaps import CategorySitemap, AdSitemap, StaticViewSitemap
 
 app_name = 'bazaar'
 
@@ -42,5 +44,6 @@ urlpatterns = [
     path('', Home.as_view(), name='home'),
     path('terms-and-conditions', TermsAndConditions.as_view(), name='terms_and_conditions'),
     path('about-us', AboutUs.as_view(), name='about_us'),
-    path('privacy-policy', PrivacyPolicy.as_view(), name='privacy_policy')
+    path('privacy-policy', PrivacyPolicy.as_view(), name='privacy_policy'),
+    path('sitemap.xml', sitemap, {'sitemaps': { 'static':  StaticViewSitemap ,'category': CategorySitemap, 'ad': AdSitemap }}, name = 'django.contrib.sitemaps.views.sitemap')
 ]

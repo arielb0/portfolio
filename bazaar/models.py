@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from datetime import date
 from django.utils.text import slugify
 from django.utils.translation import gettext_lazy as _
+from django.urls import reverse
 
 class Currency(models.Model):
     name = models.CharField(verbose_name = _('name'), unique = True, max_length = 32)
@@ -51,6 +52,10 @@ class Category(models.Model):
             self.slug = slugify(self.name)
         
         super().save()
+
+    def get_absolute_url(self):
+        return reverse("bazaar:ad_list") + f'?category={self.slug}'
+    
     
     class Meta:
         verbose_name_plural = _('categories')
@@ -119,6 +124,9 @@ class Ad(models.Model):
         # self.status = self.PENDING If regular user save a model, otherwise preserve
         
         super().save()
+
+    def get_absolute_url(self):
+        return reverse('bazaar:ad_detail', kwargs={'slug': self.slug})
     
     class Meta:
         ordering = ['-rank', '-date']
