@@ -31,4 +31,5 @@ urlpatterns = [
     path('bazaar/', include('bazaar.urls')),
     path('restaurant/', include('restaurant.urls')),
     path("", TemplateView.as_view(template_name="home.html"), name="home"),
+    path('robots.txt', TemplateView.as_view(template_name='robots.txt', content_type='text/plain')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) # TODO: Search a way to serve media files on Render.. Remember, only for debug mode! This code does not work on production environment..
