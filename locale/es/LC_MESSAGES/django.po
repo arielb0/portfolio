@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-02-20 21:34+0000\n"
+"POT-Creation-Date: 2025-03-05 09:59+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -39,25 +39,25 @@ msgstr "Detalles del usuario"
 
 #: accounts/templates/auth/user_detail.html:10
 #: accounts/templates/auth/user_list.html:13
-#: bazaar/templates/bazaar/profile_detail.html:10
+#: bazaar/templates/bazaar/profile_detail.html:13
 msgid "Username"
 msgstr "Nombre de usuario"
 
 #: accounts/templates/auth/user_detail.html:11
 #: accounts/templates/auth/user_list.html:14
-#: bazaar/templates/bazaar/profile_detail.html:11
+#: bazaar/templates/bazaar/profile_detail.html:14
 msgid "First Name"
 msgstr "Nombre"
 
 #: accounts/templates/auth/user_detail.html:12
 #: accounts/templates/auth/user_list.html:15
-#: bazaar/templates/bazaar/profile_detail.html:12
+#: bazaar/templates/bazaar/profile_detail.html:15
 msgid "Last Name"
 msgstr "Ultimo Apellido"
 
 #: accounts/templates/auth/user_detail.html:13
 #: accounts/templates/auth/user_list.html:16
-#: bazaar/templates/bazaar/profile_detail.html:13
+#: bazaar/templates/bazaar/profile_detail.html:16
 msgid "Email"
 msgstr "Correo Electrónico"
 
@@ -89,31 +89,31 @@ msgid "Groups"
 msgstr "Grupos"
 
 #: accounts/templates/auth/user_list.html:18
-#: bazaar/templates/bazaar/category_list.html:14
-#: bazaar/templates/bazaar/currency_list.html:13
-#: bazaar/templates/bazaar/report_list.html:14
+#: bazaar/templates/bazaar/category_list.html:17
+#: bazaar/templates/bazaar/currency_list.html:16
+#: bazaar/templates/bazaar/report_list.html:17
 msgid "Actions"
 msgstr "Acciones"
 
 #: accounts/templates/auth/user_list.html:35 accounts/views.py:50
-#: bazaar/templates/bazaar/ad_detail.html:78
-#: bazaar/templates/bazaar/ad_list.html:85
-#: bazaar/templates/bazaar/category_detail.html:9
-#: bazaar/templates/bazaar/category_list.html:25
-#: bazaar/templates/bazaar/currency_detail.html:11
-#: bazaar/templates/bazaar/currency_list.html:23
-#: bazaar/templates/bazaar/profile_detail.html:16 templates/action_label.html:3
+#: bazaar/templates/bazaar/ad_detail.html:103
+#: bazaar/templates/bazaar/ad_list.html:86
+#: bazaar/templates/bazaar/category_detail.html:13
+#: bazaar/templates/bazaar/category_list.html:28
+#: bazaar/templates/bazaar/currency_detail.html:14
+#: bazaar/templates/bazaar/currency_list.html:26
+#: bazaar/templates/bazaar/profile_detail.html:19 templates/action_label.html:3
 msgid "Update"
 msgstr "Actualizar"
 
 #: accounts/templates/auth/user_list.html:36
-#: bazaar/templates/bazaar/ad_detail.html:81
-#: bazaar/templates/bazaar/ad_list.html:88
-#: bazaar/templates/bazaar/category_detail.html:10
-#: bazaar/templates/bazaar/category_list.html:28
-#: bazaar/templates/bazaar/currency_detail.html:12
-#: bazaar/templates/bazaar/currency_list.html:26
-#: bazaar/templates/bazaar/profile_detail.html:17
+#: bazaar/templates/bazaar/ad_detail.html:106
+#: bazaar/templates/bazaar/ad_list.html:89
+#: bazaar/templates/bazaar/category_detail.html:14
+#: bazaar/templates/bazaar/category_list.html:31
+#: bazaar/templates/bazaar/currency_detail.html:15
+#: bazaar/templates/bazaar/currency_list.html:29
+#: bazaar/templates/bazaar/profile_detail.html:20
 msgid "Delete"
 msgstr "Eliminar"
 
@@ -281,13 +281,13 @@ msgstr "Intervalo inicial de precio"
 msgid "Price end"
 msgstr "Intervalo final de precio"
 
-#: bazaar/forms.py:135 bazaar/templates/bazaar/currency_list.html:5
-#: bazaar/templates/bazaar/currency_list.html:8
+#: bazaar/forms.py:135 bazaar/templates/bazaar/currency_list.html:8
+#: bazaar/templates/bazaar/currency_list.html:11
 #: bazaar/templates/bazaar/header.html:24
 msgid "Currencies"
 msgstr "Divisas"
 
-#: bazaar/forms.py:136 bazaar/templates/bazaar/profile_detail.html:14
+#: bazaar/forms.py:136 bazaar/templates/bazaar/profile_detail.html:17
 msgid "Address"
 msgstr "Dirección"
 
@@ -299,245 +299,250 @@ msgstr "Intervalo inicial de fecha"
 msgid "Date end"
 msgstr "Intervalo final de fecha"
 
-#: bazaar/forms.py:139 bazaar/templates/bazaar/category_form.html:13
-#: bazaar/templates/bazaar/category_list.html:12
+#: bazaar/forms.py:139 bazaar/templates/bazaar/category_form.html:16
+#: bazaar/templates/bazaar/category_list.html:15
 msgid "Category"
 msgstr "Categoría"
 
-#: bazaar/models.py:8 bazaar/models.py:25
+#: bazaar/models.py:9 bazaar/models.py:26
 msgid "name"
 msgstr "Nombre"
 
-#: bazaar/models.py:9
+#: bazaar/models.py:10
 msgid "code"
 msgstr "código"
 
-#: bazaar/models.py:26 bazaar/models.py:61 bazaar/models.py:139
+#: bazaar/models.py:27 bazaar/models.py:66 bazaar/models.py:147
 msgid "description"
 msgstr "descripción"
 
-#: bazaar/models.py:27 bazaar/models.py:75 bazaar/models.py:76
-#: bazaar/models.py:77 bazaar/models.py:78 bazaar/models.py:79
-#: bazaar/models.py:80 bazaar/models.py:81 bazaar/models.py:82
-#: bazaar/models.py:83 bazaar/models.py:84
+#: bazaar/models.py:28 bazaar/models.py:80 bazaar/models.py:81
+#: bazaar/models.py:82 bazaar/models.py:83 bazaar/models.py:84
+#: bazaar/models.py:85 bazaar/models.py:86 bazaar/models.py:87
+#: bazaar/models.py:88 bazaar/models.py:89
 msgid "picture"
 msgstr "imagen"
 
-#: bazaar/models.py:28
+#: bazaar/models.py:29
 msgid "priority"
 msgstr "prioridad"
 
-#: bazaar/models.py:29
+#: bazaar/models.py:30
 msgid "parent category"
 msgstr "Categoría Padre"
 
-#: bazaar/models.py:56
+#: bazaar/models.py:61
 msgid "categories"
 msgstr "Categorías"
 
-#: bazaar/models.py:60
+#: bazaar/models.py:65
 msgid "title"
 msgstr "título"
 
-#: bazaar/models.py:62
+#: bazaar/models.py:67
 msgid "price"
 msgstr "precio"
 
-#: bazaar/models.py:63
+#: bazaar/models.py:68
 msgid "currency"
 msgstr "Divisa"
 
-#: bazaar/models.py:64 bazaar/models.py:140
+#: bazaar/models.py:69 bazaar/models.py:148
 msgid "date"
 msgstr "fecha"
 
-#: bazaar/models.py:65
+#: bazaar/models.py:70
 msgid "alternative currencies"
 msgstr "divisas alternativas"
 
-#: bazaar/models.py:66
+#: bazaar/models.py:71
 msgid "category"
 msgstr "categoría"
 
-#: bazaar/models.py:67 bazaar/models.py:142
+#: bazaar/models.py:72 bazaar/models.py:150
 msgid "moderator"
 msgstr "Moderador"
 
-#: bazaar/models.py:74
+#: bazaar/models.py:79
 msgid "status"
 msgstr "estado"
 
-#: bazaar/models.py:85
+#: bazaar/models.py:90
 msgid "rank"
 msgstr "posicion"
 
-#: bazaar/models.py:86
+#: bazaar/models.py:91
 msgid "owner"
 msgstr "anunciante"
 
-#: bazaar/models.py:131
+#: bazaar/models.py:139
 msgid "Forbidden"
 msgstr "Prohibido"
 
-#: bazaar/models.py:132
+#: bazaar/models.py:140
 msgid "Offensive"
 msgstr "Ofensivo"
 
-#: bazaar/models.py:133
+#: bazaar/models.py:141
 msgid "Scam"
 msgstr "Estafa"
 
-#: bazaar/models.py:134
+#: bazaar/models.py:142
 msgid "Wrong Category"
 msgstr "Categoría incorrecta"
 
-#: bazaar/models.py:135
+#: bazaar/models.py:143
 msgid "Joke"
 msgstr "Broma"
 
-#: bazaar/models.py:136
+#: bazaar/models.py:144
 msgid "Other Reason"
 msgstr "Otro motivo"
 
-#: bazaar/models.py:138
+#: bazaar/models.py:146
 msgid "reason"
 msgstr "razón"
 
-#: bazaar/models.py:141
+#: bazaar/models.py:149
 msgid "readed"
 msgstr "leído"
 
-#: bazaar/models.py:143
+#: bazaar/models.py:151
 msgid "ad"
 msgstr "anuncio"
 
-#: bazaar/models.py:155
+#: bazaar/models.py:163
 msgid "user"
 msgstr "usuario"
 
-#: bazaar/models.py:156
+#: bazaar/models.py:164
 msgid "address"
 msgstr "dirección"
 
-#: bazaar/models.py:157
+#: bazaar/models.py:165
 msgid "phone"
 msgstr "teléfono"
 
-#: bazaar/templates/bazaar/ad_confirm_delete.html:5
+#: bazaar/templates/bazaar/ad_confirm_delete.html:6
+#: bazaar/templates/bazaar/ad_confirm_delete.html:8
 msgid "Confirm ad delete"
 msgstr "Confirmar la eliminación de un anuncio"
 
-#: bazaar/templates/bazaar/ad_confirm_delete.html:8
-#: bazaar/templates/bazaar/category_confirm_delete.html:7
+#: bazaar/templates/bazaar/ad_confirm_delete.html:11
+#: bazaar/templates/bazaar/category_confirm_delete.html:10
 msgid "Confirm action"
 msgstr "Confirmar acción"
 
-#: bazaar/templates/bazaar/ad_confirm_delete.html:9
+#: bazaar/templates/bazaar/ad_confirm_delete.html:12
 msgid "You are about to delete an ad. This action can be undone. Are you sure?"
 msgstr ""
 "Estás a punto de eliminar un anuncio. Esta acción no se puede deshacer. "
 "¿Estás seguro?"
 
-#: bazaar/templates/bazaar/ad_confirm_delete.html:13
-#: bazaar/templates/bazaar/category_confirm_delete.html:12
-#: bazaar/templates/bazaar/currency_confirm_delete.html:10
-#: bazaar/templates/bazaar/report_confirm_delete.html:10
-msgid "No"
-msgstr "No"
-
-#: bazaar/templates/bazaar/ad_confirm_delete.html:14
+#: bazaar/templates/bazaar/ad_confirm_delete.html:16
 #: bazaar/templates/bazaar/category_confirm_delete.html:15
 #: bazaar/templates/bazaar/currency_confirm_delete.html:13
 #: bazaar/templates/bazaar/report_confirm_delete.html:13
+msgid "No"
+msgstr "No"
+
+#: bazaar/templates/bazaar/ad_confirm_delete.html:17
+#: bazaar/templates/bazaar/category_confirm_delete.html:18
+#: bazaar/templates/bazaar/currency_confirm_delete.html:16
+#: bazaar/templates/bazaar/report_confirm_delete.html:16
 msgid "Yes"
 msgstr "Si"
 
-#: bazaar/templates/bazaar/ad_detail.html:13
-#: bazaar/templates/bazaar/ad_list.html:14
+#: bazaar/templates/bazaar/ad_detail.html:38
+#: bazaar/templates/bazaar/ad_list.html:15
 msgid "Home"
 msgstr "Inicio"
 
-#: bazaar/templates/bazaar/ad_detail.html:30
+#: bazaar/templates/bazaar/ad_detail.html:55
 #, python-format
 msgid " Ad image %(image_number)s"
 msgstr "Imagen de anuncio %(image_number)s"
 
-#: bazaar/templates/bazaar/ad_detail.html:37
+#: bazaar/templates/bazaar/ad_detail.html:62
 msgid "Previous"
 msgstr "Anterior"
 
-#: bazaar/templates/bazaar/ad_detail.html:41
+#: bazaar/templates/bazaar/ad_detail.html:66
 msgid "Next"
 msgstr "Siguiente"
 
-#: bazaar/templates/bazaar/ad_detail.html:57
+#: bazaar/templates/bazaar/ad_detail.html:82
 msgid "Also I accept / give:"
 msgstr "También acepto / doy:"
 
-#: bazaar/templates/bazaar/ad_detail.html:83
-#: bazaar/templates/bazaar/report_form.html:12
-#: bazaar/templates/bazaar/report_list.html:12
+#: bazaar/templates/bazaar/ad_detail.html:108
+#: bazaar/templates/bazaar/report_form.html:15
+#: bazaar/templates/bazaar/report_list.html:15
 msgid "Report"
 msgstr "Reporte"
 
-#: bazaar/templates/bazaar/ad_form.html:5
+#: bazaar/templates/bazaar/ad_form.html:6
 #: bazaar/templates/bazaar/ad_form.html:8
+#: bazaar/templates/bazaar/ad_form.html:11
 msgid "an advertesiment"
 msgstr "un anuncio"
 
-#: bazaar/templates/bazaar/ad_form.html:12
+#: bazaar/templates/bazaar/ad_form.html:15
 msgid "Ad"
 msgstr "Anuncio"
 
-#: bazaar/templates/bazaar/ad_list.html:5
-#: bazaar/templates/bazaar/ad_list.html:44 bazaar/views.py:291
+#: bazaar/templates/bazaar/ad_list.html:6
+#: bazaar/templates/bazaar/ad_list.html:45
+#: bazaar/templates/bazaar/ad_pending_list.html:6
+#: bazaar/templates/bazaar/category_confirm_delete.html:6 bazaar/views.py:291
 msgid "Search results"
 msgstr "Resultados de la búsqueda"
 
-#: bazaar/templates/bazaar/ad_list.html:28 bazaar/views.py:289
+#: bazaar/templates/bazaar/ad_list.html:29 bazaar/views.py:289
 msgid "Advanced Search"
 msgstr "Búsqueda Avanzada"
 
-#: bazaar/templates/bazaar/ad_list.html:32
+#: bazaar/templates/bazaar/ad_list.html:33
 msgid "Clean filters"
 msgstr "Limpiar filtros"
 
-#: bazaar/templates/bazaar/ad_list.html:35
+#: bazaar/templates/bazaar/ad_list.html:36
 #: bazaar/templates/bazaar/header.html:13
 msgid "Search"
 msgstr "Buscar"
 
-#: bazaar/templates/bazaar/ad_list.html:52
+#: bazaar/templates/bazaar/ad_list.html:53
 msgid "Default ad image"
 msgstr "Imagen de anuncio por defecto"
 
-#: bazaar/templates/bazaar/ad_list.html:73
+#: bazaar/templates/bazaar/ad_list.html:74
 msgid "Reject"
 msgstr "Rechazar"
 
-#: bazaar/templates/bazaar/ad_list.html:80
+#: bazaar/templates/bazaar/ad_list.html:81
 msgid "Allow"
 msgstr "Permitir"
 
-#: bazaar/templates/bazaar/ad_list.html:95
+#: bazaar/templates/bazaar/ad_list.html:96
 msgid "Your search don't return results."
 msgstr "Tu búsqueda no ha retornado resultados."
 
-#: bazaar/templates/bazaar/ad_pending_list.html:5
 #: bazaar/templates/bazaar/ad_pending_list.html:8
+#: bazaar/templates/bazaar/ad_pending_list.html:11
 msgid "Pending ads"
 msgstr "Anuncios pendientes"
 
-#: bazaar/templates/bazaar/ad_pending_list.html:12
+#: bazaar/templates/bazaar/ad_pending_list.html:15
 msgid "There are not pending ads."
 msgstr "No existen anuncios pendientes."
 
-#: bazaar/templates/bazaar/ad_rejected_list.html:5
+#: bazaar/templates/bazaar/ad_rejected_list.html:6
 #: bazaar/templates/bazaar/ad_rejected_list.html:8
+#: bazaar/templates/bazaar/ad_rejected_list.html:11
 msgid "Rejected ads"
 msgstr "Anuncios rechazados"
 
-#: bazaar/templates/bazaar/ad_rejected_list.html:12
+#: bazaar/templates/bazaar/ad_rejected_list.html:15
 msgid "There are not rejected ads."
 msgstr "No existen anuncios rechazados."
 
@@ -557,17 +562,17 @@ msgstr "Política de Privacidad"
 msgid "All rights reserved."
 msgstr "Todos los derechos reservados."
 
-#: bazaar/templates/bazaar/category_confirm_delete.html:5
+#: bazaar/templates/bazaar/category_confirm_delete.html:8
 msgid "Confirm category delete"
 msgstr "Confirma la eliminación de una categoría"
 
-#: bazaar/templates/bazaar/category_confirm_delete.html:10
-#: bazaar/templates/bazaar/currency_confirm_delete.html:8
-#: bazaar/templates/bazaar/report_confirm_delete.html:8
+#: bazaar/templates/bazaar/category_confirm_delete.html:13
+#: bazaar/templates/bazaar/currency_confirm_delete.html:11
+#: bazaar/templates/bazaar/report_confirm_delete.html:11
 msgid "Are you sure?"
 msgstr "¿Estás seguro?"
 
-#: bazaar/templates/bazaar/category_confirm_delete.html:11
+#: bazaar/templates/bazaar/category_confirm_delete.html:14
 msgid ""
 "You are about to delete a category and all objects related to them. This "
 "action can't be undone. Please confirm:"
@@ -575,30 +580,42 @@ msgstr ""
 "Estas a punto de eliminar una categoría y todos los objetos relacionados con "
 "ella. Esta acción no se puede deshacer. Por favor, confirme:"
 
-#: bazaar/templates/bazaar/category_form.html:5
 #: bazaar/templates/bazaar/category_form.html:8
+#: bazaar/templates/bazaar/category_form.html:11
 msgid "a category"
 msgstr "una categoría"
 
-#: bazaar/templates/bazaar/category_list.html:5
+#: bazaar/templates/bazaar/category_list.html:6
+#, fuzzy
+#| msgid "Categories"
+msgid "Category List"
+msgstr "Categorías"
+
 #: bazaar/templates/bazaar/category_list.html:8
-#: bazaar/templates/bazaar/header.html:19 bazaar/templates/bazaar/home.html:16
+#: bazaar/templates/bazaar/category_list.html:11
+#: bazaar/templates/bazaar/header.html:19 bazaar/templates/bazaar/home.html:17
 msgid "Categories"
 msgstr "Categorías"
 
-#: bazaar/templates/bazaar/category_list.html:9
+#: bazaar/templates/bazaar/category_list.html:12
 msgid "New Category"
 msgstr "Nueva categoría"
 
-#: bazaar/templates/bazaar/category_list.html:13
+#: bazaar/templates/bazaar/category_list.html:16
 msgid "Description"
 msgstr "Descripción"
 
-#: bazaar/templates/bazaar/currency_confirm_delete.html:5
+#: bazaar/templates/bazaar/currency_confirm_delete.html:6
+#, fuzzy
+#| msgid "Confirm category delete"
+msgid "Confirm currency delete"
+msgstr "Confirma la eliminación de una categoría"
+
+#: bazaar/templates/bazaar/currency_confirm_delete.html:8
 msgid "Confirm delete currency"
 msgstr "Confirma la eliminación de una divisa"
 
-#: bazaar/templates/bazaar/currency_confirm_delete.html:9
+#: bazaar/templates/bazaar/currency_confirm_delete.html:12
 msgid ""
 "You are about to delete a currency and all objects related to them. This "
 "action can't be undone. Please confirm:"
@@ -606,21 +623,39 @@ msgstr ""
 "Estas a punto de eliminar una divisa y todos los objetos relacionados con "
 "ella. Esta acción no se puede deshacer. Por favor, confirme:"
 
-#: bazaar/templates/bazaar/currency_detail.html:9
+#: bazaar/templates/bazaar/currency_detail.html:6
+#, fuzzy
+#| msgid "Currency"
+msgid "Currency detail"
+msgstr "Divisa"
+
+#: bazaar/templates/bazaar/currency_detail.html:12
 msgid "Code"
 msgstr "Código"
 
-#: bazaar/templates/bazaar/currency_form.html:5
+#: bazaar/templates/bazaar/currency_form.html:6
+#, fuzzy
+#| msgid "a currency"
+msgid "Create new currency"
+msgstr "una divisa"
+
 #: bazaar/templates/bazaar/currency_form.html:8
+#: bazaar/templates/bazaar/currency_form.html:11
 msgid "a currency"
 msgstr "una divisa"
 
-#: bazaar/templates/bazaar/currency_form.html:19
-#: bazaar/templates/bazaar/currency_list.html:12
+#: bazaar/templates/bazaar/currency_form.html:22
+#: bazaar/templates/bazaar/currency_list.html:15
 msgid "Currency"
 msgstr "Divisa"
 
-#: bazaar/templates/bazaar/currency_list.html:9
+#: bazaar/templates/bazaar/currency_list.html:6
+#, fuzzy
+#| msgid "Currencies"
+msgid "Currency list"
+msgstr "Divisas"
+
+#: bazaar/templates/bazaar/currency_list.html:12
 msgid "New Currency"
 msgstr "Nueva divisa"
 
@@ -629,8 +664,9 @@ msgid "Close"
 msgstr "Cerrar"
 
 #: bazaar/templates/bazaar/header.html:29
-#: bazaar/templates/bazaar/report_list.html:5
+#: bazaar/templates/bazaar/report_list.html:6
 #: bazaar/templates/bazaar/report_list.html:8
+#: bazaar/templates/bazaar/report_list.html:11
 msgid "Reports"
 msgstr "Reportes"
 
@@ -658,33 +694,37 @@ msgstr "Perfil"
 msgid "Logout"
 msgstr "Cerrar sesión"
 
-#: bazaar/templates/bazaar/home.html:5
+#: bazaar/templates/bazaar/home.html:6
 msgid ""
 "Buy and sell clothes, food and houses in Cuba with classified ads. Publish "
 "for free and reach more people with Bazaar."
-msgstr "Compra y vende ropa, comida y casas en Cuba con anuncios clasificados. Publica gratis y llega a más personas con Bazaar."
+msgstr ""
+"Compra y vende ropa, comida y casas en Cuba con anuncios clasificados. "
+"Publica gratis y llega a más personas con Bazaar."
 
-#: bazaar/templates/bazaar/home.html:7
+#: bazaar/templates/bazaar/home.html:8
 msgid "Buy and sell in Cuba - Clothing, food and houses classifieds "
 msgstr ""
 "Compra y venta en Cuba - Anuncios clasificados de ropa, comida y casas "
 
-#: bazaar/templates/bazaar/profile_detail.html:5
 #: bazaar/templates/bazaar/profile_detail.html:8
-#: bazaar/templates/bazaar/profile_form.html:5
+#: bazaar/templates/bazaar/profile_detail.html:11
+#: bazaar/templates/bazaar/profile_form.html:6
 #: bazaar/templates/bazaar/profile_form.html:8
+#: bazaar/templates/bazaar/profile_form.html:11
 msgid "User Profile"
 msgstr "Perfil de usuario"
 
-#: bazaar/templates/bazaar/profile_detail.html:15
+#: bazaar/templates/bazaar/profile_detail.html:18
 msgid "Phone"
 msgstr "Teléfono"
 
-#: bazaar/templates/bazaar/report_confirm_delete.html:5
+#: bazaar/templates/bazaar/report_confirm_delete.html:6
+#: bazaar/templates/bazaar/report_confirm_delete.html:8
 msgid "Confirm delete report"
 msgstr "Confirme la eliminación de un reporte"
 
-#: bazaar/templates/bazaar/report_confirm_delete.html:9
+#: bazaar/templates/bazaar/report_confirm_delete.html:12
 msgid ""
 "You are about to delete a report. This action can't be undone. Please "
 "confirm:"
@@ -692,49 +732,50 @@ msgstr ""
 "Estás a punto de eliminar un reporte. Esta acción no se puede deshacer. Por "
 "favor, confirme:"
 
-#: bazaar/templates/bazaar/report_detail.html:5
+#: bazaar/templates/bazaar/report_detail.html:6
+#: bazaar/templates/bazaar/report_detail.html:8
 msgid "Report detail"
 msgstr "Detalles del reporte"
 
-#: bazaar/templates/bazaar/report_detail.html:8
-#: bazaar/templates/bazaar/report_list.html:19
+#: bazaar/templates/bazaar/report_detail.html:11
+#: bazaar/templates/bazaar/report_list.html:22
 msgid " ad is reported as "
 msgstr " anuncio reportado como "
 
-#: bazaar/templates/bazaar/report_detail.html:11
+#: bazaar/templates/bazaar/report_detail.html:14
 msgid "Options"
 msgstr "Opciones"
 
-#: bazaar/templates/bazaar/report_detail.html:12
+#: bazaar/templates/bazaar/report_detail.html:15
 msgid "See ad"
 msgstr "Ver anuncio"
 
-#: bazaar/templates/bazaar/report_detail.html:13
+#: bazaar/templates/bazaar/report_detail.html:16
 msgid "Delete ad and notify user"
 msgstr "Eliminar anuncio y notificar al usuario"
 
-#: bazaar/templates/bazaar/report_detail.html:14
-#: bazaar/templates/bazaar/report_list.html:23
+#: bazaar/templates/bazaar/report_detail.html:17
+#: bazaar/templates/bazaar/report_list.html:26
 msgid "Delete report"
 msgstr "Eliminar reporte"
 
-#: bazaar/templates/bazaar/report_form.html:5
+#: bazaar/templates/bazaar/report_form.html:8
 msgid "Update a report"
 msgstr "Actualizar reporte"
 
-#: bazaar/templates/bazaar/report_form.html:8
+#: bazaar/templates/bazaar/report_form.html:11
 msgid "a report"
 msgstr "un reporte"
 
-#: bazaar/templates/bazaar/report_list.html:11
+#: bazaar/templates/bazaar/report_list.html:14
 msgid "Date"
 msgstr "Fecha"
 
-#: bazaar/templates/bazaar/report_list.html:13
+#: bazaar/templates/bazaar/report_list.html:16
 msgid "Reported Ad"
 msgstr "Anuncio reportado"
 
-#: bazaar/templates/bazaar/report_list.html:22
+#: bazaar/templates/bazaar/report_list.html:25
 msgid "Delete ad"
 msgstr "Eliminar anuncio"
 
@@ -770,6 +811,14 @@ msgstr "Crear"
 msgid "Scull Suite, applications to make your life easier"
 msgstr "Scull Suite, aplicaciones para hacerte la vida mas fácil"
 
+#: templates/base.html:42 templates/theme_button.html:5
+msgid "Light"
+msgstr "Claro"
+
+#: templates/base.html:45
+msgid "Dark"
+msgstr "Oscuro"
+
 #: templates/home.html:6 templates/home.html:19
 msgid "Applications to make your life easier"
 msgstr "Aplicaciones para hacerte la vida mas fácil"
@@ -778,7 +827,7 @@ msgstr "Aplicaciones para hacerte la vida mas fácil"
 msgid "Show applications"
 msgstr "Mostrar aplicaciones"
 
-#: templates/home.html:25 templates/home_header.html:16
+#: templates/home.html:25 templates/home_header.html:19
 msgid "Applications"
 msgstr "Aplicaciones"
 
@@ -786,10 +835,10 @@ msgstr "Aplicaciones"
 msgid "Restaurant application"
 msgstr "Aplicación Restaurante"
 
-#: templates/home.html:83 templates/home_header.html:19
+#: templates/home.html:83 templates/home_header.html:22
 msgid "Contact"
 msgstr "Contacto"
 
-#: templates/home_header.html:13
+#: templates/home_header.html:16
 msgid "Start"
 msgstr "Inicio"

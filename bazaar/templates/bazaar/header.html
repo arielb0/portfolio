@@ -13,6 +13,7 @@
         <button class="btn btn-outline-success">{% translate "Search" %}</button>
     </form>
     <ul class="navbar-nav">
+        {% include "theme_button.html" %}
         {% with user_permissions=user.get_all_permissions %}
             {% if user.is_superuser or 'bazaar.view_category' in user_permissions %}
                 <li class="nav-item">

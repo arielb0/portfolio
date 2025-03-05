@@ -2,7 +2,7 @@
 {% load i18n %}
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es" data-bs-theme='auto'>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -26,5 +26,59 @@
         {% block footer %}{% endblock %}
     </div>
     <script src="{% static 'bootstrap-5.3.2-dist/js/bootstrap.bundle.min.js' %}"></script>
+    <script>
+        const htmlTag = document.querySelector('html');
+        const themeButton = document.getElementById('theme-button');
+        const themeIcon = document.getElementById('theme-icon');
+        const themeText = document.getElementById('theme-text');
+
+        function changeUI(theme) {
+            /**
+                Change the User Interface of the button related with the theme.
+            */
+
+            if (theme === 'light') {
+                themeIcon.className = 'bi bi-sun-fill';
+                themeText.textContent = '{% translate "Light" %}';
+            } else {
+                themeIcon.className = 'bi bi-moon-fill';
+                themeText.textContent = '{% translate "Dark" %}';
+            }
+        }
+
+        function loadTheme() {
+            /**
+                Load the theme of the site from the local storage.
+            */
+
+            let theme = localStorage.getItem('theme');
+
+            if (theme === null) {
+                localStorage.setItem('theme', 'light');
+            } else {
+                htmlTag.setAttribute('data-bs-theme', theme);
+                changeUI(theme);
+            }
+        }        
+
+        function changeTheme() {
+            /**
+                Change the theme of the site.
+            */
+
+            if (localStorage.getItem('theme') === 'light') {
+                localStorage.setItem('theme', 'dark');                
+                changeUI('dark');
+                htmlTag.setAttribute('data-bs-theme', 'dark');
+            } else {
+                localStorage.setItem('theme', 'light');
+                changeUI('light');
+                htmlTag.setAttribute('data-bs-theme', 'light');
+            }
+        }
+
+        window.onload = loadTheme;
+        themeButton.addEventListener('click', changeTheme);
+    </script>
 </body>
 </html>
