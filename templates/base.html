@@ -2,7 +2,7 @@
 {% load i18n %}
 
 <!DOCTYPE html>
-<html lang="es" data-bs-theme='auto'>
+<html lang="es" data-bs-theme='{{ request.COOKIES.theme }}'>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -26,11 +26,19 @@
         {% block footer %}{% endblock %}
     </div>
     <script src="{% static 'bootstrap-5.3.2-dist/js/bootstrap.bundle.min.js' %}"></script>
-    <script>
+    <script>        
         const htmlTag = document.querySelector('html');
         const themeButton = document.getElementById('theme-button');
         const themeIcon = document.getElementById('theme-icon');
         const themeText = document.getElementById('theme-text');
+
+        function getCookieValue(cookies, key) {
+            /**
+                Get the value of a cookie.
+            */
+            
+            return cookies.split('; ').find(row => row.startsWith(key)).split('=')[1];
+        }
 
         function changeUI(theme) {
             /**
@@ -46,38 +54,27 @@
             }
         }
 
-        function loadTheme() {
-            /**
-                Load the theme of the site from the local storage.
-            */
-
-            let theme = localStorage.getItem('theme');
-
-            if (theme === null) {
-                localStorage.setItem('theme', 'light');
-            } else {
-                htmlTag.setAttribute('data-bs-theme', theme);
-                changeUI(theme);
-            }
-        }        
-
         function changeTheme() {
             /**
                 Change the theme of the site.
             */
 
-            if (localStorage.getItem('theme') === 'light') {
-                localStorage.setItem('theme', 'dark');                
+            
+            if (getCookieValue(document.cookie, 'theme') === 'light') {
+                document.cookie = 'theme=dark; path=/';
                 changeUI('dark');
                 htmlTag.setAttribute('data-bs-theme', 'dark');
             } else {
-                localStorage.setItem('theme', 'light');
+                document.cookie = 'theme=light; path=/';
                 changeUI('light');
                 htmlTag.setAttribute('data-bs-theme', 'light');
             }
         }
-
-        window.onload = loadTheme;
+        window.onload = () => {
+            if (!document.cookie.includes('theme')) {
+                document.cookie = 'theme=light; path=/';
+            }
+        }
         themeButton.addEventListener('click', changeTheme);
     </script>
 </body>

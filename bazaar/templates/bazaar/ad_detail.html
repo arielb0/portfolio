@@ -32,7 +32,7 @@
 {% block main %}
 
     <div class="container">
-        <nav aria-label="breadcrumb" class="bg-white">
+        <nav aria-label="breadcrumb" class="bg-body-tertiary">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item active">
                     <a href="{% url "bazaar:home" %}">{% translate "Home" %}</a>
@@ -43,7 +43,7 @@
             </ol>
         </nav>
     
-        <div class="bg-white">
+        <div class="bg-body-tertiary">
             <div class="row">
                 <div class="col-md-8 offset-md-2">
                     <div class="carousel carousel-fade" id="adCarousel">
@@ -70,11 +70,11 @@
             </div>
         </div>
 
-        <div class="bg-white">
+        <div class="bg-body-tertiary">
             <h1 class="text-center">{{ object.title }}</h1>
         </div>
 
-        <div class='bg-white'>
+        <div class='bg-body-tertiary'>
             <p><i class='bi bi-calendar'></i> {{ object.date }}</p>
             <p><i class='bi bi-cash'></i> {{ object.price }} {{ object.currency.code }}</p>
             <p>
@@ -86,10 +86,10 @@
                 {% endif %}
             </p>
         </div>
-        <div class='bg-white'>
+        <div class='bg-body-tertiary'>
             <pre style="white-space: pre-wrap; word-break: break-all; font-family: inherit; font-size: inherit">{{ object.description }}</pre>
         </div>
-        <div class='bg-white'>
+        <div class='bg-body-tertiary'>
             <p><i class='bi bi-person'></i> {{ object.owner.username }}</p>
             {% if object.owner.profile.address %}
                 <p><i class='bi bi-geo-alt'></i> {{ object.owner.profile.address }}</p>

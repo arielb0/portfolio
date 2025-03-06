@@ -1,6 +1,11 @@
 {% load i18n %}
 
 <button class="btn btn-outline-primary" id="theme-button">
-    <i class='bi bi-sun-fill' id="theme-icon"></i>
-    <span id="theme-text">{% translate "Light" %}</span>
+    {% if request.COOKIES.theme == 'light' or not request.COOKIES.theme %} 
+        <i class="bi bi-sun-fill" id="theme-icon"></i>
+        <span id="theme-text">{% translate "Light" %}</span>
+    {% else %}
+        <i class="bi bi-moon-fill" id="theme-icon"></i>
+        <span id="theme-text">{% translate "Dark" %}</span>
+    {% endif %}
 </button>
