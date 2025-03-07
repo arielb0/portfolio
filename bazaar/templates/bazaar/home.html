@@ -3,9 +3,11 @@
 {% load i18n %}
 
 {% block canonical_href %}{{ request.scheme }}://{{ request.get_host }}{% url "bazaar:home" %}{% endblock %}
-{% block page_description %}{% translate "Buy and sell clothes, food and houses in Cuba with classified ads. Publish for free and reach more people with Bazaar." %}{% endblock %}
 
-{% block title_prefix %}{% translate "Buy and sell in Cuba - Clothing, food and houses classifieds " %}{% endblock %}
+{% block page_description %}Compra y vende ropa, comida y casas en Cuba con anuncios clasificados. "
+Publica gratis y llega a más personas con Bazaar.{% endblock %}
+
+{% block title_prefix %}Compra y venta en Cuba - Anuncios clasificados de ropa, comida y casas{% endblock %}
 
 {% block main %}
 
