@@ -4,3 +4,4 @@ settings_*.py
 *.sql
 /media/*
 staticfiles
+.env

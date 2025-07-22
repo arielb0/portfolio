@@ -62,8 +62,13 @@ class SubmitSurvey(FormView):
 
         for key, value in form.cleaned_data.items():
             if key != 'captcha':
-                data = Data.objects.create(question= Question.objects.get(slug=key), answer=value)
-                data.save()
+                if type(value) == list:
+                    for single_value in value: # Useful for fields that allow several values (Checkbox)
+                        data = Data.objects.create(question= Question.objects.get(slug=key), answer=single_value)
+                        data.save()
+                else:
+                    data = Data.objects.create(question= Question.objects.get(slug=key), answer=value)
+                    data.save()
 
         return super().form_valid(form)
     
@@ -82,12 +87,12 @@ class CreateQuestion(UserPassesTestMixin, CreateView):
         form.fields['survey'].queryset = Survey.objects.filter(user=self.request.user)
         return form
 
-    def test_func(self):
+    def test_func(self):        
         if 'data' in self.get_form_kwargs().keys():
-            survey_pk = self.get_form_kwargs()['data']['survey']
+            survey_pk = self.get_form_kwargs()['data']['survey']            
             
             try:
-                survey = Question.objects.get(pk=survey_pk)
+                survey = Survey.objects.get(pk=survey_pk)
                 return survey.user == self.request.user
             except:
                 return False
