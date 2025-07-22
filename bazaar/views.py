@@ -1,15 +1,19 @@
 from django.http import HttpRequest, HttpResponse, HttpResponseRedirect
 from django.views.generic import CreateView, DetailView, UpdateView, DeleteView, ListView, TemplateView
-from .models import Currency, Category, Ad, Report, Profile
-from .forms import CurrencyForm, CategoryForm, AdForm, AdStatusForm, ReportForm, ProfileForm, AdvancedSearchForm
+from .models import Currency, Category, Ad, Report, Profile, Review
+from .forms import CurrencyForm, CategoryForm, AdForm, AdStatusForm, ReportForm, ProfileForm, ReviewForm, AdvancedSearchForm
 from accounts.forms import UserAdminForm, UserForm
 from accounts.views import UpdateUser
 from django.urls import reverse_lazy
-from django.db.models import Q
-from .helpers import normalize_ad_pictures, get_simple_search_form
+from django.db.models import Q, F
+from .helpers import normalize_ad_pictures, get_simple_search_form, get_profile_stats
 from django.contrib.auth.mixins import UserPassesTestMixin, LoginRequiredMixin
 from django.contrib.auth.forms import PasswordChangeForm
+from django.contrib.auth.models import User
 from django.utils.translation import gettext_lazy as _
+from django.db.models import Sum, FloatField, ExpressionWrapper
+from django.db import IntegrityError
+from django.forms import ValidationError
 
 # Create your views here.
 
@@ -168,6 +172,10 @@ class DetailAd(DetailView):
     def get_context_data(self, **kwargs) -> dict[str]:
         context = super().get_context_data(**kwargs)
         context = get_simple_search_form(context)
+        reviews = Review.objects.filter(reviewed = self.get_object().owner.profile)
+
+        context = get_profile_stats(self.get_object().owner.profile, context)
+    
         return context
     
 
@@ -263,6 +271,8 @@ class ListAd(ListView):
         if my_ads:
             queryset = queryset.filter(Q(owner=self.request.user))
         
+        queryset = queryset.annotate(score = ExpressionWrapper(Sum('owner__profile__reviewed__rating') / User.objects.all().count(), output_field = FloatField())).order_by(F('score').desc(nulls_last=True))
+        
         return queryset
 
     def get_context_data(self, **kwargs) -> dict[str]:
@@ -309,7 +319,7 @@ class ListPendingAd(UserPassesTestMixin, ListAd):
     def get_queryset(self):
         return Ad.objects.filter(status = 0)
 
-    def test_func(self):        
+    def test_func(self):
         return self.request.user.is_superuser or self.request.user.has_perm('bazaar.moderate_ad')
         
 
@@ -398,6 +408,11 @@ class DetailProfile(DetailView):
 
     def get_object(self):
         return Profile.objects.get_or_create(user = self.request.user)[0]
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context = get_profile_stats(self.get_object(), context)
+        return context
 
 class UpdateProfile(UpdateView):
     model = Profile
@@ -421,6 +436,83 @@ class UpdateUserProfile(UpdateUser):
 
     def get_object(self):
         return self.request.user
+    
+class CreateReview(UserPassesTestMixin, CreateView):
+    model = Review
+    form_class = ReviewForm
+    success_url = reverse_lazy('bazaar:my_reviews')
+
+    def get_initial(self):
+        initial = super().get_initial()
+        initial['reviewed'] = self.kwargs['slug']        
+        return initial
+
+    def test_func(self) -> bool:
+        if self.request.user.is_anonymous:
+            return False
+
+        return Profile.objects.get_or_create(user = self.request.user)[0].slug != self.kwargs['slug']
+    
+    def form_valid(self, form):
+        self.object = form.save(commit = False)
+        self.object.reviewer = Profile.objects.get_or_create(user = self.request.user)[0]
+        
+        try:
+            self.object.save()
+        except IntegrityError as e:
+            raise ValidationError(_('Integrity Error!'))
+            
+        return HttpResponseRedirect(self.get_success_url())
+
+class DetailReview(DetailView):
+    model = Review
+
+class UpdateReview(UserPassesTestMixin, UpdateView):
+    model = Review
+    form_class = ReviewForm
+    success_url = reverse_lazy('bazaar:my_reviews')
+
+    def test_func(self):
+        if self.request.user.is_anonymous:
+            return False
+        return self.request.user.id == self.get_object().reviewer.user.id
+
+class DeleteReview(UserPassesTestMixin, DeleteView):
+    model = Review
+    success_url = reverse_lazy('bazaar:my_reviews')
+
+    def test_func(self):
+        if self.request.user.is_anonymous:
+            return False
+        return self.request.user.id == self.get_object().reviewer.user.id
+
+class ListReview(ListView):
+    model = Review
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        
+        try:
+            context['reviewed'] = Profile.objects.get(slug = self.kwargs['slug'])
+        except Exception:
+            context['error_message'] = _('The profile does not exist.')
+
+        return context
+
+    def get_queryset(self):
+        return Review.objects.filter(reviewed = self.kwargs['slug'])
+    
+class MyReview(LoginRequiredMixin, ListView):
+    model = Review
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['reviewer'] = self.request.user
+        context['my_reviews'] = True
+        return context
+
+    def get_queryset(self):
+        return Review.objects.all().filter(reviewer = self.request.user.profile)
     
 class Home(TemplateView):
     template_name = 'bazaar/home.html'

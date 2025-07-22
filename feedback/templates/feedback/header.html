@@ -1,0 +1,45 @@
+{% extends "header.html" %}
+
+{% load i18n %}
+
+{% block offcanvas_header %}
+    <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Feedback</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="{% translate "Close" %}"></button>
+{% endblock %}
+
+{% block offcanvas_body %}
+    <ul class="navbar-nav">
+        {% include "theme_button.html" %}
+        <li class="nav-item">
+            <a class="nav-link" href="{% url "feedback:survey_list" %}">{% translate "Surveys" %}</a>
+        </li>
+        {% if user.is_authenticated %}
+            <li class="nav-item">
+                <a class="nav-link" href="{% url "feedback:question_list" %}">{% translate "Questions" %}</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url "feedback:answer_list" %}">{% translate "Answers" %}</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url "bazaar:profile_detail" %}">{% translate "Profile" %}</a>
+            </li>
+            <li class="nav-item">
+                <form action="{% url "logout" %}?next={{ request.path }}" method="post">
+                    {% csrf_token %}
+                    <input class="nav-link" type="submit" value="{% translate "Logout" %}">
+                </form>
+            </li>
+        {% else %}
+            <li class="nav-item">
+                <a class="nav-link" href="{% url "login" %}?next={{ request.path }}">{% translate "Login" %}</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url "register" %}">{% translate "Register" %}</a>
+            </li>
+        {% endif %}
+        <li class="nav-item">
+            <a class="nav-link" href="{% url "feedback:faq" %}">{% translate "Frequently Asked Questions" %}</a>
+        </li>
+        
+    </ul>
+{% endblock %}

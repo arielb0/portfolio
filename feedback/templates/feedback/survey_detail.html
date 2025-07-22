@@ -1,0 +1,68 @@
+{% extends "feedback/base.html" %}
+
+{% load i18n %}
+
+{% block title_prefix %}{{ object.title }}{% endblock %}
+
+{% block main %}
+    <h1>{{ object.title }}</h1>
+    <p>{{ object.description }}</p>
+    {% if object.user == user %}
+        <div>
+            <a class="btn btn-primary" href="{% url "feedback:survey_update" pk=object.pk %}">{% translate "" %}Update</a>
+            <a class="btn btn-danger" href="{% url "feedback:survey_delete" pk=object.pk %}">{% translate "" %}Delete</a>
+        </div>
+    {% endif %}
+    <div class="row">
+        <div class="col m-1 p-1">
+            {% for name, image in charts.items %}
+                <img class="img-fluid" src="data:image/png;base64,{{ image }}" alt="{% translate "Statistic chart for question" %} {{ name }}">
+            {% endfor %}
+        </div>
+    </div>
+    <div>
+        <table class="table">
+            <thead>
+                <th>{% translate "Question" %}</th>
+                <th>{% translate "Min" %}</th>
+                <th>{% translate "Mean" %}</th>
+                <th>{% translate "Max" %}</th>
+                <th>{% translate "Count" %}</th>
+                <th>{% translate "Sum" %}</th>
+                <th>{% translate "Standard Deviation" %}</th>
+                <th>{% translate "Variance" %}</th>
+            </thead>
+            <tbody>
+                {% for key, value in stats.key_stats.items %}
+                    <tr>
+                        <td>{{ key }}</td>
+                        <td>{{ value.min }}</td>
+                        <th>{{ value.mean }}</th>
+                        <th>{{ value.max }}</th>
+                        <th>{{ value.count }}</th>
+                        <th>{{ value.sum }}</th>
+                        <th>{{ value.std_dev }}</th>                        
+                        <td>{{ value.variance }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% for question, counts in stats.count.items %}
+            <h3>{{ question }}</h3>
+            <table class="table">
+                <thead>
+                    <th>{% translate "Value" %}</th>
+                    <th>{% translate "Count" %}</th>
+                </thead>
+                <tbody>
+                    {% for value, count in counts.items %}
+                        <tr>
+                            <td>{{ value }}</td>
+                            <td>{{ count }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% endfor %}
+    </div>
+{% endblock %}

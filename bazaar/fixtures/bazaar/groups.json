@@ -1,1 +1,1 @@
-[{"model": "auth.group", "pk": 3, "fields": {"name": "Bazaar Moderator", "permissions": [41, 45]}}, {"model": "auth.group", "pk": 4, "fields": {"name": "Bazaar Superuser", "permissions": [13, 14, 15, 16, 38, 39, 41, 33, 34, 35, 36, 29, 30, 31, 32, 42, 43, 44, 45]}}]
+[{"model": "auth.group", "pk": 3, "fields": {"name": "Bazaar Moderator", "permissions": [45, 49]}}, {"model": "auth.group", "pk": 4, "fields": {"name": "Bazaar Superuser", "permissions": [13, 14, 15, 16, 42, 43, 45, 37, 38, 39, 40, 33, 34, 35, 36, 46, 47, 48, 49]}}]

@@ -4,6 +4,7 @@ from ..views import CreateCurrency, DetailCurrency, UpdateCurrency, DeleteCurren
 from ..views import CreateCategory, DetailCategory, UpdateCategory, DeleteCategory, ListCategory
 from ..views import CreateAd, DetailAd, UpdateAd, DeleteAd, ListAd
 from ..views import CreateReport, DetailReport, UpdateReport, DeleteReport, ListReport
+from ..views import CreateReview, DetailReview, UpdateReview, DeleteReview, ListReview, MyReview
 from django.views import View
 from typing import Callable
 from bazaar.tests.helpers import Generator
@@ -467,4 +468,144 @@ class ReportURLTestCase(TestCase):
 
           view = ViewClassUtil.get_view_function(self.REPORT_LIST_URL)
           self.assertTrue(ViewClassUtil.view_function_is_instance_of_class(view, ListReport))
-     
+
+class ReviewURLTestCase(TestCase):
+
+     @classmethod
+     def setUpTestData(cls):
+          generator = Generator()
+
+          cls.PASSWORD = 'somerandomstr1nG$'
+          cls.ADDRESS = 'Some coordinates on Earth'
+
+          cls.user_1 = generator.create_user_model(
+               username = 'George', 
+               password = cls.PASSWORD)
+          
+          cls.profile_1 = generator.create_profile_model(
+               user = cls.user_1, 
+               address = cls.ADDRESS,
+               phone = '1237654890')
+          
+          cls.user_2 = generator.create_user_model(
+               username = 'Ada',
+               password = cls.PASSWORD
+          )
+
+          cls.profile_2 = generator.create_profile_model(
+               user = cls.user_2,
+               address = cls.ADDRESS,
+               phone = '789321456'
+          )
+          
+          cls.review_1 = generator.create_review_model(
+               rating = 3,
+               comment = 'Average product and service',
+               reviewer = cls.profile_1,
+               reviewed = cls.profile_2
+          )
+
+          cls.REVIEW_CREATE_PATH = reverse('bazaar:review_create', kwargs = {'slug': cls.profile_1.slug}) 
+          cls.REVIEW_DETAIL_PATH = reverse('bazaar:review_detail', kwargs = {'pk': cls.review_1.pk})
+          cls.REVIEW_UPDATE_PATH = reverse('bazaar:review_update', kwargs = {'pk': cls.review_1.pk})
+          cls.REVIEW_DELETE_PATH = reverse('bazaar:review_delete', kwargs = {'pk': cls.review_1.pk})
+          cls.REVIEW_LIST_PATH = reverse('bazaar:review_list', kwargs = {'slug': cls.profile_2.slug})
+          cls.MY_REVIEW = reverse('bazaar:my_reviews')
+
+          return super().setUpTestData()
+
+     def test_create_review_path(self):
+         '''
+            Test if bazaar:review_create Django url has the correct path (/bazaar/review/<slug:slug>/create)
+         '''
+
+         self.assertEqual(reverse('bazaar:review_create', kwargs = {'slug': self.profile_1.slug}), f'/bazaar/review/{self.profile_1.slug}/create')
+
+     def test_create_review_view(self):
+          '''
+               Test if bazaar:create_review Django url use the right view class (CreateReview)
+          '''
+
+          view_function = ViewClassUtil.get_view_function(self.REVIEW_CREATE_PATH)
+
+          self.assertTrue(ViewClassUtil.view_function_is_instance_of_class(view_function, CreateReview))
+
+     def test_detail_review_path(self):
+          '''
+               Test if bazaar:detail_review Django url has the right path (/bazaar/<int:pk>/detail)
+          '''
+
+          self.assertEqual(reverse('bazaar:review_detail', kwargs = {'pk': self.review_1.pk}), f'/bazaar/review/{self.review_1.pk}/detail')
+
+     def test_detail_review_view(self):
+          '''
+               Test if bazaar:detail_review Django url use the right view class (DetailReview)
+          '''
+
+          view_function = ViewClassUtil.get_view_function(reverse('bazaar:review_detail', kwargs = {'pk': self.review_1.pk}))
+
+          self.assertTrue(ViewClassUtil.view_function_is_instance_of_class(view_function, DetailReview))
+
+     def test_update_review_path(self):
+          '''
+               Test if bazaar:update_review Django url use the right path (/bazaar/review/<int:pk>/update)
+          '''
+
+          self.assertEqual(reverse('bazaar:review_update', kwargs = {'pk': self.review_1.pk}), f'/bazaar/review/{self.review_1.pk}/update')
+
+     def test_update_review_view(self):
+          '''
+               Test if bazaar:update_review Django url use the right view class (UpdateReview)
+          '''
+
+          view_function = ViewClassUtil.get_view_function(reverse('bazaar:review_update', kwargs = {'pk': self.review_1.pk}))
+
+          self.assertTrue(ViewClassUtil.view_function_is_instance_of_class(view_function, UpdateReview))
+
+     def test_delete_review_path(self):
+          '''
+               Test if bazaar:delete_review Django url use the right path (/bazaar/review/<int:pk>/delete)
+          '''
+
+          self.assertEqual(reverse('bazaar:review_delete', kwargs = {'pk': self.review_1.pk}), f'/bazaar/review/{self.review_1.pk}/delete')
+
+     def test_delete_review_view(self):
+          '''
+               Test if bazaar:delete_review Django url use the right view class (DeleteReview)
+          '''
+
+          view_function = ViewClassUtil.get_view_function(reverse('bazaar:review_delete', kwargs = {'pk': self.review_1.pk}))
+
+          self.assertTrue(ViewClassUtil.view_function_is_instance_of_class(view_function, DeleteReview))
+
+     def test_list_review_path(self):
+          '''
+               Test if bazaar:review_list Django url use the right path (/bazaar/review/<slug:slug>)
+          '''
+
+          self.assertEqual(reverse('bazaar:review_list', kwargs = {'slug': self.profile_1.slug}), f'/bazaar/review/{self.profile_1.slug}')
+
+     def test_list_review_view(self):
+          '''
+               Test if bazaar:review_list Django url use the right view class (ListReview)
+          '''
+
+          view_function = ViewClassUtil.get_view_function(reverse('bazaar:review_list', kwargs = {'slug': self.profile_1.slug}))
+
+          self.assertTrue(ViewClassUtil.view_function_is_instance_of_class(view_function, ListReview))
+
+     def test_my_reviews_path(self):
+          '''
+               Test if bazaar:my_reviews Django url use the right path (/bazaar/review/<slug:slug>)
+          '''
+
+          self.assertEqual(reverse('bazaar:my_reviews'), '/bazaar/my_reviews')
+
+     def test_my_reviews_view(self):
+          '''
+               Test if bazaar:my_reviews Django url use the right view class (MyReview)
+          '''
+
+          view_function = ViewClassUtil.get_view_function(reverse('bazaar:my_reviews'))
+
+          self.assertTrue(ViewClassUtil.view_function_is_instance_of_class(view_function, MyReview))

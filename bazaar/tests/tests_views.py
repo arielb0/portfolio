@@ -1,11 +1,12 @@
 from django.test import TestCase, Client
-from ..models import Currency, Category, Ad, Report, Profile
+from ..models import Currency, Category, Ad, Report, Profile, Review
 from ..views import CreateCurrency, DetailCurrency, UpdateCurrency, DeleteCurrency, ListCurrency
 from ..views import CreateCategory, DetailCategory, UpdateCategory, DeleteCategory, ListCategory
 from ..views import CreateAd, DetailAd, UpdateAd, DeleteAd, ListAd
 from ..views import CreateReport, DetailReport, UpdateReport, DeleteReport, ListReport
 from ..views import DetailProfile, UpdateProfile, UpdateUserProfile
-from ..forms import CurrencyForm, CategoryForm, AdForm, ReportForm, AdvancedSearchForm, ProfileForm
+from ..views import CreateReview, DetailReview, UpdateReview, DeleteReview, ListReview, MyReview
+from ..forms import CurrencyForm, CategoryForm, AdForm, ReportForm, AdvancedSearchForm, ProfileForm, ReviewForm
 from accounts.forms import UserForm, UserAdminForm
 from django.contrib.auth.forms import PasswordChangeForm
 from django.urls import reverse_lazy
@@ -502,7 +503,7 @@ class AdTestCase(TestCase):
             Test if ListAd class use the correct model property (Ad)
         '''
 
-        self.assertEqual(DeleteAd.model, Ad)
+        self.assertEqual(ListAd.model, Ad)
 
     def test_list_ad_model_get_queryset(self):
         '''
@@ -584,6 +585,71 @@ class AdTestCase(TestCase):
             # Create a query using a range
             response = self.client.get(reverse_lazy('bazaar:ad_list'), {f'{key}_start': range[0], f'{key}_end': range[1]})
             self.assertEqual(response.context['object_list'].get(), ad_with_keywords)
+
+    def test_list_ad_get_queryset_sort(self):
+        '''
+            Test if ListAd view have a right implementation of get_queryset method,
+            especifically the sort method using ad score.
+        '''
+
+        '''
+            TODO: Create a test to see if ListAd sort ads based on owner score.
+
+            OK Create two seller users (seller_0, seller_1)            
+            OK Create four buyers user (buyer_0, buyer_1, buyer_2, buyer_3)
+            OK Using the seller users, create two ads.
+            OK Use the buyers users to score using reviews seller_0 and seller_1 users
+
+            buyer_0 has one review of 1
+            buyer_1 has one review of 5
+
+            Test if two ads are sorted correctly (seller_1 ad's is first on queryset)
+        '''
+
+        users = {}
+        profiles = {}
+
+        for username in ['seller_0', 'seller_1', 'buyer_0', 'buyer_1']:
+            users[username] = User.objects.create(username = username, password = 'some_passw0rd_123')
+            users[username].save()
+
+            profiles[username] = Profile.objects.create(user = users[username])
+            profiles[username].save()
+        
+        ad_0 = Ad.objects.create(title = 'I sell gold',
+                                 description = 'I sell gold for good price.',
+                                 price = 100,
+                                 currency = self.CURRENCY,
+                                 category = self.CATEGORY,
+                                 status = 2,
+                                 owner = users['seller_0']
+        )
+        ad_0.save()
+
+        ad_1 = Ad.objects.create(title = 'I buy gold.',
+                                 description = 'I buy gold. I offer the highest price!',
+                                 price = 2000,
+                                 currency = self.CURRENCY,
+                                 category = self.CATEGORY,
+                                 status = 2,
+                                 owner = users['seller_1']
+        )
+        ad_1.save()
+
+        review_0 = Review.objects.create(rating = 1, 
+                                         comment = 'Bad seller. Is a scam!!',
+                                         reviewer = users['buyer_0'].profile, reviewed = users['seller_0'].profile)
+        review_0.save()
+
+        review_1 = Review.objects.create(rating = 5,
+                                         comment = 'A trust user that offer a good service',
+                                         reviewer = users['buyer_0'].profile, reviewed = users['seller_1'].profile)
+        review_1.save()
+
+        response = self.client.get(reverse_lazy('bazaar:ad_list'))
+
+        self.assertEqual(response.context['object_list'][0].owner, users['seller_1'])
+        
 
     def test_list_ad_get_context_data(self):
         '''
@@ -801,6 +867,293 @@ class UserTestCase(TestCase):
 
         self.assertEqual(UpdateUserProfile.success_url, reverse_lazy('bazaar:profile_detail'))
 
+class ReviewTestCase(TestCase):
+
+    @classmethod
+    def setUpTestData(cls) -> None:
+        # Create a user.
+        # Create a profile linked to user.
+        # Use that profile to test reviews.
+
+        cls.PASSWORD = 'insecurePassw0rD!'
+
+        cls.user_1 = User.objects.create_user(
+            'Peter', 
+            'peter@gmail.com', 
+            cls.PASSWORD
+        )
+        cls.user_1.save()
+        
+        cls.profile_1 = Profile(
+            user=cls.user_1, 
+            address='Garden Street', 
+            phone='0123456789'
+        )
+        cls.profile_1.save()
+
+        cls.user_2 = User.objects.create_user(
+            'Eve', 
+            'eve@gmail.com', 
+            cls.PASSWORD
+        )
+        cls.user_2.save()
+
+        cls.profile_2 = Profile(
+            user=cls.user_2, 
+            address='Garden Street', 
+            phone='0123456789'
+        )
+        cls.profile_2.save()
+
+        cls.review_1 = Review(
+            rating = 3,
+            comment = 'Some comment on review',
+            reviewer = cls.user_1.profile,
+            reviewed = cls.user_2.profile
+        )
+
+        cls.review_1.save()
+
+        review_2 = Review.objects.create(
+            rating = 5, 
+            comment = 'User 2 has the best service and products',
+            reviewer = cls.user_2.profile,            
+            reviewed = cls.user_1.profile
+        )
+
+        review_2.save()
+        
+        return super().setUpTestData()
+    
+    def test_create_review_model(self):
+        '''
+            Test if CreateReview view uses the right model property (Review)
+        '''
+
+        self.assertEqual(CreateReview.model, Review)
+
+    def test_create_review_form_class(self):
+        '''
+            Test if CreateReview view use the right form_class property (ReviewForm)
+        '''
+
+        self.assertEqual(CreateReview.form_class, ReviewForm)
+
+    def test_create_review_success_url(self):
+        '''
+            Test if CreateReview view has the right get_success_url (reverse_lazy('bazaar:my_reviews'))
+        '''
+
+        self.assertEqual(CreateReview.success_url, reverse_lazy('bazaar:my_reviews'))
+
+    def test_create_review_get_initial(self):
+        '''
+            Test if get_initial method work properly ( reviewed = slug)
+        '''
+
+        self.client.login(username = self.user_1, password = self.PASSWORD)
+        response = self.client.get(reverse_lazy('bazaar:review_create', kwargs = {'slug': self.profile_2.slug}))        
+        
+        self.assertEqual(response.context['form'].initial['reviewed'], self.profile_2.slug)
+
+    def test_create_review_test_func(self):
+        '''
+            Test if test_func method work properly 
+            (reject anonymous user) and only allow 
+            user access if user that make request 
+            (reviewer) is distint of reviewed user.
+        '''
+        # Anonymous user (redirects to login page)
+        response = self.client.get(reverse_lazy('bazaar:review_create', kwargs = {'slug': self.profile_1.slug}))
+        self.assertEqual(response.status_code, 302)        
+
+        self.client.login(username = self.user_1, password = self.PASSWORD)
+
+        # User try to review their own profile (forbidden)
+        response = self.client.get(reverse_lazy('bazaar:review_create', kwargs = {'slug': self.profile_1.slug}))
+        self.assertEqual(response.status_code, 403)
+
+        # User review another profile (allowed)
+        response = self.client.get(reverse_lazy('bazaar:review_create', kwargs = {'slug': self.profile_2}))
+        self.assertEqual(response.status_code, 200)
+
+    def test_create_review_form_valid(self):
+        '''
+            Test if form_valid method work properly (set the current user has reviewer)
+
+            These method I should test indirectly.
+            Use client to make a POST request.
+            Check if saved object has the right reviewer.
+        '''
+
+        # Here are a bug. The review with the specified users already exists.
+        # You need to create another user to make this test
+        user_3 = User.objects.create_user(
+            username = 'George',
+            email = 'george2024@hotmail.com',
+            password = self.PASSWORD)
+        user_3.save()
+
+        profile_3 = Profile.objects.create(
+            user = user_3,
+            address = 'Fire town',
+            phone = '0456123789'
+        )
+        profile_3.save()
+
+        self.client.login(username = user_3.username, password = self.PASSWORD)
+        self.client.post(
+            reverse_lazy('bazaar:review_create', kwargs = {'slug': self.profile_1.slug}), 
+            {
+                'rating': 1,
+                'comment': 'some comment',
+                'reviewer': self.profile_1.slug,
+                'reviewed': self.profile_1.slug,
+            }
+        )
+        
+        review = Review.objects.get(comment = 'some comment')
+        self.assertEqual(review.reviewer, profile_3)
+
+    def test_detail_review_model(self):
+        '''
+            Test if DetailReview use the right model (Review)
+        '''
+
+        self.assertEqual(DetailReview.model, Review)
+
+    def test_update_review_model(self):
+        '''
+            Test if UpdateReview view uses the right model (Review)
+        '''
+
+        self.assertEqual(UpdateReview.model, Review)
+
+    def test_update_review_form_class(self):
+        '''
+            Test if UpdateReview view uses the right form_class (ReviewForm)
+        '''
+
+        self.assertEqual(UpdateReview.form_class, ReviewForm)
+
+    
+    def test_update_review_success_url(self):
+        '''
+            Test if UpdateReview view use the right success_url (reverse_lazy('bazaar:review:list'))
+        '''
+
+        self.assertEqual(UpdateReview.success_url, reverse_lazy('bazaar:my_reviews'))
+    
+
+    def test_update_review_test_func(self):
+        '''
+            Test if UpdateReview test_func is well implemented
+        '''
+
+        '''
+            Anonymous user return false
+            Authenticated user return true
+        '''
+
+        response = self.client.get(reverse_lazy('bazaar:review_update', kwargs = {'pk': self.review_1.pk}))
+
+        self.assertEqual(response.status_code, 302)
+        
+        self.client.login(username = self.user_1.username, password = self.PASSWORD)
+        response = self.client.get(reverse_lazy('bazaar:review_update', kwargs = {'pk': self.review_1.pk}))
+        
+        self.assertEqual(response.status_code, 200)
 
 
+    def test_delete_review_model(self):
+        '''
+            Test if DeleteReview view use the right model (Review)
+        '''
 
+        self.assertEqual(DeleteReview.model, Review)
+
+    def test_delete_review_success_url(self):
+        '''
+            Test if DeleteReview view use the right success_url (reverse_lazy('bazaar:my_reviews'))
+        '''
+
+        self.assertEqual(DeleteReview.success_url, reverse_lazy('bazaar:my_reviews'))
+
+    def test_delete_review_test_func(self):
+        '''
+            Test if DeleteReview view has the right implementation of test_func
+
+            Return False if user is anonymous
+            Return True if the user that make the request is the reviewer
+        '''
+
+        url = reverse_lazy('bazaar:review_delete', kwargs={'pk': self.review_1.id})
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 302)
+
+        user_authenticated = self.client.login(username = self.user_1.username, password = self.PASSWORD)
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 200)
+
+    def test_list_review_model(self):
+        '''
+            Test if ListReview view use the right model (Review)
+        '''
+
+        self.assertEqual(ListReview.model, Review)
+
+    def test_list_review_get_context_data(self):
+        '''
+            Test if ListReview view has the right implementation of get_context_data method:
+
+            return the profile model associated with reviews
+        '''
+
+        response = self.client.get(reverse_lazy('bazaar:review_list', kwargs = {'slug': self.user_1.profile.slug}))
+        self.assertEqual(response.context['reviewed'], self.user_1.profile)
+
+    def test_list_review_get_queryset(self):
+        '''
+            Test if ListReview view has the right get_queryset method (Filter reviews using slug keyword)
+        '''
+
+        '''
+            Create two reviews (one for user_1, other for user_2)
+            Execute ListReview view with slug of user_1
+            Check if ListReview view return only the review of user_1
+        '''
+        
+        response = self.client.get(reverse_lazy('bazaar:review_list', kwargs = {'slug': self.user_2.profile.slug}))
+
+        self.assertQuerySetEqual(response.context['object_list'], Review.objects.filter(reviewed = self.user_2.profile))
+    
+    def test_my_review_model(self):
+        '''
+            Test if MyReview view use the right model (Review)
+        '''
+
+        self.assertEqual(MyReview.model, Review)
+
+    def test_my_review_get_context_data(self):
+        '''
+            Test if MyReview view has the right implementation of get_context_data method
+
+            This method set reviewer = self.request.user and sets my_reviews = True on context dictionary
+        '''
+        self.client.login(username = self.user_1.username, password = self.PASSWORD)
+        response = self.client.get(reverse_lazy('bazaar:my_reviews'))
+
+        self.assertEqual(response.context['reviewer'], self.user_1)
+
+    def test_my_review_get_queryset(self):
+        '''
+            Test if MyReview view has the right get_queryset method
+
+            This method return a Queryset with only the reviews that belong 
+            of user that make the request
+        '''
+
+        self.client.login(username = self.user_1.username, password = self.PASSWORD)
+        response = self.client.get(reverse_lazy('bazaar:my_reviews'))
+
+        self.assertQuerySetEqual(response.context['object_list'], Review.objects.filter(reviewer = self.profile_1))

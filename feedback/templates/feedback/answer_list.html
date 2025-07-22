@@ -1,0 +1,23 @@
+{% extends "feedback/base.html" %}
+
+{% load i18n %}
+
+{% block title_prefix %}{% translate "Answers" %}{% endblock %}
+
+{% block main %}
+    <h1>{% translate "Answers" %}</h1>
+    <a class="btn btn-primary" href="{% url "feedback:answer_create" %}" >{% translate "Create Answer" %}</a>
+    {% if object_list %}
+        <ul>
+            {% for object in object_list %}
+                <li>
+                    <a href="">{{ object }}</a>
+                    <a class="btn btn-primary" href="{% url "feedback:answer_update" pk=object.pk %}">{% translate "Update" %}</a>
+                    <a class="btn btn-danger" href="{% url "feedback:answer_delete" pk=object.pk %}">{% translate "Delete" %}</a>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>{% translate "There are not answers available." %}</p>
+    {% endif %}
+{% endblock  %}

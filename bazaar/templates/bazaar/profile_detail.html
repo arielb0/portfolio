@@ -16,6 +16,9 @@
         <li>{% translate "Email" %}: {{ user.email }}</li>
         <li>{% translate "Address" %}: {{ object.address }}</li>
         <li>{% translate "Phone" %}: {{ object.phone }}</li>
+        <li>
+            {% include "bazaar/rating_stars.html" with rating=average_rating %} ({% translate "based on" %} <a href="{% url "bazaar:review_list" slug=object.slug %}">{{ number_of_reviews }} {% translate "reviews" %}</a>)
+        </li>
         <a class="btn btn-primary" href="{% url "bazaar:profile_update" %}">{% translate "Update" %}</a>
         <a class="btn btn-danger" href="{% url "delete_user" pk=user.pk %}">{% translate "Delete" %}</a>
     </ul>

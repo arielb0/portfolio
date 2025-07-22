@@ -1,0 +1,42 @@
+{% extends "bazaar/base.html" %}
+
+{% load i18n %}
+
+{% block title_prefix %}
+    {% if my_reviews %}
+        {% translate "My Reviews" %}
+    {% else %}
+        {% translate "Review list" %}
+    {% endif %}
+{% endblock %}
+
+{% block main %}
+    {% if error_message %}
+        <h1>Error</h1>
+        <p>{{ error_message }}</p>
+    {% else %}
+        {% if my_reviews %}
+            <h1>My reviews</h1>
+        {% else %}
+            <h1>Reviews of user {{ reviewed }}</h1>
+        {% endif %}
+        
+
+        {% for object in object_list %}
+            <div class="card">
+                <div class="card-body">
+                    {% include "bazaar/rating_stars.html" with rating=object.rating %}
+                    <p>{{ object.date }}</p>
+                    <i>{{ object.reviewer }} {% translate "said about" %} {{ object.reviewed }}:</i>
+                    <p class="card-text">{{ object.comment }}</p>
+                </div>
+                {% if object.reviewer.user == user %}
+                    <div class="card-footer">
+                        <a class="btn btn-primary" href="{% url "bazaar:review_update" pk=object.pk %}">Update</a>
+                        <a class="btn btn-danger" href="{% url "bazaar:review_delete" pk=object.pk %}">Delete</a>
+                    </div>
+                {% endif %}
+            </div>            
+        {% endfor %}
+    {% endif %}
+{% endblock %}

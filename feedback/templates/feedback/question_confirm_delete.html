@@ -1,0 +1,15 @@
+{% extends "feedback/base.html" %}
+
+{% load i18n %}
+
+{% block title_prefix %}{% translate "Question Delete Confirmation" %}{% endblock %}
+
+{% block main %}
+<h1>{% translate "Question Delete Confirmation" %}</h1>
+<p>{% translate "This process can be undone. Are you sure?" %}</p>
+<a class="btn btn-primary" href="{% url "feedback:question_list" %}">{% translate "No" %}</a>
+<form action="" method="post">
+    {% csrf_token %}
+    <input class="btn btn-danger" type="submit" value="{% translate "Yes" %}">
+</form>
+{% endblock %}

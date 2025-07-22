@@ -1,6 +1,6 @@
 from django.test import TestCase
-from ..forms import CurrencyForm, CategoryForm, AdForm, ReportForm, SimpleSearchForm, AdvancedSearchForm, ProfileForm
-from ..models import Currency, Category, Ad, Report, Profile
+from ..forms import CurrencyForm, CategoryForm, AdForm, ReportForm, SimpleSearchForm, AdvancedSearchForm, ProfileForm, ReviewForm
+from ..models import Currency, Category, Ad, Report, Profile, Review
 from django.forms import CharField, IntegerField, ModelChoiceField, DateField, ModelMultipleChoiceField
 from django.forms.widgets import TextInput, Textarea, NumberInput, Select, EmailInput, SelectMultiple, ClearableFileInput, HiddenInput, DateInput
 
@@ -62,7 +62,7 @@ class CategoryFormTestCase(TestCase):
             Test if CategoryForm class use the correct fields (name)
         '''
 
-        self.assertEqual(CategoryForm.Meta.fields, ['name', 'picture', 'priority', 'parent_category'])
+        self.assertEqual(CategoryForm.Meta.fields, ['name', 'description', 'picture', 'priority', 'parent_category'])
 
     def test_category_form_name_widget(self):
         '''
@@ -462,3 +462,19 @@ class ProfileFormTestCase(TestCase):
         '''
 
         self.assertEqual(ProfileForm.Meta.widgets['phone'].__class__, TextInput)
+
+class ReviewFormTestCase(TestCase):
+
+    def test_form_model(self):
+        '''
+            Test if ReviewForm use the right model (Review)
+        '''
+
+        return self.assertEqual(ReviewForm.Meta.model, Review)
+    
+    def test_form_fields(self):
+        '''
+            Test if ReviewForm use the right fields ('rating', 'comment', 'reviewed')
+        '''
+
+        return self.assertEqual(ReviewForm.Meta.fields, ['rating', 'comment', 'reviewed'])

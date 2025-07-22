@@ -22,12 +22,12 @@ Publica gratis y llega a más personas con Bazaar.{% endblock %}
             {% if object.priority %}
                 <div class="col-12 col-md-4 mb-4">
                     <div class="bg-body-tertiary text-break mt-2 p-2">
-                        <p>
+                        <h2>
                             {% if object.picture %}
                                 <img src="{{ object.picture.url }}" alt="{{ object.name }}">
                             {% endif %}
                             {{ object.name }}
-                        </p>
+                        </h2>
                         <ul class="list-group">
                             {% for child_object in object.subcategories.all %}
                                 <li class="list-group-item">

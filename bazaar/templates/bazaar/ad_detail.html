@@ -90,7 +90,6 @@
             <pre style="white-space: pre-wrap; word-break: break-all; font-family: inherit; font-size: inherit">{{ object.description }}</pre>
         </div>
         <div class='bg-body-tertiary'>
-            <p><i class='bi bi-person'></i> {{ object.owner.username }}</p>
             {% if object.owner.profile.address %}
                 <p><i class='bi bi-geo-alt'></i> {{ object.owner.profile.address }}</p>
             {% endif %}
@@ -98,7 +97,15 @@
                 <p><i class='bi bi-telephone'></i> {{ object.owner.profile.phone }}</p>
             {% endif %}
         </div>
-        <div>
+        <div class="bg-body-tertiary">
+            <p><i class='bi bi-person'></i> {{ object.owner.username }}</p>
+            <ul>
+                <li>Rating: {{ average_rating }} / 5 ({% translate "based on" %} <a href="{% url "bazaar:review_list" slug=object.owner.profile.slug %}">{{ number_of_reviews }} reviews</a>)</li>
+                <li>Active since {{ object.owner.date_joined }}</li>
+            </ul>
+        </div>
+        <div class="bg-body-tertiary">
+            <a class="btn btn-info" href="{% url "bazaar:review_create" slug=object.owner.profile.slug %}">Review this user</a>
             {% if user.is_superuser or 'bazaar.change_ad' in user.get_all_permissions or object.owner.pk == user.pk %}
                 <a class="btn btn-primary" href="{% url "bazaar:ad_update" slug=object.slug %}">{% translate "Update" %}</a>
             {% endif %}

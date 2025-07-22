@@ -4,6 +4,7 @@ from datetime import date
 from django.utils.text import slugify
 from django.utils.translation import gettext_lazy as _
 from django.urls import reverse
+from django.db.models import F
 
 class Currency(models.Model):
     name = models.CharField(verbose_name = _('name'), unique = True, max_length = 32)
@@ -17,7 +18,7 @@ class Currency(models.Model):
         if not self.pk:
             self.slug = slugify(self.name)
             
-        return super().save()
+        return super().save(*args, **kwargs)
 
     class Meta:
         verbose_name_plural = 'currencies'
@@ -42,7 +43,7 @@ class Category(models.Model):
 
         super().delete()
 
-    def save(self):
+    def save(self, *args, **kwargs):
 
         if self.pk:
             old_model = Category.objects.get(pk = self.pk)
@@ -51,7 +52,7 @@ class Category(models.Model):
         else:
             self.slug = slugify(self.name)
         
-        super().save()
+        super().save(*args, **kwargs)
 
     def get_absolute_url(self):
         return reverse("bazaar:ad_list") + f'?category={self.slug}'
@@ -105,7 +106,7 @@ class Ad(models.Model):
 
         super().delete()
 
-    def save(self):
+    def save(self, *args, **kwargs):
 
         if self.pk:
             old_model = Ad.objects.get(pk=self.pk)
@@ -123,13 +124,13 @@ class Ad(models.Model):
         # TODO: For every picture field, create a thumbnail version..
         # self.status = self.PENDING If regular user save a model, otherwise preserve
         
-        super().save()
+        super().save(*args, **kwargs)
 
     def get_absolute_url(self):
         return reverse('bazaar:ad_detail', kwargs={'slug': self.slug})
     
     class Meta:
-        ordering = ['-rank', '-date']
+        ordering = ['-date']
         permissions = [
             ('moderate_ad', 'Can moderate an Ad')
             ]
@@ -163,7 +164,36 @@ class Profile(models.Model):
     user = models.OneToOneField(User, verbose_name = _('user'), on_delete = models.CASCADE)
     address = models.CharField(verbose_name = _('address'), max_length = 64, blank = True)
     phone = models.CharField(verbose_name= _('phone'), max_length = 16, blank = True)
+    slug = models.SlugField(unique=True, blank=True)
+
+    def save(self, *args, **kwargs):
+
+        if not self.pk:
+            self.slug = slugify(self.user)
+
+        super().save(*args, **kwargs)
 
     def __str__(self):
         return self.user.username
-    
+
+class Review(models.Model):
+    rating_choices = {
+        1: _('Worst'),
+        2: _('Bad'),
+        3: _('Average'),
+        4: _('Good'),
+        5: _('Excellent'),
+    }
+    rating = models.IntegerField(verbose_name=_('rating'), choices=rating_choices)
+    comment = models.TextField(verbose_name=_('comment'), max_length=255, blank=True)
+    date = models.DateTimeField(auto_now_add=True)
+    reviewer = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='reviewer', to_field='slug')
+    reviewed = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='reviewed', to_field='slug')
+
+    def __str__(self):
+        return f' Reviewer: {self.reviewer}, Reviewed: {self.reviewed},  Rating: {self.rating}, Comment: {self.comment}'
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(fields=['reviewer', 'reviewed'], name='unique_review'),
+        ]

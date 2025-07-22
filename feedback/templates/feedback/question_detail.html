@@ -1,0 +1,19 @@
+{% extends "feedback/base.html" %}
+
+{% load i18n %}
+
+{% block title_prefix %}{{ object.text }}{% endblock %}
+
+{% block main %}
+    <h1>{% translate "Question details" %}</h1>
+    <ul>
+        <li>{% translate "Survey:" %} <a href="{% url "feedback:survey_detail" pk=object.survey.pk %}">{{ object.survey.title }}</a></li>
+        <li>{% translate "Text:" %} {{ object.text }}</li>
+        <li>{% translate "Field type:" %} {{ object.field_type }}</li>
+        <li>{% translate "Required:" %} {{ object.required }}</li>
+        <li>{% translate "Min Value:" %} {{ object.min_value }}</li>
+        <li>{% translate "Max Value:" %} {{ object.max_value }}</li>
+    </ul>
+    <a class="btn btn-primary" href="{% url "feedback:question_update" pk=object.pk %}">{% translate "Update" %}</a>
+    <a class="btn btn-danger" href="{% url "feedback:question_delete" pk=object.pk %}">{% translate "Delete" %}</a>
+{% endblock %}

@@ -1,0 +1,30 @@
+{% extends "feedback/base.html" %}
+
+{% load i18n %}
+
+{% block page_description %}{% translate "Free online surveys. Make data driven decisions for your business" %}{% endblock %}
+
+{% block title_prefix %}{% translate "Surveys" %}{% endblock %}
+
+{% block main %}
+    <h1>{% translate "Surveys" %}</h1>
+    <a class="btn btn-primary" href="{% url "feedback:survey_create" %}" >{% translate "Create Survey" %}</a>
+    {% if object_list %}
+        <ul>
+            {% for object in object_list %}
+                <li>
+                    <a href="{% url "feedback:survey_submit" pk=object.pk %}">{{ object.title }}</a>
+                    {% if object.open or object.user == user%}
+                        <a class="btn btn-secondary" href="{% url "feedback:survey_detail" pk=object.pk %}">{% translate "Statistics" %}</a>
+                    {% endif %}
+                    {% if object.user == user %}
+                        <a class="btn btn-primary" href="{% url "feedback:survey_update" pk=object.pk %}">{% translate "Update" %}</a>
+                        <a class="btn btn-danger" href="{% url "feedback:survey_delete" pk=object.pk %}">{% translate "Delete" %}</a>
+                    {% endif %}
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>{% translate "There are not surveys available." %}</p>
+    {% endif %}
+{% endblock  %}

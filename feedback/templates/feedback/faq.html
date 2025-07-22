@@ -1,0 +1,244 @@
+{% extends "feedback/base.html" %}
+
+{% load i18n %}
+
+{% block title_prefix %}{% translate "Frecuently Asked Questions" %}{% endblock  %}
+
+{% block main %}
+    <h1>{% translate "Frecuently Asked Questions" %}</h1>
+    <div class="accordion" id="faqAccordion">
+        <!--
+        <div class="accordion-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse1" aria-controls="collapse1" aria-expanded="true">
+                    Title
+                </button>                
+            </h2>
+            <div id="collapse1" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                <div class="accordion-body">
+                    <p>Content</p>
+                </div>
+            </div>
+        </div>
+        -->
+        <div class="accordion-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse1" aria-controls="collapse1" aria-expanded="true">
+                    ¿Que hace esta aplicación?
+                </button>                
+            </h2>
+            <div id="collapse1" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                <div class="accordion-body">
+                    <p>Te permite gestionar encuestas para saber que piensan las personas acerca de un tema en particular.</p>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse2" aria-controls="collapse2" aria-expanded="true">
+                    ¿Cual es su utilidad práctica?
+                </button>                
+            </h2>
+            <div id="collapse2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                <div class="accordion-body">
+                    <p>
+                        Acorde a tu imaginación y las características de tu 
+                        negocio o investigación, el cielo es el límite. 
+                        Puede ser empleada para toma de decisiones basadas
+                         en datos, investigación de mercado, inteligencia 
+                         de negocio, saber que le gusta a tus clientes 
+                         y actuar en base a ello.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse3" aria-controls="collapse3" aria-expanded="true">
+                    ¿Cual es el costo?
+                </button>                
+            </h2>
+            <div id="collapse3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                <div class="accordion-body">
+                    <p>Es gratis (no te costará dinero). Tampoco tiene anuncios (no te costará tu atención).</p>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse4" aria-controls="collapse4" aria-expanded="true">
+                    ¿Es necesario tener un usuario para poder interactuar con la aplicación?
+                </button>                
+            </h2>
+            <div id="collapse4" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                <div class="accordion-body">
+                    <p>
+                        Si solo deseas responder una encuesta, no necesitas 
+                        registrarte con un usuario. En caso de que desees 
+                        gestionar encuestas, preguntas y respuestas, los 
+                        principales componentes de esta aplicación, si es 
+                        necesario pasar por el proceso de registro.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse5" aria-controls="collapse5" aria-expanded="true">
+                    ¿Como se crea una encuesta?
+                </button>                
+            </h2>
+            <div id="collapse5" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                <div class="accordion-body">
+                    <p>En la pagina principal, toca el botón llamado "Crear encuesta". Este te llevara a una pagina que contiene un formulario con los siguientes campos:</p>
+                    <ul>
+                        <li>Titulo: El titulo con el cual se mostrara la encuesta (obligatorio).</li>
+                        <li>Descripción: Permite agregar una breve descripción, que se mostrara en la sección de estadísticas de la encuesta (opcional).</li>
+                        <li>Abierto: Este campo permite definir si los usuarios podrán los resultados de la encuesta (abierto) o estos serán visibles solo para el usuario que la creo (cerrado).</li=>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse6" aria-controls="collapse6" aria-expanded="true">
+                    ¿Como se agregan preguntas a la encuesta?
+                </button>                
+            </h2>
+            <div id="collapse6" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                <div class="accordion-body">
+                    <p>En el menú principal, da clic en el enlace nombrado "Preguntas". Este te llevara a una página que muestra todas las preguntas que has creado. Allí existe un botón llamado "Crear Pregunta". A continuación se mostrara un formulario con los siguientes campos:</p>
+                    <ul>
+                        <li>Encuesta: Te permite seleccionar a que encuesta pertenece la pregunta (obligatorio).</li>
+                        <li>Texto: Es el texto de la pregunta (obligatorio).</li>
+                        <li>Indice: Mediante este campo seleccionas en que posición (orden) del formulario se mostrara la pregunta. De esta manera puedes controlar a voluntad el ordenen que deseas que las personas que responden el formulario vean las preguntas que responden.</li>
+                        <li>
+                            <p>Tipo: Este campo permite seleccionar que tipo de campo tendrá el formulario. Existen 4 opciones:</p>
+                            <ul>
+                                <li>Selección: Útil cuando las personas pueden responder mediante opciones, pero solo pueden elegir una. Solo se muestra una opción a la vez.</li>
+                                <li>Selección Radio: Similar a Selección, pero muestra todas las opciones.</li>
+                                <li>Casilla de verificación: Permite seleccionar mas de una respuesta a la vez. Muestra todas las posibles opciones de respuesta.</li>
+                                <li>Numérico: Este campo permite la entrada de datos numéricos.</li>
+                            </ul>
+                        </li>
+                        <li>Valor mínimo: Es el valor mínimo que podrá tener un campo numérico como entrada. Esta opción solo es valida para campos numéricos y sera ignorada para el resto.</li>
+                        <li>Valor máximo: Es el valor máximo que podrá tener un campo numérico como entrada. Esta opción solo es valida para campos numéricos y sera ignorada para el resto.</li>                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse7" aria-controls="collapse7" aria-expanded="true">
+                    ¿Como se definen opciones para responder una pregunta?
+                </button>                
+            </h2>
+            <div id="collapse7" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                <div class="accordion-body">
+                    <p>
+                        En el menú principal, haz clic en el enlace nombrado "Respuestas". Este te llevara a una pagina que muestra un listado de respuestas que haz creado.
+                        Allí existe un botón llamado "Crear Respuesta". Al hacer clic en el, se mostrará un formulario que contiene los siguientes campos:
+                    </p>
+                    <ul>
+                        <li>Pregunta: La pregunta a la cual estará vinculada la respuesta que estas creando.</li>
+                        <li>Texto: El texto que se mostrara cuando el usuario seleccione esta opción como posible respuesta.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse8" aria-controls="collapse8" aria-expanded="true">
+                    ¿Como puedo responder una encuesta?
+                </button>                
+            </h2>
+            <div id="collapse8" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                <div class="accordion-body">
+                    <p>
+                        En la página de encuestas, para cada una, existe un enlace. Este te llevara a la pagina donde se muestra el formulario para responder la encuesta en cuestión.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse9" aria-controls="collapse9" aria-expanded="true">
+                    ¿Como puedo ver los resultados de una encuesta?
+                </button>                
+            </h2>
+            <div id="collapse9" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                <div class="accordion-body">
+                    <p>
+                        En la página de encuestas, si la encuesta en cuestión 
+                        es abierta, para todos los usuarios se mostrara un 
+                        botón llamado "Estadísticas". Este te llevara a una 
+                        página donde se muestran todos las estadísticas 
+                        recopiladas de dos maneras principales: mediante 
+                        gráficos y una tabla. Los gráficos te mostraran los 
+                        resultados de una manera fácil e intuitiva, que 
+                        permitirá tomar decisiones rápidamente. La tabla 
+                        ayuda a entender mejor las respuestas obtenidas y 
+                        a realizar análisis de forma mas profunda.
+                    </p>
+                </div>
+            </div>            
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse10" aria-controls="collapse10" aria-expanded="true">
+                    ¿Como se protege mi privacidad en esta aplicación?
+                </button>                
+            </h2>
+            <div id="collapse10" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                <div class="accordion-body">
+                    <p>
+                        Por defecto, no se guardan datos sensibles que puedan 
+                        revelar o ser enlazados a tu identidad (a menos que en 
+                        la encuesta generada por terceros, los facilites a voluntad). Si 
+                        tienes conocimientos de programación, puedes auditar 
+                        el código y comprobarlo.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse11" aria-controls="collapse11" aria-expanded="true">
+                    ¿Esta aplicación es software libre?
+                </button>
+            </h2>
+            <div id="collapse11" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                <div class="accordion-body">
+                    <p>
+                        Si, este proyecto esta bajo la licencia MIT y esta 
+                        alojado en Github, como parte de mi proyecto personal 
+                        nombrado Scull Suite, que es mi portafolio de 
+                        aplicaciones web.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse12" aria-controls="collapse12" aria-expanded="true">
+                    ¿Como puedo contribuir al desarrollo de la aplicación?
+                </button>                
+            </h2>
+            <div id="collapse12" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                <div class="accordion-body">
+                    <p>
+                        Existen varias formas de contribuir. Eres libre 
+                        de elegir las que prefieras:
+                    </p>
+                    <ul>
+                        <li>Usa la aplicación!</li>
+                        <li><a href="https://www.linkedin.com/in/ariel-scull-b4a598183">Ponte en contacto</a> con el desarrollador y sugeriere mejoras</li>
+                        <li>Sube modificaciones (pull requests) en <a href="https://github.com/arielb0/portfolio">Github</a></li>
+                        <li>Recomienda o comparte este proyecto</li>
+                        <li>Recomienda al desarrollador</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock  %}

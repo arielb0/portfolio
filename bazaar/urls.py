@@ -4,6 +4,7 @@ from .views import CreateCategory, DetailCategory, UpdateCategory, DeleteCategor
 from .views import CreateAd, DetailAd, UpdateAd, DeleteAd, ListAd, UpdateAdStatus, ListPendingAd, ListRejectedAd
 from .views import CreateReport, DetailReport, UpdateReport, DeleteReport, ListReport
 from .views import DetailProfile, UpdateProfile
+from .views import CreateReview, DetailReview, UpdateReview, DeleteReview, ListReview, MyReview
 from .views import Home, TermsAndConditions, AboutUs, PrivacyPolicy
 from .views import UpdateUserProfile
 from django.contrib.auth.views import PasswordChangeView
@@ -39,6 +40,12 @@ urlpatterns = [
     path('report/', ListReport.as_view(), name='report_list'),
     path('profile/detail', DetailProfile.as_view(), name='profile_detail'),
     path('profile/update', UpdateProfile.as_view(), name = 'profile_update'),
+    path('review/<slug:slug>/create', CreateReview.as_view(), name='review_create'),
+    path('review/<int:pk>/detail', DetailReview.as_view(), name='review_detail'),
+    path('review/<int:pk>/update', UpdateReview.as_view(), name='review_update'),
+    path('review/<int:pk>/delete', DeleteReview.as_view(), name='review_delete'),
+    path('review/<slug:slug>', ListReview.as_view(), name='review_list'),
+    path('my_reviews', MyReview.as_view(), name='my_reviews'),
     path('user/update', UpdateUserProfile.as_view(), name='profile_user_update'),
     path('password/update', PasswordChangeView.as_view(success_url = reverse_lazy('bazaar:profile_detail'), template_name = 'bazaar/profile_form.html'), name = 'profile_password_update'),
     path('', Home.as_view(), name='home'),

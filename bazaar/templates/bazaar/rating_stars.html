@@ -1,0 +1,30 @@
+{% load i18n %}
+
+<div role='img' aria-label='{% translate "Rating: " %} {{ rating }} {% translate "over 5 stars" %}'>
+    
+    <i class="bi bi-star-fill"></i>
+
+    {% if rating > 1 %}
+        <i class="bi bi-star-fill"></i>
+    {% else %}
+        <i class="bi bi-star"></i>
+    {% endif %}
+
+    {% if rating > 2 %}
+        <i class="bi bi-star-fill"></i>
+    {% else %}
+        <i class="bi bi-star"></i>
+    {% endif %}
+
+    {% if rating > 3 %}
+        <i class="bi bi-star-fill"></i>
+    {% else %}
+        <i class="bi bi-star"></i>
+    {% endif %}
+
+    {% if rating > 4 %}
+        <i class="bi bi-star-fill"></i>
+    {% else %}
+        <i class="bi bi-star"></i>
+    {% endif %}
+</div>

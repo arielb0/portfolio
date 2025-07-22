@@ -1,5 +1,5 @@
 from django.forms import Form, ModelForm, CharField, IntegerField, DateField, ModelChoiceField, ModelMultipleChoiceField
-from .models import Currency, Category, Ad, Report, Profile
+from .models import Currency, Category, Ad, Report, Profile, Review
 from django.forms.widgets import TextInput, Textarea, NumberInput, Select, SelectMultiple, ClearableFileInput, HiddenInput
 from django.forms.widgets import DateInput
 from django.utils.translation import gettext_lazy as _
@@ -147,3 +147,14 @@ class ProfileForm(ModelForm):
             'address': TextInput(attrs = {'class': 'form-control'}),
             'phone': TextInput(attrs = {'class': 'form-control'})
         }
+
+class ReviewForm(ModelForm):
+
+    class Meta:
+        model = Review
+        fields = ['rating', 'comment', 'reviewed']
+        widgets = {
+            'rating': Select(attrs={'class': 'form-control'}),
+            'comment': Textarea(attrs={'class': 'form-control'}),
+            'reviewed': HiddenInput(),
+        }    

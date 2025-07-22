@@ -54,6 +54,7 @@
                         {% endif %}
                         <div class="card-body">
                             <a href="{% url "bazaar:ad_detail" slug=object.slug %}" class="link-underline-light">
+                                Score: {{ object.score }}
                                 <p class="card-text h4">
                                     {% if object.title|length < 32 %}
                                         {{ object.title }}

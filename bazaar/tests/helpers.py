@@ -1,6 +1,6 @@
 import shutil
 from scull_suite.settings import MEDIA_ROOT, STATICFILES_DIRS
-from bazaar.models import Currency, Category, Ad, Report, Profile
+from bazaar.models import Currency, Category, Ad, Report, Profile, Review
 from django.contrib.auth.models import User
 from random import choices
 import os
@@ -61,7 +61,7 @@ class Generator():
         report = Report(reason = reason, description = description, ad = ad)
         report.save()
 
-        return report
+        return report    
     
     def create_user_model(self, username: str, password: str) -> User:
         '''
@@ -73,6 +73,34 @@ class Generator():
         return user_model
     
     
+    def create_profile_model(self, user, address, phone):
+        '''
+            Create Profile model
+        '''
+
+        profile_model = Profile.objects.create(
+            user = user, 
+            address = address,
+            phone = phone
+            )
+        profile_model.save()
+        
+        return profile_model
+    
+    def create_review_model(self, rating, comment, reviewer, reviewed):
+        '''
+            Create Review model
+        '''
+
+        review_model = Review(
+            rating = rating,
+            comment = comment,
+            reviewer = reviewer,
+            reviewed = reviewed
+        )
+        review_model.save()
+
+        return review_model
 
     
     def generate_random_string(self, length:int) -> str:

@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% load static %}
+{% load i18n %}
+
+{% block page_icon %}{% static "chattext.svg" %}{% endblock %}
+
+{% block title %}{% block title_prefix %}{% endblock title_prefix %} | Feedback {% endblock title %}
+
+{% block header %}
+    {% url "feedback:survey_list" as header_url %}
+    {% include "feedback/header.html" with url=header_url icon='chat-text' title='Feedback' show_user_menu=True %}
+{% endblock %}
+
+{% block footer %}
+    <div class="navbar navbar-expand bg-body-tertiary">
+        <div class="container-fluid justify-content-center">
+            <span class="navbar-text">Feedback</span>
+        </div>
+    </div>
+{% endblock %}

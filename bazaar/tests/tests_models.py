@@ -1,5 +1,5 @@
 from django.test import TestCase
-from ..models import Currency, Category, Ad, Report, Profile
+from ..models import Currency, Category, Ad, Report, Profile, Review
 from django.db.models.fields.related import OneToOneField
 from django.db.models.fields import CharField
 from django.db.utils import IntegrityError
@@ -9,6 +9,7 @@ from scull_suite.settings import MEDIA_ROOT, STATICFILES_DIRS
 import shutil
 import os
 from bazaar.tests.helpers import Generator
+from django.utils.translation import gettext_lazy as _
 
 # Create your tests here.
 
@@ -665,3 +666,113 @@ class ProfileTestCase(TestCase):
         '''
 
         self.assertTrue(self.phone_field.blank)
+
+class ReviewTestCase(TestCase):
+
+    @classmethod
+    def setUpTestData(cls):
+        # Useful data to make tests goes here.
+        # Create two users
+        # Create two profiles
+        password = 'InsecurePassw0rD!'
+
+        cls.user_1 = User.objects.create_user(
+            username = 'Peter', 
+            email = 'peter@gmail.com', 
+            password = password
+        )
+        cls.user_1.save()
+
+        cls.user_2 = User.objects.create_user(
+            username = 'Eve', 
+            email = 'eve@gmail.com', 
+            password = password
+        )
+        cls.user_2.save()
+
+        cls.profile_1 = Profile.objects.create(
+            user = cls.user_1, 
+            address = 'Yellow Street',
+            phone = '01234567'
+            )
+        cls.profile_1.save()
+
+        cls.profile_2 = Profile.objects.create(
+            user = cls.user_2,
+            address = 'Green Street'
+        )
+        cls.profile_2.save()
+
+        cls.generator = Generator()
+
+        return super().setUpTestData()
+    
+    def test_rating_choices(self):
+        '''
+            Test if rating choices have the options from 1 to 5.
+        '''
+
+        self.assertDictEqual(Review.rating_choices, {
+            1: _('Worst'),
+            2: _('Bad'),
+            3: _('Average'),
+            4:_('Good'),
+            5: _('Excellent'),
+        })
+
+    def test_rating_valid_choice(self):
+        '''
+            Test if rating field on Review model only 
+            acepts a valid choice contained on 
+            rating_choices
+        '''
+
+        review = Review.objects.create(
+            rating = 6,
+            comment = 'Average experience',
+            reviewer = self.profile_1,
+            reviewed = self.profile_2
+        )
+
+        with self.assertRaises(ValidationError):
+            review.full_clean()
+
+    def test_reviewer_to(self):
+        '''
+            Test if reviewer field is linked with the right model (Profile)
+        '''
+
+        self.assertEqual(Review.reviewer.field.related_model, Profile)
+
+    def test_reviewed_to(self):
+        '''
+            Test if reviewed field is linked with the right model (Profile)
+        '''
+
+        self.assertEqual(Review.reviewed.field.related_model, Profile)
+
+    def test_reviewer_reviewed_constraint(self):
+        '''
+            Test if Review model has a reviewer / reviewed constraint.
+            This avoid that a user can review a profile twice.
+        '''
+
+        review_1 = Review(
+            rating = 5,
+            comment = 'Legit review',
+            reviewer = self.profile_1,
+            reviewed = self.profile_2
+        )
+
+        review_1.save()
+
+        review_2 = Review(
+            rating = 5,
+            comment = 'A repeated review',
+            reviewer = self.profile_1,
+            reviewed = self.profile_2
+        )
+
+        with self.assertRaises(IntegrityError):
+            review_2.save()
+        

@@ -8,6 +8,8 @@ from .forms import SimpleSearchForm
 from accounts.forms import UserAdminForm, UserForm
 from django.contrib.auth.forms import PasswordChangeForm
 from typing import Any
+from bazaar.models import Profile, Review
+from django.db.models import Sum
 
 def create_thumbnail(image_field: InMemoryUploadedFile, size: tuple[int]):
     '''
@@ -168,3 +170,15 @@ def set_profile_user(request: HttpRequest):
         return modified_request
 
      return request
+
+def get_profile_stats(profile: Profile, context: dict) -> dict:
+    '''
+        Get profile statistics (number of reviews and average rating)
+    '''
+    
+    reviews = Review.objects.filter(reviewed = profile)
+    context['number_of_reviews'] = reviews.count()
+    context['average_rating'] = reviews.aggregate(value = Sum('rating') / context['number_of_reviews'])['value']
+
+    return context
+        

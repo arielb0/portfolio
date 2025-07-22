@@ -1,0 +1,14 @@
+{% extends "bazaar/base.html" %}
+
+{% load i18n %}
+
+{% block title_prefix %}{% translate "Review a user" %}{% endblock %}
+
+{% block main %}
+    <h1>Create a review for user</h1>
+    <form action="" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="{% translate "Create review" %}">
+    </form>
+{% endblock %}
