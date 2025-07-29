@@ -1,0 +1,12 @@
+{% extends "transcribe/base.html" %}
+
+{% load i18n %}
+
+{% block title_prefix %}{% translate "Result" %}{% endblock %}
+
+{% block main %}
+    <button class='btn btn-primary'>{% translate "Copy to clipboard" %}</button>
+    {% for text in transcription %}
+        <p>- {{ text.text }}</p>
+    {% endfor %}
+{% endblock %}

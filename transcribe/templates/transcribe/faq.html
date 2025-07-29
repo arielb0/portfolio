@@ -1,0 +1,40 @@
+{% extends "transcribe/base.html" %}
+
+{% load i18n %}
+
+{% block title_prefix %}{% translate "Frecuently Asked Questions" %}{% endblock  %}
+
+{% block main %}
+    <h1>{% translate "Frecuently Asked Questions" %}</h1>
+    <h2>¿Que hace esta aplicacion?</h2>
+    <p>
+        Dado un archivo de audio con una conversación, permite obtener el 
+        texto (transcripcion) del mismo.
+    </p>
+    <h2>¿Como puedo emplear la aplicación?</h2>
+    <p>
+        En la pagina de inicio, toca el boton "Explorar" y busca en tu
+        sistema de archivos la nota de voz que deseas transcribir. Una
+        vez realizado, selecciona "Subir".
+    </p>
+    <h2>¿Como funciona?</h2>
+    <p>
+        Esta aplicacion funciona gracias a varias bibliotecas de código:
+    </p>
+    <ul>
+        <li>
+            <a href="https://ffmpeg.org/">FFmpeg (convierte archivos multimedia)</a>
+        </li>
+        <li>
+            <a href="https://alphacephei.com/vosk/">Vosk (reconocimiento de voz)</a>
+        </li>
+    </ul>
+    <h2>¿Como se protege mi privacidad?</h2>
+    <p>
+        Por defecto, esta aplicacion no guarda datos. El archivo de audio 
+        y la transcripcion asociada se elimina de forma automatica al 
+        completar el proceso de transcripcion.
+    </p>
+    <h2>¿Como puedo ayudar al desarrollo de la aplicacion?</h2>
+    <p>Usala, sugiere cambios, referencia al programador :)</p>
+{% endblock %}

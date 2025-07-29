@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% load static %}
+{% load i18n %}
+
+{% block page_icon %}{% static "soundwave.svg" %}{% endblock %}
+
+{% block title %}{% block title_prefix %}{% endblock title_prefix %} | Transcribe {% endblock title %}
+
+{% block header %}
+    {% url "transcribe:transcription_create" as header_url %}
+    {% include "transcribe/header.html" with url=header_url icon='soundwave' title='Transcribe' show_user_menu=True %}
+{% endblock %}
+
+{% block footer %}
+    <div class="navbar navbar-expand bg-body-tertiary">
+        <div class="container-fluid justify-content-center">
+            <span class="navbar-text">Transcribe</span>
+        </div>
+    </div>
+{% endblock %}

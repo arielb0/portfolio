@@ -25,6 +25,24 @@
             <h2>{% translate "Applications" %}</h2>
 
             <div class="row">
+                <div class="col-sm-4">
+                    <div class="card">
+                        
+                        <img class="card-img" src="{% static 'img/transcribe_app.jpg' %}" alt="{% translate "Transcribe application" %}">
+                        
+                        <div class="card-body">
+                            <p class="card-text">
+                                Tienes notas de voz, una grabacion de tu profesor hablando 
+                                o una entrevista grabada? Pues convierte el audio a texto 
+                                con esta aplicacion. Fácil, rápido y privado.
+                            </p>
+                            <a href="{% url "transcribe:transcription_create" %}" target="_blank">Transcribe</a>
+                        </div>
+                    </div>
+                </div>                
+            </div>
+
+            <div class="row">
 
                 <div class="col-sm-4">
                     <div class="card">
