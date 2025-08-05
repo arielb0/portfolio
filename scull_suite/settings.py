@@ -52,7 +52,9 @@ INSTALLED_APPS = [
     'note',
     'bazaar',
     'restaurant',
-    'feedback'
+    'feedback',
+    'transcribe',
+    'image2text',
 ]
 
 MIDDLEWARE = [

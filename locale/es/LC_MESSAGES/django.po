@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-22 11:33+0000\n"
+"POT-Creation-Date: 2025-08-05 06:15+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -502,6 +502,8 @@ msgstr "Si"
 
 #: bazaar/templates/bazaar/ad_detail.html:38
 #: bazaar/templates/bazaar/ad_list.html:15
+#: image2text/templates/image2text/header.html:14
+#: transcribe/templates/transcribe/header.html:14
 msgid "Home"
 msgstr "Inicio"
 
@@ -702,7 +704,9 @@ msgid "New Currency"
 msgstr "Nueva divisa"
 
 #: bazaar/templates/bazaar/header.html:7
-#: feedback/templates/feedback/header.html:7 templates/home_header.html:7
+#: feedback/templates/feedback/header.html:7
+#: image2text/templates/image2text/header.html:7 templates/home_header.html:7
+#: transcribe/templates/transcribe/header.html:7
 msgid "Close"
 msgstr "Cerrar"
 
@@ -730,7 +734,6 @@ msgid "My Ads"
 msgstr "Mis Anuncios"
 
 #: bazaar/templates/bazaar/header.html:54
-#: feedback/templates/feedback/header.html:24
 msgid "Profile"
 msgstr "Perfil"
 
@@ -872,7 +875,7 @@ msgstr "Título"
 msgid "Open"
 msgstr "Abierto"
 
-#: feedback/models.py:10
+#: feedback/models.py:10 feedback/templates/feedback/header.html:24
 msgid "User"
 msgstr "Usuarios"
 
@@ -975,6 +978,11 @@ msgstr "No existen respuestas disponibles."
 
 #: feedback/templates/feedback/faq.html:5
 #: feedback/templates/feedback/faq.html:8
+#: image2text/templates/image2text/faq.html:5
+#: image2text/templates/image2text/faq.html:8
+#: transcribe/templates/transcribe/faq.html:5
+#: transcribe/templates/transcribe/faq.html:8
+#: transcribe/templates/transcribe/header.html:17
 msgid "Frecuently Asked Questions"
 msgstr "Preguntas Frecuentes"
 
@@ -991,6 +999,7 @@ msgid "Questions"
 msgstr "Preguntas"
 
 #: feedback/templates/feedback/header.html:41
+#: image2text/templates/image2text/header.html:17
 msgid "Frequently Asked Questions"
 msgstr "Preguntas Frecuentes"
 
@@ -1097,6 +1106,51 @@ msgstr "No existen encuestas disponibles."
 msgid "Send"
 msgstr "Enviar"
 
+#: image2text/forms.py:9
+msgid "Spanish"
+msgstr "Español"
+
+#: image2text/forms.py:10
+msgid "English"
+msgstr "Inglés"
+
+#: image2text/forms.py:12
+msgid "Image"
+msgstr "Imagen"
+
+#: image2text/forms.py:14
+msgid "Language"
+msgstr "Idioma"
+
+#: image2text/templates/image2text/recognition_form.html:5
+msgid "Upload image file"
+msgstr "Subir un achivo de imagen"
+
+#: image2text/templates/image2text/recognition_form.html:11
+#: transcribe/templates/transcribe/transcription_form.html:11
+msgid "Upload"
+msgstr "Subir"
+
+#: image2text/templates/image2text/text_detail.html:5
+#: transcribe/templates/transcribe/transcription_detail.html:5
+msgid "Result"
+msgstr "Resultado"
+
+#: image2text/templates/image2text/text_detail.html:11
+#: transcribe/templates/transcribe/transcription_detail.html:11
+msgid "Success!"
+msgstr "Éxito!"
+
+#: image2text/templates/image2text/text_detail.html:15
+#: transcribe/templates/transcribe/transcription_detail.html:15
+msgid "Text copied to clipboard"
+msgstr "Texto copiado al portapeles"
+
+#: image2text/templates/image2text/text_detail.html:19
+#: transcribe/templates/transcribe/transcription_detail.html:19
+msgid "Copy to clipboard"
+msgstr "Copiar al portapeles"
+
 #: templates/404.html:3 templates/404.html:7
 msgid "Error 404 (Not found)"
 msgstr "Error 404 (No encontrado)"
@@ -1129,29 +1183,55 @@ msgstr "Claro"
 msgid "Dark"
 msgstr "Oscuro"
 
-#: templates/home.html:6 templates/home.html:19
+#: templates/home.html:6 templates/home.html:18
 msgid "Applications to make your life easier"
 msgstr "Aplicaciones para hacerte la vida mas fácil"
 
-#: templates/home.html:20
+#: templates/home.html:19
 msgid "Show applications"
 msgstr "Mostrar aplicaciones"
 
-#: templates/home.html:25 templates/home_header.html:19
+#: templates/home.html:24 templates/home_header.html:19
 msgid "Applications"
 msgstr "Aplicaciones"
 
-#: templates/home.html:32
+#: templates/home.html:30
+#, fuzzy
+#| msgid "Restaurant application"
+msgid "Image2Text application"
+msgstr "Aplicación Restaurante"
+
+#: templates/home.html:45
+#, fuzzy
+#| msgid "Restaurant application"
+msgid "Transcribe application"
+msgstr "Aplicación Restaurante"
+
+#: templates/home.html:64
+#, fuzzy
+#| msgid "Restaurant application"
+msgid "Feedback application"
+msgstr "Aplicación Restaurante"
+
+#: templates/home.html:78
 msgid "Restaurant application"
 msgstr "Aplicación Restaurante"
 
-#: templates/home.html:83 templates/home_header.html:22
+#: templates/home.html:129 templates/home_header.html:22
 msgid "Contact"
 msgstr "Contacto"
 
 #: templates/home_header.html:16
 msgid "Start"
 msgstr "Inicio"
+
+#: transcribe/forms.py:11
+msgid "Audio file"
+msgstr "Archivo de audio"
+
+#: transcribe/templates/transcribe/transcription_form.html:5
+msgid "Create transcription"
+msgstr "Crear transcripción"
 
 #~ msgid "Max Length:"
 #~ msgstr "Longitud máxima"

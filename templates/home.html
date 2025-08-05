@@ -10,7 +10,6 @@
 {% endblock %}
 
 {% block main %}
-
     <main class="container-fluid">
         
         <div id="start" class="text-light d-flex flex-column min-vh-100 justify-content-center align-items-center" style="background-image:url('{% static 'img/web_developer1.jpg' %}')">
@@ -25,6 +24,21 @@
             <h2>{% translate "Applications" %}</h2>
 
             <div class="row">
+                <div class="col-sm-4">
+                    <div class="card">
+                        
+                        <img class="card-img" src="{% static 'img/image2text_app.jpg' %}" alt="{% translate "Image2Text application" %}">
+                        
+                        <div class="card-body">
+                            <p class="card-text">
+                                Extrae el texto presente en una imagen en cuestión de segundos. 
+                                Sin registro, sin instalaciones. Fácil, rapido y privado.
+                            </p>
+                            <a href="{% url "image2text:recognition_create" %}" target="_blank">Image2Text</a>
+                        </div>
+                    </div>
+                </div> 
+
                 <div class="col-sm-4">
                     <div class="card">
                         

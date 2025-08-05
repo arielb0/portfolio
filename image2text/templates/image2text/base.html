@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% load static %}
+{% load i18n %}
+
+{% block page_icon %}{% static "image.svg" %}{% endblock %}
+
+{% block title %}{% block title_prefix %}{% endblock title_prefix %} | Image2Text {% endblock title %}
+
+{% block header %}
+    {% url "image2text:recognition_create" as header_url %}
+    {% include "image2text/header.html" with url=header_url icon='image' title='Image2Text' show_user_menu=True %}
+{% endblock %}
+
+{% block footer %}
+    <div class="navbar navbar-expand bg-body-tertiary">
+        <div class="container-fluid justify-content-center">
+            <span class="navbar-text">Image2Text</span>
+        </div>
+    </div>
+{% endblock %}

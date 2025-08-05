@@ -9,7 +9,9 @@ class CreateTranscription(FormView):
     success_url = reverse_lazy('transcribe:transcription_detail')
 
     def form_valid(self, form):
-        self.request.session['transcription'] = get_transcription(form.cleaned_data['audio_file'])
+        transcription = get_transcription(form.cleaned_data['audio_file'])
+        text_list = [sentence['text'] for sentence in transcription]
+        self.request.session['transcription'] = '\n'.join(text_list)
         return super().form_valid(form)
     
 
@@ -18,7 +20,7 @@ class DetailTranscription(TemplateView):
 
     def get_context_data(self, **kwargs) -> dict:
         context = super().get_context_data(**kwargs)
-        context["transcription"] = self.request.session.pop('transcription', [])
+        context["transcription"] = self.request.session.pop('transcription', "")
         return context
     
 class FaqView(TemplateView):

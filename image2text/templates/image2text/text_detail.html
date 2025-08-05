@@ -1,4 +1,4 @@
-{% extends "transcribe/base.html" %}
+{% extends "image2text/base.html" %}
 
 {% load i18n %}
 
@@ -18,7 +18,7 @@
     </div>
     <button id="clipboardButton" class='btn btn-primary'>{% translate "Copy to clipboard" %}</button>
     <div class="bg-body-tertiary">
-        <pre id="output" style="white-space: pre-wrap; word-wrap: break-word;">{{ transcription }}</pre>
+        <pre id="output" style="white-space: pre-wrap; word-wrap: break-word;">{{ recognition_result }}</pre>
     </div>
 {% endblock %}
 

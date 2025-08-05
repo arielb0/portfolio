@@ -1,0 +1,83 @@
+{% extends "transcribe/base.html" %}
+
+{% load i18n %}
+
+{% block title_prefix %}{% translate "Frecuently Asked Questions" %}{% endblock  %}
+
+{% block main %}
+    <h1>{% translate "Frecuently Asked Questions" %}</h1>
+    <h2>¿Que hace esta aplicacion?</h2>
+    <p>
+        Dado un archivo de imagen, permite reconocer el texto.
+    </p>
+    <h2>¿Como puedo emplear la aplicación?</h2>
+    <p>
+        En la pagina de inicio, toca el boton "Explorar" y busca en tu
+        sistema de archivos la imagen que contiene el texto. Una
+        vez realizado, selecciona "Subir".
+    </p>
+    <h2>Como puedo mejorar la precision de la aplicacion</h2>
+    <p>
+        Aunque la aplicacion posee buena precision, es recomendable realizar 
+        cierto preprocesamiento de imagen antes de usarla:
+    </p>
+    <ul>
+        <li>
+            Usar imagenes con fondo blanco y texto oscuro.
+        </li>
+        <li>
+            Emplear imagenes con una cantidad de puntos 
+            por pulgada (DPI por sus siglas en ingles)
+            de al menos 300.
+        </li>
+        <li>
+            Remover ruido innecesario. En palabras simples, 
+            quitar todo aquello que no se vaya a digitalizar. 
+            Puedes recortar o limpiar la imagen.
+        </li>
+        <li>
+            Rotar la imagen, orientarla correctamente (como 
+            si fueses tu el que la va a leer) y ponerla lo 
+            mas derecha posible.
+        </li>
+        <li>
+            Eliminar bordes muy grandes. Si tienes una pagina con poco texto, 
+            es mejor recortarla y ajustar el tamaño al contenido.
+        </li>
+        <li>
+            Elimina transparencias.
+        </li>
+    </ul>
+    <p>
+        Para mas informacion leer la siguiente guia: 
+        <a href="https://tesseract-ocr.github.io/tessdoc/ImproveQuality.html">Tesseract Improve Quality</a>
+    </p>
+    <h2>¿Como funciona?</h2>
+    <p>
+        Esta aplicacion funciona gracias a varias bibliotecas de código:
+    </p>
+    <ul>
+        <li>
+            <a href="https://tesseract-ocr.github.io/">Tesseract (Reconocimiento Optico de Caracteres)</a>
+        </li>
+        <li>
+            <a href="https://pypi.org/project/pytesseract/">
+                PyTesseract (biblioteca que permite la interaccion 
+                entre Tesseract y Python)
+            </a>
+        </li>
+        <li>
+            <a href="https://github.com/python-pillow/Pillow/">
+                Pillow (Biblioteca para manipular imagenes en Python)
+            </a>
+        </li>
+    </ul>
+    <h2>¿Como se protege mi privacidad?</h2>
+    <p>
+        Por defecto, esta aplicacion no guarda datos ni archivos sensibles. 
+        El archivo de imagen y el texto asociado se elimina de forma 
+        automatica al completar el proceso de reconocimiento.
+    </p>
+    <h2>¿Como puedo ayudar al desarrollo de la aplicacion?</h2>
+    <p>Usala, sugiere cambios, referencia al programador :)</p>
+{% endblock %}
